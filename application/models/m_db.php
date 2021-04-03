@@ -109,15 +109,15 @@ class M_db extends CI_Model{
 		return $this->db->get($tabel);
 	}
 
+	function ambil_data($kondisi,$tabel){
+		$this->db->where($kondisi);
+		return $this->db->get($tabel);
+	}
+
 	function ubah_data($kondisi,$nilai,$tabel){
 		$this->db->where($kondisi);
 		$this->db->set($nilai);
 		$this->db->update($tabel);
-	}
-
-	function ambil_data($kondisi,$tabel){
-		$this->db->where($kondisi);
-		return $this->db->get($tabel);
 	}
 
 	function tambah_data($nilai,$tabel){

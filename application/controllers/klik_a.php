@@ -12,6 +12,10 @@ class klik_a extends CI_Controller {
 		$this->TabelKelompokMaster = "kelompok_master";
 		$this->TabelPesertaMaster = "peserta_master";
 		$this->TabelRekeningMaster = "rekening_master";
+		$this->TabelInfoLevel1 = "info_level_1";
+		$this->TabelInfoLevel2 = "info_level_2";
+		$this->TabelInfoLevel3 = "info_level_3";
+		$this->TabelInfoLevel4 = "info_level_4";
 		$this->FormA1 = "daftar_a1";
 		$this->FormA2 = "daftar_a2";
 		$this->FormA3 = "daftar_a3";
@@ -46,175 +50,181 @@ class klik_a extends CI_Controller {
 	}
 
 	function pilihan_a1(){
-		$kondisi = "1=1";
-		$data['daftar_kelompok_master'] = $this->m_db->ambil_data($kondisi,$this->TabelKelompokMaster)->result();
+		$kondisi1 = "1=1";
+		$kondisi2 = "in_lv_1_dt = 'STATUS'";
+		$data['daftar_kelompok_master'] = $this->m_db->ambil_data($kondisi1,$this->TabelKelompokMaster)->result();
+		$data['daftar_info_level_1_sts'] = $this->m_db->ambil_data($kondisi2,$this->TabelInfoLevel1)->result();
+		
 		$this->load->view($this->FormA1,$data);
-
 		$this->kosong_operator_validasi();
 	}
 
 	function pilihan_a2(){
-		$kondisi = "1=1";
-		$data['daftar_kelompok_master'] = $this->m_db->ambil_data($kondisi,$this->TabelKelompokMaster)->result();
-		$data['daftar_peserta_master'] = $this->m_db->ambil_data_peserta($kondisi,$this->TabelPesertaMaster)->result();
+		$kondisi1 = "1=1";
+		$kondisi2 = "in_lv_1_dt = 'STATUS'";
+		$data['daftar_kelompok_master'] = $this->m_db->ambil_data($kondisi1,$this->TabelKelompokMaster)->result();
+		$data['daftar_peserta_master'] = $this->m_db->ambil_data_peserta($kondisi1,$this->TabelPesertaMaster)->result();
+		$data['daftar_info_level_1_sts'] = $this->m_db->ambil_data($kondisi2,$this->TabelInfoLevel1)->result();
+		
 		$this->load->view($this->FormA2,$data);
-
 		$this->kosong_operator_validasi();
 	}
 
 	function pilihan_a3(){
-		$kondisi = "1=1";
-		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi,$this->TabelRekeningMaster)->result();
+		$kondisi1 = "in_lv_1_dt = 'REKENING'";
+		$kondisi2 = "in_lv_1_dt = 'STATUS'";
+		$kondisi3 = "1=1";
+		$data['daftar_info_level_1_rek'] = $this->m_db->ambil_data($kondisi1,$this->TabelInfoLevel1)->result();
+		$data['daftar_info_level_1_sts'] = $this->m_db->ambil_data($kondisi2,$this->TabelInfoLevel1)->result();
+		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi3,$this->TabelRekeningMaster)->result();
+		
 		$this->load->view($this->FormA3,$data);
-
 		$this->kosong_operator_validasi();
 	}
-
+	
 	function tambah_kelompok_ok(){
-		$_POST['t_kel_mst_kode2'] = $this->input->post('t_kel_mst_kode').$this->input->post('t_kel_mst_subkode');
-		$this->form_validation->set_rules('t_kel_mst_sts','STATUS','required');
-		$this->form_validation->set_rules('t_kel_mst_ket','NAMA','required|max_length[2000]');
-		$this->form_validation->set_rules('t_kel_mst_subket','SUBNAMA','required|max_length[2000]');
-		$this->form_validation->set_rules('t_kel_mst_kode','KODE','required|trim|max_length[20]');
-		if ($this->input->post('btnKirim')=="TAMBAH"){
-			$this->form_validation->set_rules('t_kel_mst_kode2','SUBKODE','required|trim|max_length[20]|is_unique['.$this->TabelKelompokMaster.'.kel_mst_subkode]');
-		}
-		$this->form_validation->set_message('required','%s ngga boleh dikosongin');
-		$this->form_validation->set_message('is_unique','%s udah ada tuh, coba ganti yang lain deh');
-		$this->form_validation->set_message('max_length[20]','%s kepanjangan, maksimal 20 karakter');
-		$this->form_validation->set_message('max_length[2000]','%s kepanjangan, maksimal 20000 karakter');
-
-		if($this->form_validation->run() != false){
-			$nilai_master = array(
-				'kel_mst_kode' => trim(strtoupper($this->input->post('t_kel_mst_kode'))),
-				'kel_mst_subkode' => trim(strtoupper($this->input->post('t_kel_mst_kode').$this->input->post('t_kel_mst_subkode'))),
-				'kel_mst_sts' => trim(strtoupper($this->input->post('t_kel_mst_sts'))),
-				'kel_mst_ket' => trim(strtoupper($this->input->post('t_kel_mst_ket'))),
-				'kel_mst_subket' => trim(strtoupper($this->input->post('t_kel_mst_subket')))
-			);
-
-			$kondisi = array ('kel_mst_subkode' => trim(strtoupper($this->input->post('t_kel_mst_kode').$this->input->post('t_kel_mst_subkode'))));
-			
-			switch ($this->input->post('btnKirim')){
-				case "TAMBAH":
-					$this->m_db->tambah_data($nilai_master,$this->TabelKelompokMaster);
-					break;
-				case "UBAH":
-					$this->m_db->ubah_data($kondisi,$nilai_master,$this->TabelKelompokMaster);
-					break;
-				default:
-					redirect($this->KePilihanA1);
-					break;
+		if ($this->input->post('btnKirim')!="BATAL"){
+			$_POST['t_kel_mst_kode2'] = $this->input->post('t_kel_mst_kode').$this->input->post('t_kel_mst_subkode');
+			$this->form_validation->set_rules('t_kel_mst_sts','STATUS','required');
+			$this->form_validation->set_rules('t_kel_mst_ket','NAMA','required|max_length[2000]');
+			$this->form_validation->set_rules('t_kel_mst_subket','SUBNAMA','required|max_length[2000]');
+			$this->form_validation->set_rules('t_kel_mst_kode','KODE','required|trim|max_length[20]');
+			if ($this->input->post('btnKirim')=="TAMBAH"){
+				$this->form_validation->set_rules('t_kel_mst_kode2','SUBKODE','required|trim|max_length[20]|is_unique['.$this->TabelKelompokMaster.'.kel_mst_subkode]');
 			}
+			$this->form_validation->set_message('required','%s ngga boleh dikosongin');
+			$this->form_validation->set_message('is_unique','%s udah ada tuh, coba ganti yang lain deh');
+			$this->form_validation->set_message('max_length[20]','%s kepanjangan, maksimal 20 karakter');
+			$this->form_validation->set_message('max_length[2000]','%s kepanjangan, maksimal 20000 karakter');
+
+			if($this->form_validation->run() != false){
+				$nilai_master = array(
+					'kel_mst_kode' => trim(strtoupper($this->input->post('t_kel_mst_kode'))),
+					'kel_mst_subkode' => trim(strtoupper($this->input->post('t_kel_mst_kode').$this->input->post('t_kel_mst_subkode'))),
+					'kel_mst_sts' => trim(strtoupper($this->input->post('t_kel_mst_sts'))),
+					'kel_mst_ket' => trim(strtoupper($this->input->post('t_kel_mst_ket'))),
+					'kel_mst_subket' => trim(strtoupper($this->input->post('t_kel_mst_subket')))
+				);
+
+				$kondisi = array('kelprm' => $this->input->post('kelprm'));
+				
+				switch ($this->input->post('btnKirim')){
+					case "TAMBAH":
+						$this->m_db->tambah_data($nilai_master,$this->TabelKelompokMaster);
+						break;
+					case "UBAH":
+						$this->m_db->ubah_data($kondisi,$nilai_master,$this->TabelKelompokMaster);
+						break;
+					default:
+						redirect($this->KePilihanA1);
+						break;
+				}
+			} else {
+					$validasi_a1 = array('validasi_a1' => validation_errors('<li>','</li>'));
+					$this->session->set_userdata($validasi_a1);
+			}
+			redirect($this->KePilihanA1);
 		} else {
-				$validasi_a1 = array('validasi_a1' => validation_errors('<li>','</li>'));
-				$this->session->set_userdata($validasi_a1);
+			redirect($this->KePilihanA1);
 		}
-		redirect($this->KePilihanA1);
 	}
 
 	function tambah_peserta_ok(){
-		$this->form_validation->set_rules('t_pst_mst_sts','STATUS','required');
-		$this->form_validation->set_rules('t_pst_mst_hak','HAK','required');
-		$this->form_validation->set_rules('t_pst_mst_kel','KELOMPOK','required');
-		$this->form_validation->set_rules('t_pst_mst_nm','NAMA','required|max_length[2000]');
-		if ($this->input->post('btnKirim')=="TAMBAH"){
-			$this->form_validation->set_rules('t_pst_mst_kode','KODE','required|trim|max_length[20]|is_unique['.$this->TabelPesertaMaster.'.pst_mst_kode]');
-		}
-		$this->form_validation->set_rules('t_pst_mst_pswd','KATA KUNCI','required|trim|max_length[20]');
-		$this->form_validation->set_message('required','%s ngga boleh dikosongin');
-		$this->form_validation->set_message('is_unique','%s udah ada tuh, coba ganti yang lain deh');
-		$this->form_validation->set_message('max_length[20]','%s kepanjangan, maksimal 20 karakter');
-		$this->form_validation->set_message('max_length[2000]','%s kepanjangan, maksimal 20000 karakter');
-
-		if($this->form_validation->run() != false){
-			$nilai_master = array(
-				'pst_mst_kode' => trim(strtoupper($this->input->post('t_pst_mst_kode'))),
-				'pst_mst_kel' => trim(strtoupper($this->input->post('t_pst_mst_kel'))),
-				'pst_mst_hak' => trim(strtoupper($this->input->post('t_pst_mst_hak'))),
-				'pst_mst_sts' => trim(strtoupper($this->input->post('t_pst_mst_sts'))),
-				'pst_mst_nm' => trim(strtoupper($this->input->post('t_pst_mst_nm'))),
-				'pst_mst_pswd' => MD5($this->input->post('t_pst_mst_pswd'))
-			);
-
-			$kondisi = array ('pst_mst_kode' => trim(strtoupper($this->input->post('t_pst_mst_kode'))));
-			
-			switch ($this->input->post('btnKirim')){
-				case "TAMBAH":
-					$this->m_db->tambah_data($nilai_master,$this->TabelPesertaMaster);
-					break;
-				case "UBAH":
-					$this->m_db->ubah_data($kondisi,$nilai_master,$this->TabelPesertaMaster);
-					break;
-				default:
-					redirect($this->KePilihanA2);
-					break;
+		if ($this->input->post('btnKirim')!="BATAL"){
+			$this->form_validation->set_rules('t_pst_mst_sts','STATUS','required');
+			$this->form_validation->set_rules('t_pst_mst_hak','HAK','required');
+			$this->form_validation->set_rules('t_pst_mst_kel','KELOMPOK','required');
+			$this->form_validation->set_rules('t_pst_mst_nm','NAMA','required|max_length[2000]');
+			if ($this->input->post('btnKirim')=="TAMBAH"){
+				$this->form_validation->set_rules('t_pst_mst_kode','KODE','required|trim|max_length[20]|is_unique['.$this->TabelPesertaMaster.'.pst_mst_kode]');
 			}
+			$this->form_validation->set_rules('t_pst_mst_pswd','KATA KUNCI','required|trim|max_length[20]');
+			$this->form_validation->set_message('required','%s ngga boleh dikosongin');
+			$this->form_validation->set_message('is_unique','%s udah ada tuh, coba ganti yang lain deh');
+			$this->form_validation->set_message('max_length[20]','%s kepanjangan, maksimal 20 karakter');
+			$this->form_validation->set_message('max_length[2000]','%s kepanjangan, maksimal 20000 karakter');
+
+			if($this->form_validation->run() != false){
+				$nilai_master = array(
+					'pst_mst_kode' => trim(strtoupper($this->input->post('t_pst_mst_kode'))),
+					'pst_mst_kel' => trim(strtoupper($this->input->post('t_pst_mst_kel'))),
+					'pst_mst_hak' => trim(strtoupper($this->input->post('t_pst_mst_hak'))),
+					'pst_mst_sts' => trim(strtoupper($this->input->post('t_pst_mst_sts'))),
+					'pst_mst_nm' => trim(strtoupper($this->input->post('t_pst_mst_nm'))),
+					'pst_mst_pswd' => MD5($this->input->post('t_pst_mst_pswd'))
+				);
+
+				$kondisi = array ('pstprm' => $this->input->post('pstprm'));
+				
+				switch ($this->input->post('btnKirim')){
+					case "TAMBAH":
+						$this->m_db->tambah_data($nilai_master,$this->TabelPesertaMaster);
+						break;
+					case "UBAH":
+						$this->m_db->ubah_data($kondisi,$nilai_master,$this->TabelPesertaMaster);
+						break;
+					default:
+						redirect($this->KePilihanA2);
+						break;
+				}
+			} else {
+					$validasi_a2 = array('validasi_a2' => validation_errors('<li>','</li>'));
+					$this->session->set_userdata($validasi_a2);
+			}
+			redirect($this->KePilihanA2);
 		} else {
-				$validasi_a2 = array('validasi_a2' => validation_errors('<li>','</li>'));
-				$this->session->set_userdata($validasi_a2);
+			redirect($this->KePilihanA2);
 		}
-		redirect($this->KePilihanA2);
 	}
 
-	function tambah_rekening_ok(){
-		$_POST['t_rek_mst_sub_kode2'] = 
-		trim(strtoupper(
-		$this->input->post('t_rek_mst_gol').
-		$this->input->post('t_rek_mst_sub_gol').
-		$this->input->post('t_rek_mst_kode').
-		$this->input->post('t_rek_mst_sub_kode')
-		));
-
-		$this->form_validation->set_rules('t_rek_mst_kel','KELOMPOK','required');
-		$this->form_validation->set_rules('t_rek_mst_sts','STATUS','required');
-		$this->form_validation->set_rules('t_rek_mst_gol','GOLONGAN','required');
-		$this->form_validation->set_rules('t_rek_mst_sub_gol','SUB-GOLONGAN','required');
-		$this->form_validation->set_rules('t_rek_mst_kode','KODE','required');
-		$this->form_validation->set_rules('t_rek_mst_ket_gol','GOLONGAN KETERANGAN','required|max_length[2000]');
-		$this->form_validation->set_rules('t_rek_mst_ket_sub_gol','SUB-GOLONGAN KETERANGAN','required|max_length[2000]');
-		$this->form_validation->set_rules('t_rek_mst_ket_kode','KODE KETERANGAN','required|max_length[2000]');
-		$this->form_validation->set_rules('t_rek_mst_ket_sub_kode','SUB-KODE KETERANGAN','required|max_length[2000]');
-		if ($this->input->post('btnKirim')=="TAMBAH"){
-			$this->form_validation->set_rules('t_rek_mst_sub_kode2','SUB-KODE','required|trim|max_length[20]|is_unique['.$this->TabelRekeningMaster.'.rek_mst_sub_kode]');
-		}
-		$this->form_validation->set_message('required','%s ngga boleh dikosongin');
-		$this->form_validation->set_message('is_unique','%s udah ada tuh, coba ganti yang lain deh');
-		$this->form_validation->set_message('max_length[20]','%s kepanjangan, maksimal 20 karakter');
-		$this->form_validation->set_message('max_length[2000]','%s kepanjangan, maksimal 20000 karakter');
-
-		if($this->form_validation->run() != false){
-			$nilai_master = array(
-				'rek_mst_kel' => trim(strtoupper($this->input->post('t_rek_mst_kel'))),
-				'rek_mst_sts' => trim(strtoupper($this->input->post('t_rek_mst_sts'))),
-				'rek_mst_gol' => trim(strtoupper($this->input->post('t_rek_mst_gol'))),
-				'rek_mst_sub_gol' => trim(strtoupper($this->input->post('t_rek_mst_gol').$this->input->post('t_rek_mst_sub_gol'))),
-				'rek_mst_kode' => trim(strtoupper($this->input->post('t_rek_mst_gol').$this->input->post('t_rek_mst_sub_gol').$this->input->post('t_rek_mst_kode'))),
-				'rek_mst_sub_kode' => trim(strtoupper($this->input->post('t_rek_mst_gol').$this->input->post('t_rek_mst_sub_gol').$this->input->post('t_rek_mst_kode').$this->input->post('t_rek_mst_sub_kode'))),
-				'rek_mst_ket_gol' => trim(strtoupper($this->input->post('t_rek_mst_ket_gol'))),
-				'rek_mst_ket_sub_gol' => trim(strtoupper($this->input->post('t_rek_mst_ket_sub_gol'))),
-				'rek_mst_ket_kode' => trim(strtoupper($this->input->post('t_rek_mst_ket_kode'))),
-				'rek_mst_ket_sub_kode' => trim(strtoupper($this->input->post('t_rek_mst_ket_sub_kode'))),
-			);
-
-			$kondisi = array ('rek_mst_sub_kode' => trim(strtoupper($this->input->post('t_rek_mst_sub_kode'))));
-			
-			switch ($this->input->post('btnKirim')){
-				case "TAMBAH":
-					$this->m_db->tambah_data($nilai_master,$this->TabelRekeningMaster);
-					break;
-				case "UBAH":
-					$this->m_db->ubah_data($kondisi,$nilai_master,$this->TabelRekeningMaster);
-					break;
-				default:
-					redirect($this->KePilihanA3);
-					break;
+	function tambah_rekening_ok(){		
+		if ($this->input->post('btnKirim')!="BATAL"){
+			$this->form_validation->set_rules('t_rek_mst_kel','KELOMPOK','required');
+			$this->form_validation->set_rules('t_rek_mst_sts','STATUS','required');
+			$this->form_validation->set_rules('t_rek_mst_gol','GOLONGAN','required');
+			$this->form_validation->set_rules('t_rek_mst_sub_gol','SUB-GOLONGAN','required');
+			$this->form_validation->set_rules('t_rek_mst_kode','KODE','required');
+			$this->form_validation->set_rules('t_rek_mst_ket_sub_kode','SUB-KODE KETERANGAN','required|max_length[2000]');
+			if ($this->input->post('btnKirim')=="TAMBAH"){
+				$this->form_validation->set_rules('t_rek_mst_sub_kode','SUB-KODE','required|trim|max_length[20]|is_unique['.$this->TabelRekeningMaster.'.rek_mst_sub_kode]');
 			}
+			$this->form_validation->set_message('required','%s ngga boleh dikosongin');
+			$this->form_validation->set_message('is_unique','%s udah ada tuh, coba ganti yang lain deh');
+			$this->form_validation->set_message('max_length[20]','%s kepanjangan, maksimal 20 karakter');
+			$this->form_validation->set_message('max_length[2000]','%s kepanjangan, maksimal 20000 karakter');
+
+			if($this->form_validation->run() != false){
+				$nilai_master = array(
+					'rek_mst_kel' => trim(strtoupper($this->input->post('t_rek_mst_kel'))),
+					'rek_mst_sts' => trim(strtoupper($this->input->post('t_rek_mst_sts'))),
+					'rek_mst_gol' => trim(strtoupper($this->input->post('t_rek_mst_gol'))),
+					'rek_mst_sub_gol' => trim(strtoupper($this->input->post('t_rek_mst_sub_gol'))),
+					'rek_mst_kode' => trim(strtoupper($this->input->post('t_rek_mst_kode'))),
+					'rek_mst_sub_kode' => trim(strtoupper($this->input->post('t_rek_mst_sub_kode'))),
+					'rek_mst_ket_sub_kode' => trim(strtoupper($this->input->post('t_rek_mst_ket_sub_kode'))),
+				);
+
+				$kondisi = array ('rekprm' => $this->input->post('rekprm'));
+				
+				switch ($this->input->post('btnKirim')){
+					case "TAMBAH":
+						$this->m_db->tambah_data($nilai_master,$this->TabelRekeningMaster);
+						break;
+					case "UBAH":
+						$this->m_db->ubah_data($kondisi,$nilai_master,$this->TabelRekeningMaster);
+						break;
+					default:
+						redirect($this->KePilihanA3);
+						break;
+				}
+			} else {
+					$validasi_a3 = array('validasi_a3' => validation_errors('<li>','</li>'));
+					$this->session->set_userdata($validasi_a3);
+			}
+			redirect($this->KePilihanA3);
 		} else {
-				$validasi_a3 = array('validasi_a3' => validation_errors('<li>','</li>'));
-				$this->session->set_userdata($validasi_a3);
+			redirect($this->KePilihanA3);
 		}
-		redirect($this->KePilihanA3);
 
 	}
 
@@ -240,8 +250,10 @@ class klik_a extends CI_Controller {
 		$operator_a1 = array('operator_a1' => "UBAH");
 		$this->session->set_userdata($operator_a1);
 
-		$kondisi = array('kelprm' => $kelprm);
-		$data['daftar_kelompok_master'] = $this->m_db->ambil_data($kondisi,$this->TabelKelompokMaster)->result();
+		$kondisi1 = array('kelprm' => $kelprm);
+		$kondisi2 = "in_lv_1_dt = 'STATUS'";
+		$data['daftar_kelompok_master'] = $this->m_db->ambil_data($kondisi1,$this->TabelKelompokMaster)->result();
+		$data['daftar_info_level_1_sts'] = $this->m_db->ambil_data($kondisi2,$this->TabelInfoLevel1)->result();
 		$this->load->view($this->FormA1,$data);
 
 		$this->kosong_operator_validasi();
@@ -251,10 +263,12 @@ class klik_a extends CI_Controller {
 		$operator_a2 = array('operator_a2' => "UBAH");
 		$this->session->set_userdata($operator_a2);
 
+		$kondisi3 = "in_lv_1_dt = 'STATUS'";
 		$kondisi1 = array('pstprm' => $pstprm);
 		$kondisi2 = "1=1";
 		$data['daftar_kelompok_master'] = $this->m_db->ambil_data($kondisi2,$this->TabelKelompokMaster)->result();
 		$data['daftar_peserta_master'] = $this->m_db->ambil_data_peserta($kondisi1,$this->TabelPesertaMaster)->result();
+		$data['daftar_info_level_1_sts'] = $this->m_db->ambil_data($kondisi3,$this->TabelInfoLevel1)->result();
 		$this->load->view($this->FormA2,$data);
 
 		$this->kosong_operator_validasi();
@@ -264,8 +278,12 @@ class klik_a extends CI_Controller {
 		$operator_a3 = array('operator_a3' => "UBAH");
 		$this->session->set_userdata($operator_a3);
 
-		$kondisi = array('rekprm' => $rekprm);
-		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi,$this->TabelRekeningMaster)->result();
+		$kondisi1 = "in_lv_1_dt = 'REKENING'";
+		$kondisi2 = "in_lv_1_dt = 'STATUS'";
+		$kondisi3 = array('rekprm' => $rekprm);
+		$data['daftar_info_level_1_rek'] = $this->m_db->ambil_data($kondisi1,$this->TabelInfoLevel1)->result();
+		$data['daftar_info_level_1_sts'] = $this->m_db->ambil_data($kondisi2,$this->TabelInfoLevel1)->result();
+		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi3,$this->TabelRekeningMaster)->result();
 		$this->load->view($this->FormA3,$data);
 
 		$this->kosong_operator_validasi();
@@ -316,7 +334,7 @@ class klik_a extends CI_Controller {
 		}
 	}
 
-	function cari_kelompok_ok(){
+	function cari_auto_kelompok_ok(){
 		$seperti = array('kel_mst_kode' => $_GET['term']);
 		$kelompok = array('kel_mst_kode');
 		$data['daftar_kelompok_master'] = $this->m_db->ambil_data_seperti($seperti,$kelompok,$this->TabelKelompokMaster)->result();
@@ -330,7 +348,7 @@ class klik_a extends CI_Controller {
 		echo json_encode($t_kel_mst_kode);
 	}
 
-	function cari_kelompok_2_ok(){
+	function cari_auto_kelompok_2_ok(){
 		$seperti1 = array('kel_mst_subkode' => $_GET['term']);
 		$seperti2 = array('kel_mst_subkode' => $_GET['extra']);
 		$kondisi = array('kel_mst_kode' => $_GET['extra']);
@@ -346,7 +364,7 @@ class klik_a extends CI_Controller {
 		echo json_encode($t_kel_mst_subkode);
 	}
 
-	function cari_peserta_ok(){
+	function cari_auto_peserta_ok(){
 		$seperti = array('pst_mst_kode' => $_GET['term']);
 		$kelompok = array('pst_mst_kode');
 		$data['daftar_peserta_master'] = $this->m_db->ambil_data_seperti($seperti,$kelompok,$this->TabelPesertaMaster)->result();
@@ -359,62 +377,8 @@ class klik_a extends CI_Controller {
 		}
 		echo json_encode($t_pst_mst_kode);
 	}
-
-	function cari_rekening_1_ok(){
-		$seperti = array('rek_mst_gol' => $_GET['term']);
-		$kondisi = array(
-			'rek_mst_kel' => $_GET['extra1']
-		);
-		$kelompok = array('rek_mst_gol');
-		$data['daftar_rekening_master'] = $this->m_db->ambil_data_seperti_kondisi($kondisi,$seperti,$kelompok,$this->TabelRekeningMaster)->result();
-		
-		foreach($data['daftar_rekening_master'] as $rm){
-			$t_rek_mst_gol[] = array(
-				'label' => $rm->rek_mst_gol,
-				'value' => $rm->rek_mst_ket_gol
-			);
-		}
-		echo json_encode($t_rek_mst_gol);
-	}
-
-	function cari_rekening_2_ok(){
-		$seperti = array('rek_mst_sub_gol' => $_GET['term']);
-		$kondisi = array(
-			'rek_mst_kel' => $_GET['extra1'], 
-			'rek_mst_gol' => $_GET['extra2']
-		);
-		$kelompok = array('rek_mst_sub_gol');
-		$data['daftar_rekening_master'] = $this->m_db->ambil_data_seperti_kondisi($kondisi,$seperti,$kelompok,$this->TabelRekeningMaster)->result();
-		
-		foreach($data['daftar_rekening_master'] as $rm){
-			$t_rek_mst_sub_gol[] = array(
-				'label' => substr($rm->rek_mst_sub_gol,strlen($rm->rek_mst_gol)),
-				'value' => $rm->rek_mst_ket_sub_gol
-			);
-		}
-		echo json_encode($t_rek_mst_sub_gol);
-	}
-
-	function cari_rekening_3_ok(){
-		$seperti = array('rek_mst_kode' => $_GET['term']);
-		$kondisi = array(
-			'rek_mst_kel' => $_GET['extra1'], 
-			'rek_mst_gol' => $_GET['extra2'], 
-			'rek_mst_sub_gol' => $_GET['extra3']
-		);
-		$kelompok = array('rek_mst_kode');
-		$data['daftar_rekening_master'] = $this->m_db->ambil_data_seperti_kondisi($kondisi,$seperti,$kelompok,$this->TabelRekeningMaster)->result();
-		
-		foreach($data['daftar_rekening_master'] as $rm){
-			$t_rek_mst_kode[] = array(
-				'label' => substr($rm->rek_mst_kode,strlen($rm->rek_mst_sub_gol)),
-				'value' => $rm->rek_mst_ket_kode
-			);
-		}
-		echo json_encode($t_rek_mst_kode);
-	}
-
-	function cari_rekening_4_ok(){
+	
+	function cari_auto_rekening_ok(){
 		$seperti = array('rek_mst_sub_kode' => $_GET['term']);
 		$kondisi = array(
 			'rek_mst_kel' => $_GET['extra1'], 
@@ -427,11 +391,56 @@ class klik_a extends CI_Controller {
 		
 		foreach($data['daftar_rekening_master'] as $rm){
 			$t_rek_mst_sub_kode[] = array(
-				'label' => substr($rm->rek_mst_sub_kode,strlen($rm->rek_mst_kode)),
+				'label' => $rm->rek_mst_sub_kode,
 				'value' => $rm->rek_mst_ket_sub_kode
 			);
 		}
 		echo json_encode($t_rek_mst_sub_kode);
+	}
+
+	function cari_info_level_2(){
+		$kondisi = array(
+			'in_lv_1_dt' => 'REKENING',
+			'in_lv_1_kd' => $this->input->post('kode_level_1')
+		);
+		$data['daftar_info_level_2_rek'] = $this->m_db->ambil_data($kondisi,$this->TabelInfoLevel2)->result();
+		
+		$t_rek_mst_gol[""] = "Pilihan golongan rekening...";
+		foreach($data['daftar_info_level_2_rek'] as $lv2_rek){
+			$t_rek_mst_gol[$lv2_rek->in_lv_2_kd] = $lv2_rek->in_lv_2_ket;
+		}
+		echo json_encode($t_rek_mst_gol);
+	}
+
+	function cari_info_level_3(){
+		$kondisi = array(
+			'in_lv_1_dt' => 'REKENING',
+			'in_lv_1_kd' => $this->input->post('kode_level_1'),
+			'in_lv_2_kd' => $this->input->post('kode_level_2')
+		);
+		$data['daftar_info_level_3_rek'] = $this->m_db->ambil_data($kondisi,$this->TabelInfoLevel3)->result();
+		
+		$t_rek_mst_sub_gol[""] = "Pilihan sub-golongan rekening...";
+		foreach($data['daftar_info_level_3_rek'] as $lv3_rek){
+			$t_rek_mst_sub_gol[$lv3_rek->in_lv_3_kd] = $lv3_rek->in_lv_3_ket;
+		}
+		echo json_encode($t_rek_mst_sub_gol);
+	}
+
+	function cari_info_level_4(){
+		$kondisi = array(
+			'in_lv_1_dt' => 'REKENING',
+			'in_lv_1_kd' => $this->input->post('kode_level_1'),
+			'in_lv_2_kd' => $this->input->post('kode_level_2'),
+			'in_lv_3_kd' => $this->input->post('kode_level_3')
+		);
+		$data['daftar_info_level_4_rek'] = $this->m_db->ambil_data($kondisi,$this->TabelInfoLevel4)->result();
+		
+		$t_rek_mst_kode[""] = "Pilihan sub-golongan rekening...";
+		foreach($data['daftar_info_level_4_rek'] as $lv4_rek){
+			$t_rek_mst_kode[$lv4_rek->in_lv_4_kd] = $lv4_rek->in_lv_4_ket;
+		}
+		echo json_encode($t_rek_mst_kode);
 	}
 
 }

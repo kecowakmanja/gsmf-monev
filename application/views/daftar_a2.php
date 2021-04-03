@@ -13,10 +13,11 @@
 </head>
 <body onload="kasihfokuslah()">
 <?php
-$t_pst_mst_sts = array(
-	'AKTIF' => 'AKTIF',
-	'PASIF' => 'PASIF'
-);
+foreach ($daftar_info_level_1_sts as $lv1_sts) {
+	$t_pst_mst_sts[$lv1_sts->in_lv_1_kd] = $lv1_sts->in_lv_1_ket;
+}
+
+$formulir_prm = array();
 
 $t_pst_mst_hak = array(
 	'PEMAKAI' => 'PEMAKAI',
@@ -37,6 +38,10 @@ if(!empty($this->session->userdata('operator_a2'))){
 			'class' => 'btn btn-sm btn-primary'
 		);
 		foreach($daftar_peserta_master as $pm){
+			$formulir_prm = array(
+				"pstprm" => $pm->pstprm
+			);
+			
 			$formulir_status = array(
 				'name' => 't_pst_mst_sts',
 				'options' => $t_pst_mst_sts,
@@ -134,6 +139,11 @@ $tombol_reset = array(
 	'value' => 'BERSIH',
 	'class' => 'btn btn-sm btn-secondary'
 );
+$tombol_batal = array(
+	"name" => "btnKirim",
+	"value" => "BATAL",
+	"class" => "btn btn-sm btn-danger"
+);
 ?>
 <div class="container-fluid">
 	<div class="card text-center bg-light">
@@ -184,7 +194,7 @@ $tombol_reset = array(
 						<div class="accordion-body">
 							<table class="table table-sm table-bordered table-light">
 								<?php 
-									echo form_open('klik_a/tambah_peserta_ok');
+									echo form_open('klik_a/tambah_peserta_ok','',$formulir_prm);
 								?> 	 
 								<tr>
 									<td><?php echo form_label('STATUS'); ?></td>
@@ -215,6 +225,7 @@ $tombol_reset = array(
 									<td><?php
 											echo form_submit($tombol_tambah);
 											echo form_reset($tombol_reset);
+											echo form_submit($tombol_batal);
 											echo form_close(); ?>
 									</td>
 								</tr>
@@ -276,7 +287,7 @@ $tombol_reset = array(
 </div>
 
 <script type="text/javascript">
-var alamat1 = '<?php echo base_url().'index.php/klik_a/cari_peserta_ok/?'?>'
+var alamat1 = '<?php echo base_url().'index.php/klik_a/cari_auto_peserta_ok/?'?>'
 var inputan1 = document.getElementById('t_pst_mst_kode');
 
 $('#tblpst').DataTable({

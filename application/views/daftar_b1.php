@@ -12,6 +12,128 @@
 
 </head>
 <body onload="kasihfokuslah()">
+<?php
+
+foreach	($daftar_rekening_master as $rm){
+	$rekkode[$rm->rek_mst_sub_kode] = $rm->rek_mst_ket_sub_kode;
+}
+
+$formulir_prm = array();
+
+if(!empty($this->session->userdata('operator_b1'))){
+	if($this->session->userdata('operator_b1')!="TAMBAH"){
+		$tombol_tambah = array(
+		'name' => 'btnKirim',
+		'value' => 'UBAH',
+		'class' => 'btn btn-primary btn-sm'
+		);
+		
+		foreach ($daftar_hutang_master as $hm){
+			$t_hut_mst_nobuk = $hm->hut_mst_nobuk;
+			$t_hut_mst_ket = $hm->hut_mst_ket;
+			$t_hut_mst_tglrnc = $hm->hut_mst_tglrnc;
+			$t_hut_mst_rek = $hm->hut_mst_rek;
+			
+			$formulir_prm = array(
+				"hutprm" => $hm->hutprm
+			);
+
+			$formulir_nobuk = array(
+				'name' => 't_hut_mst_nobuk',
+				'value' => $t_hut_mst_nobuk,
+				'readonly' => 'true',
+				'class' => 'form-control',
+				'id' => 't_hut_mst_nobuk'
+			);
+				
+			$formulir_nama = array(
+				'name' => 't_hut_mst_ket',
+				'value' => $t_hut_mst_ket,
+				'class'=>'form-control',
+				'id' => 't_hut_mst_ket'
+			);
+
+			$formulir_tglrnc = array(
+				'name' => 't_hut_mst_tglrnc',
+				'value' => $t_hut_mst_tglrnc,
+				'type' => 'date',
+				'class'=>'form-control',
+				'id' => 't_hut_mst_tglrnc'
+			);
+
+			$formulir_rek = array(
+				'name' => 't_hut_mst_rek',
+				'options' => $t_hut_mst_rek,
+				'class' => 'form-control',
+				'id' => 't_hut_mst_rek'
+			);
+				
+			$formulir_rnc = array(
+				'name' => 't_hut_mst_rnc',
+				'type' => 'number',
+				'class' => 'form-control',
+				'value' => '0',
+				'id' => 't_hut_mst_rnc'
+			);
+		}
+			
+	} 
+} else {
+		
+	$tombol_tambah = array(
+		'name' => 'btnKirim',
+		'value' => 'TAMBAH',
+		'class' => 'btn btn-primary btn-sm'
+	);
+	
+	$formulir_nobuk = array(
+		'name' => 't_hut_mst_nobuk',
+		'class' => 'form-control',
+		'id' => 't_hut_mst_nobuk'
+	);
+		
+	$formulir_nama = array(
+		'name' => 't_hut_mst_ket',
+		'class'=>'form-control',
+		'id' => 't_hut_mst_ket'
+	);
+
+	$formulir_tglrnc = array(
+		'name' => 't_hut_mst_tglrnc',
+		'type' => 'date',
+		'class' => 'form-control',
+		'id' => 't_hut_mst_tglrnc'
+	);
+
+	$formulir_rek = array(
+		'name' => 't_hut_mst_rek',
+		'class'=> 'form-control',
+		'id' => 't_hut_mst_rek'
+	);
+		
+	$formulir_rnc = array(
+		'name' => 't_hut_mst_rnc',
+		'type' => 'number',
+		'class' => 'form-control',
+		'value' => '0',
+		'id' => 't_hut_mst_rnc'
+	);
+}
+	
+$tombol_reset = array(
+	'name' => 'btnBersih',
+	'value' => 'BERSIH',
+	'class' => 'btn btn-sm btn-secondary'
+);
+
+$tombol_batal = array(
+	"name" => "btnKirim",
+	"value" => "BATAL",
+	"class" => "btn btn-sm btn-danger"
+);
+
+?>
+
 <div class="container-fluid">
 	<div class="card text-center bg-light">
 		<div class="card-header">
@@ -41,20 +163,67 @@
 					</ul>
 				</p>
 			</div>
-			<?php if(!empty($this->session->userdata('operator'))) { ?>
-				<div class="alert alert-sm alert-danger alert-dismissible fade show">
-					<?php echo $this->session->userdata('operator'); ?>
-					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick="<?php echo $this->session->unset_userdata('operator') ?>"></button>
+			<?php if(!empty($this->session->userdata('validasi_b1'))) { ?>
+				<div class="alert alert-sm alert-danger alert-dismissible fade show text-start">
+					<?php echo $this->session->userdata('validasi_b1'); ?>
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
 			<?php } ?>
 			<div class="accordion text-start">
-				<div class="accordion-item" id="frmkelDet1">
+				<div class="accordion-item" id="frmHutDet1">
 					<h6 class="accordion-header" id="judulSatu">
 						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiSatu" aria-expanded="true" aria-control="isiSatu">
-							<strong>DETAIL PROGRAM</strong>
+							<strong>DETAIL ANGGARAN</strong>
 						</button>
 					</h6>
-					<div id="isiSatu" class="accordion-collapse collapse show" data-bs-parent="#frmkelDet1" aria-labelledby="judulSatu">
+					<div id="isiSatu" class="accordion-collapse collapse show" data-bs-parent="#frmHutDet1" aria-labelledby="judulSatu">
+						<div class="accordion-body">
+							<table class="table table-sm table-bordered table-light">
+								<?php 
+
+								echo form_open('klik_b/tambah_hutang_ok','',$formulir_prm);
+								?>
+								<tr>
+									<td><?php echo form_label('NOMOR BUKTI PENGAJUAN ANGGARAN'); ?></td>
+									<td><?php echo form_input($formulir_nobuk); ?></td>
+								</tr>
+								<tr>
+									<td><?php echo form_label('NAMA PROPOSAL KEGIATAN'); ?></td>
+									<td><?php echo form_input($formulir_nama); ?></td>
+								</tr>
+								<tr>
+									<td><?php echo form_label('TANGGAL PELAKSANAAN'); ?></td>
+									<td><?php echo form_input($formulir_tglrnc); ?></td>
+								</tr>
+								<tr>
+									<td><?php echo form_label('POS ANGGARAN'); ?></td>
+									<td><?php echo form_dropdown($formulir_rek); ?></td>
+								</tr>
+								<tr>
+									<td><?php echo form_label('RENCANA ANGGARAN'); ?></td>
+									<td><?php echo form_input($formulir_rnc); ?></td>
+								</tr>
+								<tr>
+									<th></th>
+									<td><?php 
+										echo form_submit($tombol_tambah);
+										echo form_reset($tombol_reset);
+										echo form_submit($tombol_batal);
+										echo form_close(); ?>						
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="accordion-item" id="frmhutDet2">
+					<h6 class="accordion-header" id="judulDua">
+						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiDua" aria-expanded="true" aria-control="isiDua">
+							<strong>DAFTAR PROGRAM</strong>
+						</button>
+					</h6>
+					<div id="isiDua" class="accordion-collapse collapse show" data-bs-parent="#frmhutDet2" aria-labelledby="judulDua">
 						<div class="accordion-body">
 							<div class="table thead-light text-start">
 								<table class="table" id="tblHut">
@@ -83,7 +252,7 @@
 											<td><?php echo 'Rp'. number_format($hm->hut_mst_rnc,2,",",".") ?></td>
 											<td><?php echo 'Rp'. number_format($hm->hut_mst_ttl,2,",",".") ?></td>
 											<td>
-												<a href="<?php echo base_url().'index.php/klik_b/ubah_hutang/'.$hm->hutprm ?>" class="btn btn-sm btn-warning">UBAH</a>
+												<a href="<?php echo base_url().'index.php/klik_b/ubah_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-warning">UBAH</a>
 												<a href="<?php echo base_url().'index.php/klik_b/hapus_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-danger">HAPUS</a>
 												<a href="<?php echo base_url().'index.php/klik_b/detail_hutang/'.$hm->hut_mst_nobuk ?>" class="btn btn-sm btn-primary">DETAIL</a>
 											</td>

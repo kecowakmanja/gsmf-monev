@@ -9,7 +9,7 @@ class klik_b extends CI_Controller {
 		$this->load->model('m_db');
 
 		//variabel global
-		$this->TabelKelompokMaster = "kelompok_master";
+		$this->TabelHutangMaster = "hutang_master";
 		$this->TabelPesertaMaster = "peserta_master";
 		$this->TabelRekeningMaster = "rekening_master";
 		$this->FormB1 = "daftar_b1";
@@ -32,17 +32,28 @@ class klik_b extends CI_Controller {
 
 	function pilihan_b1(){
 		if($this->session->userdata('hak')=="PEMILIK"){
-			$kondisi="1=1";
+			$kondisi1 = "1=1";
 		}
 		else{
-			$kondisi = array(
+			$kondisi1 = array(
 				'k.kel_mst_subkode'=>$this->session->userdata('kelompok')
 			);
 		};
-		$data['daftar_hutang_master'] = $this->m_db->ambil_data_hutang($kondisi)->result();
+
+		$kondisi2 = array(
+			'rek_mst_kel' => 'ANGGARAN',
+			'rek_mst_gol' => 'ABTT',
+			'rek_mst_sub_gol' => 'ABTT-B',
+			'rek_mst_kode' => 'ABTT-B-1'
+		);
+
+		$data['daftar_hutang_master'] = $this->m_db->ambil_data_hutang($kondisi1)->result();
+		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi2,$this->TabelRekeningMaster)->result();
 		$this->load->view($this->FormB1,$data);
+		$this->kosong_operator_validasi();
 	}
 
+/*
 	function tambah_hutang($nobukti){
 
 		$kondisi1 = array(
@@ -190,42 +201,47 @@ class klik_b extends CI_Controller {
 			redirect('c_hutang/index/');
 		}
 	}
+*/
 
 	function hapus_hutang_ok($hutprm){
 		$kondisi = array('hutprm' => $hutprm);
-		$tabel_master = "hutang_master";
-		$tabel_detail = "hutang_detail";
-
-		$data['daftar_hutang'] = $this->m_db->ambil_data($kondisi,$tabel_master)->result();
-
-		foreach ($data['daftar_hutang'] as $h){
-			$t_hut_mst_lock = $h->hut_mst_lock;
-			$t_hut_mst_sts = $h->hut_mst_sts;
-			$t_hut_mst_nobuk = $h->hut_mst_nobuk;
+		$data['daftar_hutang_master'] = $this->m_db->ambil_data($kondisi,$this->TabelHutangMaster)->result();
+		
+		foreach ($data['daftar_hutang_master'] as $hm){
+			$t_hut_mst_lock = $hm->hut_mst_lock;
+			$t_hut_mst_sts = $hm->hut_mst_sts;
+			$t_hut_mst_nobuk = $hm->hut_mst_nobuk;
 		}
-
-		if ($t_hut_mst_sts != "BARU" || $t_hut_mst_lock != 0){
-			$pesan_operator_gagal = array(
-				'operator' => "GAGAL=Pengajuan Anggaran Sedang Dalam Proses"
+		
+		if ($t_hut_mst_sts != "BARU" || $t_hut_mst_lock!=0){
+			$validasi_b1 = array(
+				'validasi_b1' => "Pengajuan anggaran lagi di proses, nda boleh hapus data yang sudah masuk..."
 			);
-			$this->session->set_userdata($pesan_operator_gagal);
-			redirect('c_hutang/index/');
+			$this->session->set_userdata($validasi_b1);
+			redirect($this->KePilihanB1);
 		} else {
-			$this->session->unset_userdata('operator');
-			$kondisi_master = array('hut_mst_nobuk'=>$t_hut_mst_nobuk);
-			$kondisi_detail = array('hut_det_nobuk'=>$t_hut_mst_nobuk);
-
-			$this->m_db->hapus_data($kondisi_master,$tabel_master);
-			$this->m_db->hapus_data($kondisi_detail,$tabel_detail);
-			redirect('c_hutang/index/');
+			$this->m_db->hapus_data($kondisi,$this->TabelHutangMaster);
+			redirect($this->KePilihanA1);
 		}
+		
+		$this->kosong_operator_validasi();
 	}
+		
+	function ubah_hutang_ok($hutprm){
+		$operator_a1 = array('operator_b1' => "UBAH");
+		$this->session->set_userdata($operator_b1);
 
-	function ubah_hutang($hutprm){
 		$kondisi1 = array('hutprm' => $hutprm);
-		$tabel1 = "hutang_master";
-		$data['daftar_hutang_master'] = $this->m_db->ambil_data($kondisi1,$tabel1)->result();
+		$kondisi2 = array(
+			'rek_mst_kel' => 'ANGGARAN',
+			'rek_mst_gol' => 'ABTT',
+			'rek_mst_sub_gol' => 'BIAYA',
+			'rek_mst_kode' => 'PROGRAM'
+		);
 
+		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi2,$this->TabelRekeningMaster)->result();
+		$data['daftar_hutang_master'] = $this->m_db->ambil_data($kondisi1,$this->TabelHutangMaster)->result();
+		
 		foreach ($data['daftar_hutang_master'] as $hm){
 			$t_hut_mst_lock = $hm->hut_mst_lock;
 			$t_hut_mst_sts = $hm->hut_mst_sts;
@@ -233,18 +249,19 @@ class klik_b extends CI_Controller {
 		}
 
 		if ($t_hut_mst_sts != "BARU" || $t_hut_mst_lock!=0){
-			$pesan_operator_gagal = array(
-				'operator' => "GAGAL=Pengajuan Anggaran Sedang Dalam Proses"
+			$validasi_b1 = array(
+				'validasi_b1' => "Pengajuan anggaran lagi di proses, nda boleh ubah-ubah data yang sudah masuk..."
 			);
-			$this->session->set_userdata($pesan_operator_gagal);
-			redirect('c_hutang/index/');
-		} else {
-			$this->session->unset_userdata('operator');
-			redirect('c_hutang/tambah_hutang/'.$t_hut_mst_nobuk);
+			$this->session->set_userdata($validasi_b1);
+			redirect($this->KePilihanB1);
 		}
+		
+		$this->load->view($this->FormB1,$data);
+
+		$this->kosong_operator_validasi();
 	}
 
-	function hapus_hutang_detail_ok($hutprm,$t_hut_mst_nobuk){
+/*	function hapus_hutang_detail_ok($hutprm,$t_hut_mst_nobuk){
 		$kondisi3 = array('hutprm'=>$hutprm);
 		$tabel1 = "hutang_master";
 		$tabel2 = "hutang_detail";
@@ -363,5 +380,5 @@ class klik_b extends CI_Controller {
 		redirect('c_hutang/index/');
 
 	}
-
+*/
 }

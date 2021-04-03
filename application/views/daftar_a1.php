@@ -13,20 +13,24 @@
 </head>
 <body onload="kasihfokuslah()">
 <?php
-$t_kel_mst_sts = array(
-	'AKTIF' => 'AKTIF',
-	'PASIF' => 'PASIF'
-);
+foreach ($daftar_info_level_1_sts as $lv1_sts) {
+	$t_kel_mst_sts[$lv1_sts->in_lv_1_kd] = $lv1_sts->in_lv_1_ket;
+}
+
+$formulir_prm = array();
 
 if(!empty($this->session->userdata('operator_a1'))){
 	if($this->session->userdata('operator_a1')!="TAMBAH"){
-		$judul_navigasi = "UBAH";
 		$tombol_tambah = array(
 			'name' => 'btnKirim',
 			'value' => 'UBAH',
 			'class' => 'btn btn-sm btn-primary'
 		);
 		foreach($daftar_kelompok_master as $km){
+			$formulir_prm = array(
+				"kelprm" => $km->kelprm
+			);
+			
 			$formulir_status = array(
 				'name' => 't_kel_mst_sts',
 				'options' => $t_kel_mst_sts,
@@ -74,7 +78,6 @@ if(!empty($this->session->userdata('operator_a1'))){
 		}
 	} 
 } else {
-	$judul_navigasi = "TAMBAH";
 	$tombol_tambah = array(
 		'name' => 'btnKirim',
 		'value' => 'TAMBAH',
@@ -120,6 +123,12 @@ $tombol_reset = array(
 	'name' => 'btnBersih',
 	'value' => 'BERSIH',
 	'class' => 'btn btn-sm btn-secondary'
+);
+
+$tombol_batal = array(
+	"name" => "btnKirim",
+	"value" => "BATAL",
+	"class" => "btn btn-sm btn-danger"
 );
 ?>
 <div class="container-fluid">
@@ -171,7 +180,7 @@ $tombol_reset = array(
 						<div class="accordion-body">
 							<table class="table table-sm table-bordered table-light">
 								<?php 
-									echo form_open('klik_a/tambah_kelompok_ok');
+									echo form_open('klik_a/tambah_kelompok_ok','',$formulir_prm);
 								?> 	 
 								<tr>
 									<td><?php echo form_label('STATUS'); ?></td>
@@ -205,6 +214,7 @@ $tombol_reset = array(
 									<td><?php
 											echo form_submit($tombol_tambah);
 											echo form_reset($tombol_reset);
+											echo form_submit($tombol_batal);
 											echo form_close(); ?>
 									</td>
 								</tr>
@@ -266,8 +276,8 @@ $tombol_reset = array(
 </div>
 
 <script type="text/javascript">
-var alamat1 = '<?php echo base_url().'index.php/klik_a/cari_kelompok_ok/?'?>'
-var alamat2 = '<?php echo base_url().'index.php/klik_a/cari_kelompok_2_ok/'?>'
+var alamat1 = '<?php echo base_url().'index.php/klik_a/cari_auto_kelompok_ok/?'?>'
+var alamat2 = '<?php echo base_url().'index.php/klik_a/cari_auto_kelompok_2_ok/'?>'
 var inputan1 = document.getElementById('t_kel_mst_kode');
 
 $('#tblKel').DataTable({
