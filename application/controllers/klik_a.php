@@ -293,7 +293,7 @@ class klik_a extends CI_Controller {
 		switch ($this->input->post('btnProses')){
 			case "UNDUH":
 				$nama_file = '_templetRek.csv';
-				$lokasi_file = file_get_contents(base_url().'berkas/_templetRek.csv');
+				$lokasi_file = file_get_contents(base_url().'berkas/unduh/_templetRek.csv');
 				force_download($nama_file,$lokasi_file);
 				break;
 			case "PROSES":

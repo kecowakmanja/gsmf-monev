@@ -20,64 +20,61 @@ foreach	($daftar_rekening_master as $rm){
 
 $formulir_prm = array();
 
-if(!empty($this->session->userdata('operator_b1'))){
-	if($this->session->userdata('operator_b1')!="TAMBAH"){
-		$tombol_tambah = array(
-		'name' => 'btnKirim',
-		'value' => 'UBAH',
-		'class' => 'btn btn-primary btn-sm'
-		);
+if($this->session->userdata('operator_b1') == "UBAH" && empty($this->session->userdata('validasi_b1'))){
+	$tombol_tambah = array(
+	'name' => 'btnKirim',
+	'value' => 'UBAH',
+	'class' => 'btn btn-primary btn-sm'
+	);
+	
+	foreach ($daftar_hutang_master as $hm){
+		$t_hut_mst_nobuk = $hm->hut_mst_nobuk;
+		$t_hut_mst_ket = $hm->hut_mst_ket;
+		$t_hut_mst_tglrnc = $hm->hut_mst_tglrnc;
+		$t_hut_mst_rek = $hm->hut_mst_rek;
 		
-		foreach ($daftar_hutang_master as $hm){
-			$t_hut_mst_nobuk = $hm->hut_mst_nobuk;
-			$t_hut_mst_ket = $hm->hut_mst_ket;
-			$t_hut_mst_tglrnc = $hm->hut_mst_tglrnc;
-			$t_hut_mst_rek = $hm->hut_mst_rek;
+		$formulir_prm = array(
+			"hutprm" => $hm->hutprm
+		);
+
+		$formulir_nobuk = array(
+			'name' => 't_hut_mst_nobuk',
+			'value' => $t_hut_mst_nobuk,
+			'readonly' => 'true',
+			'class' => 'form-control',
+			'id' => 't_hut_mst_nobuk'
+		);
 			
-			$formulir_prm = array(
-				"hutprm" => $hm->hutprm
-			);
+		$formulir_nama = array(
+			'name' => 't_hut_mst_ket',
+			'value' => $t_hut_mst_ket,
+			'class'=>'form-control',
+			'id' => 't_hut_mst_ket'
+		);
 
-			$formulir_nobuk = array(
-				'name' => 't_hut_mst_nobuk',
-				'value' => $t_hut_mst_nobuk,
-				'readonly' => 'true',
-				'class' => 'form-control',
-				'id' => 't_hut_mst_nobuk'
-			);
-				
-			$formulir_nama = array(
-				'name' => 't_hut_mst_ket',
-				'value' => $t_hut_mst_ket,
-				'class'=>'form-control',
-				'id' => 't_hut_mst_ket'
-			);
+		$formulir_tglrnc = array(
+			'name' => 't_hut_mst_tglrnc',
+			'value' => $t_hut_mst_tglrnc,
+			'type' => 'date',
+			'class'=>'form-control',
+			'id' => 't_hut_mst_tglrnc'
+		);
 
-			$formulir_tglrnc = array(
-				'name' => 't_hut_mst_tglrnc',
-				'value' => $t_hut_mst_tglrnc,
-				'type' => 'date',
-				'class'=>'form-control',
-				'id' => 't_hut_mst_tglrnc'
-			);
-
-			$formulir_rek = array(
-				'name' => 't_hut_mst_rek',
-				'options' => $t_hut_mst_rek,
-				'class' => 'form-control',
-				'id' => 't_hut_mst_rek'
-			);
-				
-			$formulir_rnc = array(
-				'name' => 't_hut_mst_rnc',
-				'type' => 'number',
-				'class' => 'form-control',
-				'value' => '0',
-				'id' => 't_hut_mst_rnc'
-			);
-		}
+		$formulir_rek = array(
+			'name' => 't_hut_mst_rek',
+			'options' => $rekkode,
+			'class' => 'form-control',
+			'id' => 't_hut_mst_rek'
+		);
 			
-	} 
+		$formulir_rnc = array(
+			'name' => 't_hut_mst_rnc',
+			'type' => 'number',
+			'class' => 'form-control',
+			'value' => '0',
+			'id' => 't_hut_mst_rnc'
+		);
+	}
 } else {
 		
 	$tombol_tambah = array(
@@ -89,6 +86,7 @@ if(!empty($this->session->userdata('operator_b1'))){
 	$formulir_nobuk = array(
 		'name' => 't_hut_mst_nobuk',
 		'class' => 'form-control',
+		'readonly' => 'true',
 		'id' => 't_hut_mst_nobuk'
 	);
 		
@@ -107,6 +105,7 @@ if(!empty($this->session->userdata('operator_b1'))){
 
 	$formulir_rek = array(
 		'name' => 't_hut_mst_rek',
+		'options' => $rekkode,
 		'class'=> 'form-control',
 		'id' => 't_hut_mst_rek'
 	);
@@ -130,6 +129,15 @@ $tombol_batal = array(
 	"name" => "btnKirim",
 	"value" => "BATAL",
 	"class" => "btn btn-sm btn-danger"
+);
+
+$formulir_csv = array(
+	"name" => "t_hut_mst_doc",
+	"class"=>"form-control",
+	"placeholder" => "Masukan file...",
+	"id" => "t_hut_mst_doc",
+	"type" => "file",
+	"accept" => "application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 );
 
 ?>
@@ -181,7 +189,7 @@ $tombol_batal = array(
 							<table class="table table-sm table-bordered table-light">
 								<?php 
 
-								echo form_open('klik_b/tambah_hutang_ok','',$formulir_prm);
+								echo form_open_multipart('klik_b/tambah_hutang_ok','',$formulir_prm);
 								?>
 								<tr>
 									<td><?php echo form_label('NOMOR BUKTI PENGAJUAN ANGGARAN'); ?></td>
@@ -204,7 +212,11 @@ $tombol_batal = array(
 									<td><?php echo form_input($formulir_rnc); ?></td>
 								</tr>
 								<tr>
-									<th></th>
+									<td><?php echo form_label("UNGGAH PROPOSAL (FILE DOC/DOCX)"); ?></td>
+									<td><?php echo form_input($formulir_csv); ?></td>
+								</tr>
+								<tr>
+									<td></td>
 									<td><?php 
 										echo form_submit($tombol_tambah);
 										echo form_reset($tombol_reset);
@@ -216,7 +228,9 @@ $tombol_batal = array(
 						</div>
 					</div>
 				</div>
+			</div>
 				<br>
+			<div class="accordion text-start">
 				<div class="accordion-item" id="frmhutDet2">
 					<h6 class="accordion-header" id="judulDua">
 						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiDua" aria-expanded="true" aria-control="isiDua">
@@ -233,7 +247,7 @@ $tombol_batal = array(
 											<th>NO.MUTASI</th>
 											<th>KELOMPOK</th>
 											<th>STATUS</th>
-											<th>WAKTU</th>
+											<th>PELAKSANAAN</th>
 											<th>KETERANGAN</th>
 											<th>RENCANA</th>
 											<th>CAIR</th>

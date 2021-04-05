@@ -43,8 +43,8 @@ class klik_b extends CI_Controller {
 		$kondisi2 = array(
 			'rek_mst_kel' => 'ANGGARAN',
 			'rek_mst_gol' => 'ABTT',
-			'rek_mst_sub_gol' => 'ABTT-B',
-			'rek_mst_kode' => 'ABTT-B-1'
+			'rek_mst_sub_gol' => 'BIAYA',
+			'rek_mst_kode' => 'PROGRAM'
 		);
 
 		$data['daftar_hutang_master'] = $this->m_db->ambil_data_hutang($kondisi1)->result();
@@ -53,155 +53,98 @@ class klik_b extends CI_Controller {
 		$this->kosong_operator_validasi();
 	}
 
-/*
-	function tambah_hutang($nobukti){
-
-		$kondisi1 = array(
-			'rek_mst_gol' => "BEBAN", 
-			'rek_mst_sts' => "AKTIF"
-		);
-		$kondisi2 = array(
-			'hut_det_nobuk' => $nobukti
-		);
-		$kondisi3 = array(
-			'hut_mst_nobuk' => $nobukti
-		);
-
-		$tabel1 = "rekening_master";
-		$tabel2 = "hutang_detail";
-		$tabel3 = "hutang_master";
-		$data['daftar_hutang_detail'] = $this->m_db->ambil_data_hutang_detail($kondisi3)->result();
-		$data['daftar_hutang_master'] = $this->m_db->ambil_data($kondisi3,$tabel3)->result();
-		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi1,$tabel1)->result();
-
-		$t_kosong ="";
-
-		if(empty($data['daftar_hutang_master'])){
-			$hut_mst_nobuk_kosong = (object)[
-				'hut_mst_nobuk' => $nobukti,
-				'hut_mst_ket' => $t_kosong,
-				'hut_mst_tglrnc' => date('Y-m-d')
-			];
-			$data['daftar_hutang_master']=[$hut_mst_nobuk_kosong];
-		}
-
-		$t_lock = 1;
-		$nilai2 = array('hut_det_lock' => $t_lock);
-		$nilai3 = array('hut_mst_lock' => $t_lock);
-		
-		$this->m_db->ubah_data($kondisi3,$nilai3,$tabel3);
-		$this->m_db->ubah_data($kondisi2,$nilai2,$tabel2);
-
-		$this->load->view('v_hutang_t.php',$data);
-	}
 
 	function tambah_hutang_ok(){
-		$t_lock1 = 1;
-		$t_lock0 = 0;
-		$t_hut_mst_nobuk = $this->input->post('t_hut_mst_nobuk');
-		$t_hut_mst_dt = "AGR";
-		$t_hut_mst_sts = "BARU";
-		$t_hut_mst_tgl = date('Y-m-d');
-		$t_hut_mst_tglrnc = $this->input->post('t_hut_mst_tglrnc');
-		$t_hut_mst_pgn = $this->session->userdata('kode');
-		$t_hut_mst_ttl = "0";
-		$t_hut_mst_ket = $this->input->post('t_hut_mst_ket');
 		
-		$t_hut_det_dt = "AGR";
-		$t_hut_det_nobuk = $this->input->post('t_hut_mst_nobuk');
-		$t_hut_det_rek = $this->input->post('t_hut_det_rek');
-		$t_hut_det_rnc = $this->input->post('t_hut_det_rnc');
-		$tabel_detail = "hutang_detail";
-		$tabel_master = "hutang_master";
-
-		$nilai_detail_hitung = "hut_det_rnc";
-		$t_nama_tombol = $this->input->post('btnKirim');
-
-		$prefix1 = $t_hut_mst_dt;
-		$prefix2 = date('Ymd');
-		$prefix3 = $t_hut_mst_tgl;
-		$prm1 = "hut_mst_dt";
-		$prm2 = "hut_mst_nobuk";
-		$prm3 = "hut_mst_tgl";
-		$separator = "-";
-
-		$kondisi1 = array('hut_mst_nobuk' => $t_hut_mst_nobuk);
-		$kondisi2 = array('hut_det_nobuk' => $t_hut_mst_nobuk);
+		$kondisi = array('hutprm' => $this->input->post('hutprm'));
 		
-		if($t_nama_tombol=="TAMBAH"){
-			$this->form_validation->set_rules('t_hut_det_rek','REKENING BEBAN','required');
-			$this->form_validation->set_rules('t_hut_mst_ket','KETERANGAN','required');
+		if ($this->input->post('btnKirim')!="BATAL"){
+			if (empty($_POST['t_hut_mst_nobuk'])) {
+				$prefix1 = 'AGR';
+				$prefix2 = date('Ymd');
+				$prefix3 = date('Y-m-d');
+				$prm1 = 'hut_mst_dt';
+				$prm2 = 'hut_mst_nobuk';
+				$prm3 = 'hut_mst_tgl';
+				$separator = "-";
+	
+				$_POST['t_hut_mst_nobuk'] = $this->m_db->ambil_data_urut($this->TabelHutangMaster,$prefix1,$prefix2,$prefix3,$separator,$prm1,$prm2,$prm3)->result();
+				if (empty($data_no_bukti_acak)){ //empty karna blm ada record
+					$_POST['t_hut_mst_nobuk'] = trim(strtoupper($prefix1.$separator.$prefix2.$separator.str_pad(floor(rand(0,99999)),5,"0",STR_PAD_LEFT)));
+				}
+			}
+			
+			$konfigurasi = array (
+				'upload_path' => base_url().'berkas/unggah/',
+				'allowed_types' => 'doc|docx',
+				'max_size' => 20480,
+				'overwrite' => true,
+				'file_name' => $_POST['t_hut_mst_nobuk']
+				);
+ 
+			$this->load->library('upload', $konfigurasi);
+			
+			if (!$this->upload->do_upload('t_hut_mst_doc')){
+				$validasi_b1 = array(
+					'validasi_b1' => "Unggah proposal ga berhasil, hanya bisa file doc/docx"
+				);
+				$this->session->set_userdata($validasi_b1);
+				redirect($this->KePilihanB1);
+				$this->kosong_operator_validasi();
+			}
+			
 			$this->form_validation->set_rules('t_hut_mst_tglrnc','RENCANA KEGIATAN','required');
-			$this->form_validation->set_rules('t_hut_det_rnc','RENCANA ANGGARAN','required|greater_than[0]');
+			$this->form_validation->set_rules('t_hut_mst_rek','REKENING BEBAN','required');
+			$this->form_validation->set_rules('t_hut_mst_nobuk','FILE','required');
+			$this->form_validation->set_rules('t_hut_mst_ket','KETERANGAN','required|max_length[2000]');
+			$this->form_validation->set_rules('t_hut_mst_rnc','RENCANA ANGGARAN','required|greater_than[0]');
+			
+			if ($this->input->post('btnKirim')=="TAMBAH"){
+				$this->form_validation->set_rules('t_hut_mst_nobuk','SUBKODE','required|trim|max_length[20]|is_unique['.$this->TabelHutangMaster.'.hut_mst_nobuk]');
+			}
+			
+			$this->form_validation->set_message('required','%s ngga boleh dikosongin');
+			$this->form_validation->set_message('is_unique','%s udah ada tuh, coba ganti yang lain deh');
+			$this->form_validation->set_message('greater_than','%s pengajuan anggarannya harus lebih dari 0');
+			$this->form_validation->set_message('max_length[20]','%s kepanjangan, maksimal 20 karakter');
+			$this->form_validation->set_message('max_length[2000]','%s kepanjangan, maksimal 2000 karakter');
 
-			if($this->form_validation->run() == false){
-				$pesan_validasi_gagal = array(
-					'validasi' => "WAJIB=Semua Field Wajib Di isi"
+			if($this->form_validation->run() != false){
+				$nilai_master = array(
+					'hut_mst_lock' => '0',
+					'hut_mst_dt' => 'AGR',
+					'hut_mst_nobuk' => $this->input->post('t_hut_mst_nobuk'),
+					'hut_mst_sts' => 'BARU',
+					'hut_mst_tgl' => date('Y-m-d'),
+					'hut_mst_tglrnc' => $this->input->post('t_hut_mst_tglrnc'),
+					'hut_mst_pst' => $this->session->userdata('kode'),
+					'hut_mst_rek' => $this->input->post('t_hut_mst_rek'),
+					'hut_mst_rnc' => $this->input->post('t_hut_mst_rnc'),
+					'hut_mst_ket' => trim(strtoupper($this->input->post('t_hut_mst_ket')))
 				);
-				$this->session->set_userdata($pesan_validasi_gagal);
-				redirect('c_hutang/tambah_hutang/'.$t_hut_mst_nobuk);
-			} else {
-				$this->session->unset_userdata('validasi');
-				if ($t_hut_mst_nobuk=="KOSONG"){
-					$data['no_bukti'] = $this->m_db->ambil_data_urut($tabel_master,$prefix1,$prefix2,$prefix3,$separator,$prm1,$prm2,$prm3)->result();
-					if (empty($data['no_bukti'])){
-							$data_no_bukti_acak = ['urut'=>$prefix1.$separator.$prefix2.$separator.str_pad(floor(rand(0,99999)),5,"0",STR_PAD_LEFT)];
-							$data['no_bukti'][]=(object)$data_no_bukti_acak;
-					}
-					
-					foreach ($data['no_bukti'] as $nb){
-						$t_hut_mst_nobuk = $nb->urut;
-					}
-
-					$nilai_master = array(
-						'hut_mst_lock' => $t_lock1,
-						'hut_mst_dt' => $t_hut_mst_dt,
-						'hut_mst_nobuk' => $t_hut_mst_nobuk,
-						'hut_mst_sts' => $t_hut_mst_sts,
-						'hut_mst_tgl' => $t_hut_mst_tgl,
-						'hut_mst_tglrnc' => $t_hut_mst_tglrnc,
-						'hut_mst_pgn' => $t_hut_mst_pgn,
-						'hut_mst_rnc' => $t_hut_det_rnc,
-						'hut_mst_ttl' => $t_hut_mst_ttl,
-						'hut_mst_ket' => strtoupper($t_hut_mst_ket)
-					);
-					$this->m_db->tambah_data($nilai_master,$tabel_master);
-				}
 				
-				$nilai_detail = array(
-					'hut_det_lock' => $t_lock1,
-					'hut_det_dt' => $t_hut_det_dt,
-					'hut_det_nobuk' => $t_hut_mst_nobuk,
-					'hut_det_rek' => $t_hut_det_rek,
-					'hut_det_rnc' => $t_hut_det_rnc,
-				);
-				$this->m_db->tambah_data($nilai_detail,$tabel_detail);
-
-				$data['total_rencana_anggaran']=$this->m_db->hitung_data($kondisi2,$nilai_detail_hitung,$tabel_detail)->result();
-				foreach($data['total_rencana_anggaran'] as $tra){
-					$t_hut_mst_rnc = $tra->hut_det_rnc;
+				switch ($this->input->post('btnKirim')){
+					case "TAMBAH":
+						$this->m_db->tambah_data($nilai_master,$this->TabelHutangMaster);
+						break;
+					case "UBAH":
+						$this->m_db->ubah_data($kondisi,$nilai_master,$this->TabelHutangMaster);
+						break;
+					default:
+						redirect($this->KePilihanB1);
+						break;
 				}
-				$total_rencana = array ('hut_mst_rnc' => $t_hut_mst_rnc);
-				$this->m_db->ubah_data($kondisi1,$total_rencana,$tabel_master);
+			} else {
+					$validasi_b1 = array('validasi_b1' => validation_errors('<li>','</li>'));
+					$this->session->set_userdata($validasi_b1);
 			}
-			redirect('c_hutang/tambah_hutang/'.$t_hut_mst_nobuk);
-		} else {
-			if($t_hut_mst_nobuk!="KOSONG"){
-				$nilai1 = array(
-					'hut_mst_lock' => $t_lock0,
-					'hut_mst_ket' => $t_hut_mst_ket, 
-					'hut_mst_tglrnc' => $t_hut_mst_tglrnc,
-				);
-				$nilai2 = array(
-					'hut_det_lock' => $t_lock0
-				);
-				$this->m_db->ubah_data($kondisi1,$nilai1,$tabel_master);
-				$this->m_db->ubah_data($kondisi2,$nilai2,$tabel_detail);
-			}
-			redirect('c_hutang/index/');
 		}
+		
+		$nilai_master = array('hut_mst_lock' => '0');
+		$this->m_db->ubah_data($kondisi,$nilai_master,$this->TabelHutangMaster);
+		redirect($this->KePilihanB1);
 	}
-*/
+
 
 	function hapus_hutang_ok($hutprm){
 		$kondisi = array('hutprm' => $hutprm);
@@ -213,22 +156,20 @@ class klik_b extends CI_Controller {
 			$t_hut_mst_nobuk = $hm->hut_mst_nobuk;
 		}
 		
-		if ($t_hut_mst_sts != "BARU" || $t_hut_mst_lock!=0){
+		if ($t_hut_mst_sts != "BARU" || $t_hut_mst_lock != 0){
 			$validasi_b1 = array(
 				'validasi_b1' => "Pengajuan anggaran lagi di proses, nda boleh hapus data yang sudah masuk..."
 			);
 			$this->session->set_userdata($validasi_b1);
-			redirect($this->KePilihanB1);
 		} else {
 			$this->m_db->hapus_data($kondisi,$this->TabelHutangMaster);
-			redirect($this->KePilihanA1);
 		}
-		
+		redirect($this->KePilihanB1);
 		$this->kosong_operator_validasi();
 	}
 		
 	function ubah_hutang_ok($hutprm){
-		$operator_a1 = array('operator_b1' => "UBAH");
+		$operator_b1 = array('operator_b1' => "UBAH");
 		$this->session->set_userdata($operator_b1);
 
 		$kondisi1 = array('hutprm' => $hutprm);
@@ -238,9 +179,9 @@ class klik_b extends CI_Controller {
 			'rek_mst_sub_gol' => 'BIAYA',
 			'rek_mst_kode' => 'PROGRAM'
 		);
-
+		
 		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi2,$this->TabelRekeningMaster)->result();
-		$data['daftar_hutang_master'] = $this->m_db->ambil_data($kondisi1,$this->TabelHutangMaster)->result();
+		$data['daftar_hutang_master'] = $this->m_db->ambil_data_hutang($kondisi1)->result();
 		
 		foreach ($data['daftar_hutang_master'] as $hm){
 			$t_hut_mst_lock = $hm->hut_mst_lock;
@@ -248,16 +189,18 @@ class klik_b extends CI_Controller {
 			$t_hut_mst_nobuk = $hm->hut_mst_nobuk;
 		}
 
-		if ($t_hut_mst_sts != "BARU" || $t_hut_mst_lock!=0){
+		if ($t_hut_mst_sts != "BARU" || $t_hut_mst_lock != 0){
 			$validasi_b1 = array(
 				'validasi_b1' => "Pengajuan anggaran lagi di proses, nda boleh ubah-ubah data yang sudah masuk..."
 			);
 			$this->session->set_userdata($validasi_b1);
-			redirect($this->KePilihanB1);
+			
+		} else {
+			$nilai_master = array('hut_mst_lock' => '1');
+			$this->m_db->ubah_data($kondisi1,$nilai_master,$this->TabelHutangMaster);
 		}
 		
-		$this->load->view($this->FormB1,$data);
-
+		redirect($this->KePilihanB1);
 		$this->kosong_operator_validasi();
 	}
 
