@@ -11,10 +11,11 @@
 	<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 	
 </head>
-<body onload=kasihfokuslah()>
+<body>
 <?php
 
 $formulir_prm = array();
+$formulir_urut = "";
 $formulir_nobuk = "";
 $formulir_sts = "";
 $formulir_tgl= "";
@@ -29,6 +30,7 @@ $formulir_dok = "";
 if(!empty($this->session->userdata('operator_d1'))){
 	if($this->session->userdata('operator_d1')!="TAMBAH"){
 		foreach($daftar_hutang_master as $hm){
+			$formulir_urut = $hm->hutprm;
 			$formulir_nobuk = $hm->hut_mst_nobuk;
 			$formulir_sts = $hm->hut_mst_sts;
 			$formulir_tgl = $hm->hut_mst_tgl;
@@ -39,6 +41,7 @@ if(!empty($this->session->userdata('operator_d1'))){
 			$formulir_rnc = 'Rp. '.number_format($hm->hut_mst_rnc,2,",",".");
 			$formulir_ket = $hm->hut_mst_ket;
 			$formulir_dok = $hm->hut_mst_dok;
+			
 						
 			$formulir_prm = array(
 			"hutprm" => $hm->hutprm
@@ -53,8 +56,26 @@ $formulir_catatan = array(
 	'rows' => '3'
 	);
 
-?>
+$tombol_setuju = array(
+	'name' => 'btnKirim',
+	'value' => 'SETUJU',
+	'class' => 'btn btn-success btn-lg'
+	);
 
+
+$tombol_batal = array(
+	'name' => 'btnKirim',
+	'value'=> 'BATAL',
+	'class'=> 'btn btn-primary btn-lg'
+	);
+	
+$tombol_tolak = array(
+	'name' => 'btnKirim',
+	'value' => 'TOLAK',
+	'class' => 'btn btn-danger btn-lg'
+	);
+
+?>
 <div class="container-fluid">
 	<div class="card text-center bg-light">
 		<div class="card-header">
@@ -142,6 +163,10 @@ $formulir_catatan = array(
 						<div class="accordion-body">
 							<table class="table table-sm table-borderless text-start">
 								<tr>
+									<td><?php echo form_label('NOMOR URUT'); ?></td>
+									<td><?php echo form_label($formulir_urut); ?></td>
+								</tr>
+								<tr>
 									<td><?php echo form_label('NOMOR BUKTI PENGAJUAN ANGGARAN'); ?></td>
 									<td><?php echo form_label($formulir_nobuk); ?></td>
 								</tr>
@@ -183,6 +208,7 @@ $formulir_catatan = array(
 								</tr>
 							</table>
 							<table class="table table-sm table-borderless text-center">
+								<?php echo form_open('klik_d/ubah_hutang_ok','',$formulir_prm); ?>
 								<tr>
 									<td><?php echo form_label('CATATAN TAMBAHAN'); ?></td>
 								</tr>	
@@ -193,10 +219,12 @@ $formulir_catatan = array(
 									<td>
 										<div class="row justify-content-center">
 											<div class="col col-sm-4">
-												<?php echo form_submit(['name'=>'btnKirim','value'=>'TOLAK','class'=>'btn btn-danger btn-lg']); ?>
-												<?php echo form_submit(['name'=>'btnKirim','value'=>'SETUJU','class'=>'btn btn-success btn-lg']); ?>
-												<?php echo form_submit(['name'=>'btnKirim','value'=>'BATAL','class'=>'btn btn-primary btn-lg']); ?>
-												<?php echo form_close(); ?>
+												<?php 
+												echo form_submit($tombol_tolak);
+												echo form_submit($tombol_setuju);
+												echo form_submit($tombol_batal);
+												echo form_close(); 
+												?>
 											</div>
 										</div>
 									</td>
@@ -216,7 +244,7 @@ $formulir_catatan = array(
 var inputan1 = document.getElementById('isiDua');
 
 function kasihfokuslah(){
-	inputan1.focus();
+	inputan1.scrollIntoView();
 }
 
 	$('#tblHutDet').DataTable({
