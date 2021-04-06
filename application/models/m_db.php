@@ -4,8 +4,9 @@ class M_db extends CI_Model{
 	function ambil_data_hutang($kondisi){
 		$this->db->select('*');
 		$this->db->from('hutang_master as h');
+		$this->db->join('rekening_master as r','r.rek_mst_sub_kode = h.hut_mst_rek');
+		$this->db->join('kelompok_master as k','k.kel_mst_subkode = h.hut_mst_kel');
 		$this->db->join('peserta_master as p','p.pst_mst_kode = h.hut_mst_pst');
-		$this->db->join('kelompok_master as k','k.kel_mst_subkode = p.pst_mst_kel');
 		$this->db->where($kondisi);
 		return $this->db->get();
 	}
@@ -159,7 +160,7 @@ class M_db extends CI_Model{
 	function ambil_data_peserta($kondisi,$tabel){
 		$this->db->select('*');
 		$this->db->from('peserta_master as pm');
-		$this->db->join('kelompok_master as km','km.kel_mst_subkode = pm.pst_mst_kel');
+		$this->db->join('kelompok_master as km','km.kel_mst_subkode = pm.pst_mst_kel','left');
 		$this->db->where($kondisi);
 		return $this->db->get();
 	}

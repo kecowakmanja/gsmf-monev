@@ -46,7 +46,8 @@ class klik_z extends CI_Controller {
 		}
 		else {
 		foreach ($data['daftar_peserta_master'] as $pm){
-			$cek_prm = $pm->pgnprm;
+			$cek_prm = $pm->pstprm;
+			$cek_lock = $pm->pst_mst_lock;
 			$cek_kode = $pm->pst_mst_kode;
 			$cek_kel = $pm->pst_mst_kel;
 			$cek_hak = $pm->pst_mst_hak;
@@ -63,6 +64,11 @@ class klik_z extends CI_Controller {
 			'prm' => $cek_prm,
 			'status' => "masuk"
 		);
+		
+		$kondisi = array('pstprm' => $cek_prm);
+		$nilai_master = array('pst_mst_lock' => '1');
+			
+		$this->m_db->ubah_data($kondisi,$nilai_master,$this->TabelPesertaMaster);
 		$this->session->unset_userdata('validasi');
 		$this->session->set_userdata($datamasuk);
 		redirect('klik_z/index');
@@ -70,6 +76,9 @@ class klik_z extends CI_Controller {
 	}
 
 	function kepareng(){
+		$kondisi = array('pstprm' => $this->session->userdata('prm'));
+		$nilai_master = array('pst_mst_lock' => '0');
+		$this->m_db->ubah_data($kondisi,$nilai_master,$this->TabelPesertaMaster);
 		$this->session->sess_destroy();
 		redirect('klik_z/index');
 	}

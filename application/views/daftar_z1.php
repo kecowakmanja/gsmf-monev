@@ -12,7 +12,7 @@
 <div class="container-fluid">
 	<div class="card text-center bg-light">
 		<div class="card-header">
-			<h1><strong>ATURDUIT</h1></strong>
+			<h1><strong>GSMF-MONEV</h1></strong>
 		</div>
 		<div class="card-body">
 			<div class="alert alert-success text-start">
@@ -57,11 +57,23 @@
 				<div class="col-sm-3">
 					<div class="card text-dark bg-warning">
 						<div class="card-header">
-							<strong>REKENING</strong>
+							<strong>C. ANGGARAN PENDAPATAN</strong>
 						</div>
 						<div class="card-body">
 							<a class="nav nav-link active btn btn-lg" aria-current="true" href="<?php echo base_url().'index.php/c_rekening/index/'?>">
-								Penambahan Rekening, Pengecekan Mutasi Rekening, non-AKTIF-kan Rekening.
+								ANGGARAN PENDAPATAN.
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="card text-dark bg-warning">
+						<div class="card-header">
+							<strong>D. VERIFIKASI</strong>
+						</div>
+						<div class="card-body">
+							<a class="nav nav-link active btn btn-lg" aria-current="true" href="<?php echo base_url().'index.php/klik_d/index/'?>">
+								VERIFIKASI PROPOSAL KEGIATAN DAN NOTA BIAYA RUTIN.
 							</a>
 						</div>
 					</div>

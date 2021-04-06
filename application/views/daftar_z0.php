@@ -32,7 +32,7 @@ $tombol_masuk = array(
 			<div class="col col-sm-4">
 				<div class="card text-center bg-light shadow">
 					<div class="card-header"> 
-						<h1><strong>ATURDUIT</strong></h1>
+						<h1><strong>GSMF-MONEV</strong></h1>
 					</div>
 					<?php echo form_open('klik_z/kulonuwun'); ?>
 					<div class="card-body">

@@ -139,10 +139,32 @@ $tombol_reset = array(
 	'value' => 'BERSIH',
 	'class' => 'btn btn-sm btn-secondary'
 );
+
+$tombol_proses = array(
+	"name" => "btnProses",
+	"value" => "PROSES",
+	"class" => "btn btn-sm btn-primary"
+);
+
+$tombol_unduh = array(
+	"name" => "btnProses",
+	"value" => "UNDUH",
+	"class" => "btn btn-sm btn-warning"
+);
+
 $tombol_batal = array(
 	"name" => "btnKirim",
 	"value" => "BATAL",
 	"class" => "btn btn-sm btn-danger"
+);
+
+$formulir_csv = array(
+	"name" => "t_pst_csv",
+	"class"=>"form-control",
+	"placeholder" => "Masukan file...",
+	"id" => "t_pst_csv",
+	"type" => "file",
+	"accept" => ".csv"
 );
 ?>
 <div class="container-fluid">
@@ -226,6 +248,37 @@ $tombol_batal = array(
 											echo form_submit($tombol_tambah);
 											echo form_reset($tombol_reset);
 											echo form_submit($tombol_batal);
+											echo form_close(); ?>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="accordion text-start">
+				<div class="accordion-item" id="frmrekDet3">
+					<h6 class="accordion-header" id="judulTiga">
+						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiTiga" aria-expanded="true" aria-control="isiTiga">
+							<strong>IMPORT CSV</strong>
+						</button>
+					</h6>
+					<div id="isiTiga" class="accordion-collapse collapse show" data-bs-parent="#frmrekDet3" aria-labelledby="judulTiga">
+						<div class="accordion-body">
+							<table class="table table-sm table-bordered table-light">
+								<?php 
+									echo form_open_multipart("klik_a/proses_peserta_ok");
+								?> 	 
+								<tr>
+									<td><?php echo form_label("MASUKAN NAMA FILE (FORMAT CSV) UNTUK DI PROSES"); ?></td>
+									<td><?php echo form_input($formulir_csv); ?></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><?php
+											echo form_submit($tombol_proses);
+											echo form_submit($tombol_unduh);
 											echo form_close(); ?>
 									</td>
 								</tr>

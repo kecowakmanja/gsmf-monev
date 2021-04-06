@@ -20,14 +20,14 @@ foreach	($daftar_rekening_master as $rm){
 
 $formulir_prm = array();
 
-if($this->session->userdata('operator_b1') == "UBAH" && empty($this->session->userdata('validasi_b1'))){
+if($this->session->userdata('operator_b2') == "UBAH" && empty($this->session->userdata('validasi_b2'))){
 	$tombol_tambah = array(
 	'name' => 'btnKirim',
 	'value' => 'UBAH',
 	'class' => 'btn btn-primary btn-sm'
 	);
 	
-	foreach ($daftar_program_master as $hm){
+	foreach ($daftar_rutin_master as $hm){
 		$t_hut_mst_nobuk = $hm->hut_mst_nobuk;
 		$t_hut_mst_ket = $hm->hut_mst_ket;
 		$t_hut_mst_tglrnc = $hm->hut_mst_tglrnc;
@@ -137,7 +137,7 @@ $formulir_csv = array(
 	"placeholder" => "Masukan file...",
 	"id" => "t_hut_mst_doc",
 	"type" => "file",
-	"accept" => "application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+	"accept" => "image/*"
 );
 
 ?>
@@ -150,10 +150,10 @@ $formulir_csv = array(
 					<a class="nav-link" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_b/index'?>"><strong>B1. PROGRAM</strong></a>
+					<a class="nav-link" href="<?php echo base_url().'index.php/klik_b/index'?>"><strong>B1. PROGRAM</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url().'index.php/klik_b/pilihan_b2/'?>"><strong>B2. RUTIN</strong></a>
+					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_b/pilihan_b2/'?>"><strong>B2. RUTIN</strong></a>
 				</li>
 			</ul>
 		</div>
@@ -171,9 +171,9 @@ $formulir_csv = array(
 					</ul>
 				</p>
 			</div>
-			<?php if(!empty($this->session->userdata('validasi_b1'))) { ?>
+			<?php if(!empty($this->session->userdata('validasi_b2'))) { ?>
 				<div class="alert alert-sm alert-danger alert-dismissible fade show text-start">
-					<?php echo $this->session->userdata('validasi_b1'); ?>
+					<?php echo $this->session->userdata('validasi_b2'); ?>
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
 			<?php } ?>
@@ -181,7 +181,7 @@ $formulir_csv = array(
 				<div class="accordion-item" id="frmHutDet1">
 					<h6 class="accordion-header" id="judulSatu">
 						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiSatu" aria-expanded="true" aria-control="isiSatu">
-							<strong>DETAIL PROGRAM</strong>
+							<strong>DETAIL BIAYA RUTIN</strong>
 						</button>
 					</h6>
 					<div id="isiSatu" class="accordion-collapse collapse show" data-bs-parent="#frmHutDet1" aria-labelledby="judulSatu">
@@ -189,7 +189,7 @@ $formulir_csv = array(
 							<table class="table table-sm table-bordered table-light">
 								<?php 
 
-								echo form_open_multipart('klik_b/tambah_program_ok','',$formulir_prm);
+								echo form_open_multipart('klik_b/tambah_rutin_ok','',$formulir_prm);
 								?>
 								<tr>
 									<td><?php echo form_label('NOMOR BUKTI PENGAJUAN ANGGARAN'); ?></td>
@@ -212,7 +212,7 @@ $formulir_csv = array(
 									<td><?php echo form_input($formulir_rnc); ?></td>
 								</tr>
 								<tr>
-									<td><?php echo form_label("UNGGAH PROPOSAL (FILE DOC/DOCX)"); ?></td>
+									<td><?php echo form_label("UNGGAH FOTO NOTA (FILE PNG/JPG/JPEG)"); ?></td>
 									<td><?php echo form_input($formulir_csv); ?></td>
 								</tr>
 								<tr>
@@ -234,7 +234,7 @@ $formulir_csv = array(
 				<div class="accordion-item" id="frmhutDet2">
 					<h6 class="accordion-header" id="judulDua">
 						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiDua" aria-expanded="true" aria-control="isiDua">
-							<strong>DAFTAR PROGRAM</strong>
+							<strong>DAFTAR BIAYA RUTIN</strong>
 						</button>
 					</h6>
 					<div id="isiDua" class="accordion-collapse collapse show" data-bs-parent="#frmhutDet2" aria-labelledby="judulDua">
@@ -255,7 +255,7 @@ $formulir_csv = array(
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach($daftar_program_master as $hm){ ?>
+										<?php foreach($daftar_rutin_master as $hm){ ?>
 										<tr>
 											<td><?php echo $hm->hutprm; ?></td>
 											<td><?php echo $hm->hut_mst_nobuk ?></td>
@@ -266,8 +266,8 @@ $formulir_csv = array(
 											<td><?php echo 'Rp'. number_format($hm->hut_mst_rnc,2,",",".") ?></td>
 											<td><?php echo 'Rp'. number_format($hm->hut_mst_ttl,2,",",".") ?></td>
 											<td>
-												<a href="<?php echo base_url().'index.php/klik_b/ubah_program_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-warning">UBAH</a>
-												<a href="<?php echo base_url().'index.php/klik_b/hapus_program_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-danger">HAPUS</a>
+												<a href="<?php echo base_url().'index.php/klik_b/ubah_rutin_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-warning">UBAH</a>
+												<a href="<?php echo base_url().'index.php/klik_b/hapus_rutin_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-danger">HAPUS</a>
 											</td>
 										</tr>
 										<?php } ?>
