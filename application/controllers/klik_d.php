@@ -80,4 +80,18 @@ class klik_d extends CI_Controller {
 		redirect($this->KePilihanD1);
 	}
 	
+	function proses_hutang_ok(){
+		$kondisi = array('hutprm' => $this->input->post('hutprm'));
+		$data['daftar_hutang_master'] = $this->m_db->ambil_data($kondisi,$this->TabelHutangMaster)->result();
+		
+		if (!empty($data['daftar_hutang_master'])) {
+			foreach ($data['daftar_hutang_master'] as $hm){
+				$nama_file = $hm->hut_mst_dok;
+				$lokasi_file = './berkas/unggah/'.$hm->hut_mst_dok;
+				force_download($lokasi_file,NULL);
+			}
+		}
+	}
+		
+	
 }

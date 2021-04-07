@@ -74,6 +74,12 @@ $tombol_tolak = array(
 	'value' => 'TOLAK',
 	'class' => 'btn btn-danger btn-lg'
 	);
+	
+$tombol_unduh = array(
+	"name" => "btnProses",
+	"value" => "UNDUH",
+	"class" => "btn btn-sm btn-warning"
+);
 
 ?>
 <div class="container-fluid">
@@ -161,7 +167,8 @@ $tombol_tolak = array(
 					</h6>
 					<div id="isiDua" class="accordion-collapse collapse show" data-bs-parent="#frmHutDet2" aria-labelledby="judulDua">
 						<div class="accordion-body">
-							<table class="table table-sm table-borderless text-start">
+							<table class="table table-sm text-start">
+								<?php echo form_open('klik_d/proses_hutang_ok','',$formulir_prm); ?>
 								<tr>
 									<td><?php echo form_label('NOMOR URUT'); ?></td>
 									<td><?php echo form_label($formulir_urut); ?></td>
@@ -204,13 +211,21 @@ $tombol_tolak = array(
 								</tr>
 								<tr>
 									<td><?php echo form_label('BERKAS PENDUKUNG'); ?></td>
-									<td><?php echo form_label($formulir_dok); ?></td>
+									<td><?php 
+										echo form_label($formulir_dok); 
+										?>
+									</td>
+									<td><?php
+										echo form_submit($tombol_unduh);
+										echo form_close();
+										?>
+									</td>
 								</tr>
 							</table>
 							<table class="table table-sm table-borderless text-center">
 								<?php echo form_open('klik_d/ubah_hutang_ok','',$formulir_prm); ?>
 								<tr>
-									<td><?php echo form_label('CATATAN TAMBAHAN'); ?></td>
+									<th><?php echo form_label('CATATAN TAMBAHAN'); ?></th>
 								</tr>	
 								<tr>
 									<td><?php echo form_textarea($formulir_catatan)?></td>
@@ -223,7 +238,7 @@ $tombol_tolak = array(
 												echo form_submit($tombol_tolak);
 												echo form_submit($tombol_setuju);
 												echo form_submit($tombol_batal);
-												echo form_close(); 
+												echo form_close();
 												?>
 											</div>
 										</div>

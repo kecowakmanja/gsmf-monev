@@ -166,7 +166,7 @@ class klik_b extends CI_Controller {
 					'hut_mst_rek' => $this->input->post('t_hut_mst_rek'),
 					'hut_mst_rnc' => $this->input->post('t_hut_mst_rnc'),
 					'hut_mst_ket' => trim(strtoupper($this->input->post('t_hut_mst_ket'))),
-					'hut_mst_dok' => $this->upload->data('full_path')
+					'hut_mst_dok' => $this->upload->data('file_name')
 				);
 				
 				
@@ -261,7 +261,7 @@ class klik_b extends CI_Controller {
 					'hut_mst_rek' => $this->input->post('t_hut_mst_rek'),
 					'hut_mst_rnc' => $this->input->post('t_hut_mst_rnc'),
 					'hut_mst_ket' => trim(strtoupper($this->input->post('t_hut_mst_ket'))),
-					'hut_mst_dok' => $this->upload->data('full_path')
+					'hut_mst_dok' => $this->upload->data('file_name')
 				);
 				
 				switch ($this->input->post('btnKirim')){

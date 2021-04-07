@@ -37,13 +37,13 @@ CREATE TABLE IF NOT EXISTS `hutang_master` (
   UNIQUE KEY `hut_mst_dt_hut_mst_nobuk` (`hut_mst_dt`,`hut_mst_nobuk`),
   UNIQUE KEY `hut_mst_nobuk` (`hut_mst_nobuk`),
   KEY `hut_mst_dt_hut_mst_tgl` (`hut_mst_dt`,`hut_mst_tgl`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table gsmf-monev.hutang_master: ~0 rows (approximately)
+-- Dumping data for table gsmf-monev.hutang_master: ~1 rows (approximately)
 /*!40000 ALTER TABLE `hutang_master` DISABLE KEYS */;
 INSERT INTO `hutang_master` (`hutprm`, `hut_mst_lock`, `hut_mst_dt`, `hut_mst_nobuk`, `hut_mst_sts`, `hut_mst_tgl`, `hut_mst_tglrnc`, `hut_mst_pst`, `hut_mst_kel`, `hut_mst_rek`, `hut_mst_rnc`, `hut_mst_ttl`, `hut_mst_ket`, `hut_mst_dok`) VALUES
-	(3, 0, 'AGR', 'AGR-20210406-98281', 'BARU', '2021-04-06', '2021-04-20', 'GSU', 'F-01', '2121-01', 250000000, NULL, 'COBAAJUKANPROGRAM', './berkas/unggah/AGR-20210406-98281'),
-	(4, 0, 'AGR', 'AGR-20210406-95737', 'BARU', '2021-04-06', '2021-03-31', 'GSU', 'F-01', '2122-01', 2500000, NULL, 'GAJI KARYAWAN', './berkas/unggah/AGR-20210406-95737');
+	(8, 0, 'AGR', 'AGR-20210407-72239', 'BARU', '2021-04-07', '2021-05-01', 'GSU', 'F-01', '2121-01', 5450000, NULL, 'COBAIN INPUT PROGRAM', 'AGR-20210407-72239.docx'),
+	(9, 0, 'AGR', 'AGR-20210407-48937', 'BARU', '2021-04-07', '2021-04-07', 'GSU', 'F-01', '2122-01', 1250000, NULL, 'COBAIN TAMBAH BIAYA RUTIN', 'AGR-20210407-48937.jpeg');
 /*!40000 ALTER TABLE `hutang_master` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.info_level_1
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `info_level_1` (
   `in_lv_1_ket` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`infoprm`) USING BTREE,
   UNIQUE KEY `in_lv_1_dt_in_lv_1_kd` (`in_lv_1_dt`,`in_lv_1_kd`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table gsmf-monev.info_level_1: ~4 rows (approximately)
 /*!40000 ALTER TABLE `info_level_1` DISABLE KEYS */;
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `info_level_3` (
   `in_lv_3_ket` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`infoprm`) USING BTREE,
   UNIQUE KEY `in_lv_1_dt_in_lv_1_kd_in_lv_2_kd_in_lv_3_kd` (`in_lv_1_dt`,`in_lv_1_kd`,`in_lv_2_kd`,`in_lv_3_kd`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table gsmf-monev.info_level_3: ~14 rows (approximately)
 /*!40000 ALTER TABLE `info_level_3` DISABLE KEYS */;
@@ -273,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `peserta_master` (
 -- Dumping data for table gsmf-monev.peserta_master: ~2 rows (approximately)
 /*!40000 ALTER TABLE `peserta_master` DISABLE KEYS */;
 INSERT INTO `peserta_master` (`pstprm`, `pst_mst_sts`, `pst_mst_kode`, `pst_mst_kel`, `pst_mst_hak`, `pst_mst_nm`, `pst_mst_pswd`, `pst_mst_lock`) VALUES
-	(5, 'AKTIF', 'ROOT', 'F-01', 'PEMILIK', 'GSATRIOUTOMO', '68ba07abf0d370630620ea43c68fabbd', 0),
+	(5, 'AKTIF', 'ROOT', 'F-01', 'PEMILIK', 'GSATRIOUTOMO', '68ba07abf0d370630620ea43c68fabbd', 1),
 	(10, 'AKTIF', 'GSU', 'F-01', 'PEMILIK', 'GREGORIUSSATRIOUTOMO', 'a906449d5769fa7361d7ecc6aa3f6d28', 1);
 /*!40000 ALTER TABLE `peserta_master` ENABLE KEYS */;
 
