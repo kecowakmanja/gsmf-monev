@@ -60,7 +60,7 @@
 							<strong>C. ANGGARAN PENDAPATAN</strong>
 						</div>
 						<div class="card-body">
-							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/c_rekening/index/'?>">
+							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_c/index/'?>">
 								PENGAJUAN ANGGARAN PENDAPATAN
 							</a>
 						</div>
@@ -87,7 +87,7 @@
 							<strong>E. REALISASI</strong>
 						</div>
 						<div class="card-body">
-							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_d/index/'?>">
+							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_e/index/'?>">
 								PENCAIRAN ANGGARAN BELANJA DAN REALISASI ANGGARAN PENDAPATAN
 							</a>
 						</div>

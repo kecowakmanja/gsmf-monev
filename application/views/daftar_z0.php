@@ -24,7 +24,12 @@ $tombol_masuk = array(
 	'name' => 'btnKirim',
 	'value' => 'MASUK',
 	'class' => 'btn btn-sm btn-primary'	
-)
+);
+$tombol_reset = array(
+	'name' => 'btnBersih',
+	'value' => 'BERSIH',
+	'class' => 'btn btn-sm btn-secondary'
+);
 ?>
 
 <div class="container" style="margin-top: 5rem">
@@ -36,16 +41,20 @@ $tombol_masuk = array(
 					</div>
 					<?php echo form_open('klik_z/kulonuwun'); ?>
 					<div class="card-body">
-						<div class="mb-1">	
-							<label class="form-label">KODE PENGGUNA</label>
+						<div class="mb-4">
+							<img src=<?php echo base_url().'assets/img/logo_gsmf.png'?> width="80" height="70">
+						</div>
+						<div class="mb-2">	
 							<?php echo form_input($formulir_kode); ?>
 						</div>
 						<div class="mb-2">
-							<label class="form-label">KATA KUNCI</label>
 							<?php echo form_password($formulir_kunci); ?>
 						</div>
 						<div class="mb-0">
-							<?php echo form_submit($tombol_masuk); ?>
+							<?php 
+							echo form_submit($tombol_masuk); 
+							echo form_reset($tombol_reset); 
+							?>
 						</div>
 					</div>
 					<?php echo form_close(); ?>

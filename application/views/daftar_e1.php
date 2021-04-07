@@ -88,26 +88,26 @@ $tombol_unduh = array(
 					<a class="nav-link" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_d/pilihan_d1'?>"><strong>D1. VERIFIKASI</strong></a>
+					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_d/pilihan_d1'?>"><strong>E1. REALISASI</strong></a>
 				</li>
 			</ul>
 		</div>
 		<div class="card-body">
 			<div class="alert alert-info text-start">
 				<h5 class="card-title">
-					DAFTAR PENGAJUAN ANGGARAN PROGRAM DAN BIAYA RUTIN
+					REALISASI ANGGARAN PROGRAM DAN BIAYA RUTIN
 				</h5>
 				<p class="card-text">
 					<ul>
 						<li>Silahkan manfaatkan kotak <strong>SEARCH</strong> untuk melakukan pencarian.</li>
 						<li><strong>JUDUL TABEL</strong> dapat di tekan untuk melakukan pengurutan untuk membantu permudah pencarian.</li>
-						<li>Tombol operator <strong>DETAIL</strong> untuk melihat lebih detail sebelum melakukan ACC.</li>
+						<li>Tombol operator <strong>DETAIL</strong> untuk melihat lebih detail sebelum melakukan realisasi.</li>
 					</ul>
 				</p>
 			</div>
-			<?php if(!empty($this->session->userdata('validasi_d1'))) { ?>
+			<?php if(!empty($this->session->userdata('validasi_e1'))) { ?>
 				<div class="alert alert-sm alert-danger alert-dismissible fade show text-start">
-					<?php echo $this->session->userdata('validasi_d1') ?>
+					<?php echo $this->session->userdata('validasi_e1') ?>
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
 			<?php } ?>
@@ -129,6 +129,7 @@ $tombol_unduh = array(
 										<th>STATUS</th>
 										<th>PELAKSANAAN</th>
 										<th>RENCANA</th>
+										<th>CAIR</th>
 										<th>OPERATOR</th>
 									</tr>
 								</thead>
@@ -141,6 +142,7 @@ $tombol_unduh = array(
 										<td><?php echo $hm->hut_mst_sts ?></td>
 										<td><?php echo $hm->hut_mst_tglrnc ?></td>
 										<td><?php echo 'Rp'. number_format($hm->hut_mst_rnc,2,",",".") ?></td>
+										<td><?php echo 'Rp'. number_format($hm->hut_mst_ttl,2,",",".") ?></td>
 										<td>
 											<a href="<?php echo base_url().'index.php/klik_d/detail_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-primary" onClick="kasihfokuslah()">DETAIL</a>
 										</td>
@@ -157,7 +159,7 @@ $tombol_unduh = array(
 				<div class="accordion-item" id="frmHutDet2">
 					<h6 class="accordion-header" id="judulDua">
 						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiDua" aria-expanded="true" aria-control="isiDua">
-							<strong>KOLOM PERSETUJUAN</strong>
+							<strong>KOLOM REALISASI</strong>
 						</button>
 					</h6>
 					<div id="isiDua" class="accordion-collapse collapse show" data-bs-parent="#frmHutDet2" aria-labelledby="judulDua">
