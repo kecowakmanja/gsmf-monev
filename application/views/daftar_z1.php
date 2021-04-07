@@ -36,8 +36,8 @@
 							<strong>A. SETELAN AWAL</strong>
 						</div>
 						<div class="card-body">
-							<a class="nav nav-link active btn btn-lg" aria-current="true" href="<?php echo base_url().'index.php/klik_a/index/'?>">
-								DAFTAR BIDANG, TIMPEL, PENGGUNA dan POS-REKENING.
+							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_a/index/'?>">
+								DAFTAR BIDANG, TIMPEL, PENGGUNA dan POS-REKENING
 							</a>
 						</div>
 					</div>
@@ -48,8 +48,8 @@
 							<strong>B. ANGGARAN BELANJA</strong>
 						</div>
 						<div class="card-body">
-							<a class="nav nav-link active btn btn-lg" aria-current="true" href="<?php echo base_url().'index.php/klik_b/index/'?>">
-								PROGRAM DAN BIAYA RUTIN.
+							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_b/index/'?>">
+								PENGAJUAN PROPOSAL PROGRAM DAN BIAYA RUTIN
 							</a>
 						</div>
 					</div>
@@ -60,8 +60,8 @@
 							<strong>C. ANGGARAN PENDAPATAN</strong>
 						</div>
 						<div class="card-body">
-							<a class="nav nav-link active btn btn-lg" aria-current="true" href="<?php echo base_url().'index.php/c_rekening/index/'?>">
-								ANGGARAN PENDAPATAN.
+							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/c_rekening/index/'?>">
+								PENGAJUAN ANGGARAN PENDAPATAN
 							</a>
 						</div>
 					</div>
@@ -72,8 +72,23 @@
 							<strong>D. VERIFIKASI</strong>
 						</div>
 						<div class="card-body">
-							<a class="nav nav-link active btn btn-lg" aria-current="true" href="<?php echo base_url().'index.php/klik_d/index/'?>">
-								VERIFIKASI PROPOSAL KEGIATAN DAN NOTA BIAYA RUTIN.
+							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_d/index/'?>">
+								VERIFIKASI PROPOSAL KEGIATAN DAN NOTA BIAYA RUTIN
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row align-items-start">
+				<div class="col-sm-3">
+					<div class="card text-dark bg-warning">
+						<div class="card-header">
+							<strong>E. REALISASI</strong>
+						</div>
+						<div class="card-body">
+							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_d/index/'?>">
+								PENCAIRAN ANGGARAN BELANJA DAN REALISASI ANGGARAN PENDAPATAN
 							</a>
 						</div>
 					</div>

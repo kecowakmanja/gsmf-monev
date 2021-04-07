@@ -27,26 +27,24 @@ $formulir_rnc = "";
 $formulir_ket = "";
 $formulir_dok = "";
 
-if(!empty($this->session->userdata('operator_d1'))){
-	if($this->session->userdata('operator_d1')!="TAMBAH"){
-		foreach($daftar_hutang_master as $hm){
-			$formulir_urut = $hm->hutprm;
-			$formulir_nobuk = $hm->hut_mst_nobuk;
-			$formulir_sts = $hm->hut_mst_sts;
-			$formulir_tgl = $hm->hut_mst_tgl;
-			$formulir_tglrnc = $hm->hut_mst_tglrnc;
-			$formulir_pst = $hm->pst_mst_nm;
-			$formulir_kel = $hm->kel_mst_ket;
-			$formulir_rek = $hm->rek_mst_ket_sub_kode;
-			$formulir_rnc = 'Rp. '.number_format($hm->hut_mst_rnc,2,",",".");
-			$formulir_ket = $hm->hut_mst_ket;
-			$formulir_dok = $hm->hut_mst_dok;
-			
-						
-			$formulir_prm = array(
-			"hutprm" => $hm->hutprm
-			);
-		}
+if($this->session->userdata('operator_d1') == "UBAH" && empty($this->session->userdata('validasi_d1'))){
+	foreach($daftar_hutang_master as $hm){
+		$formulir_urut = $hm->hutprm;
+		$formulir_nobuk = $hm->hut_mst_nobuk;
+		$formulir_sts = $hm->hut_mst_sts;
+		$formulir_tgl = $hm->hut_mst_tgl;
+		$formulir_tglrnc = $hm->hut_mst_tglrnc;
+		$formulir_pst = $hm->pst_mst_nm;
+		$formulir_kel = $hm->kel_mst_ket;
+		$formulir_rek = $hm->rek_mst_ket_sub_kode;
+		$formulir_rnc = 'Rp. '.number_format($hm->hut_mst_rnc,2,",",".");
+		$formulir_ket = $hm->hut_mst_ket;
+		$formulir_dok = $hm->hut_mst_dok;
+		
+					
+		$formulir_prm = array(
+		"hutprm" => $hm->hutprm
+		);
 	}
 }
 
@@ -147,7 +145,7 @@ $tombol_unduh = array(
 										<td><?php echo 'Rp'. number_format($hm->hut_mst_rnc,2,",",".") ?></td>
 										<td><?php echo 'Rp'. number_format($hm->hut_mst_ttl,2,",",".") ?></td>
 										<td>
-											<a href="<?php echo base_url().'index.php/klik_d/detail_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-primary">DETAIL</a>
+											<a href="<?php echo base_url().'index.php/klik_d/detail_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-primary" onClick="kasihfokuslah()">DETAIL</a>
 										</td>
 									</tr>
 									<?php } ?>
@@ -256,12 +254,6 @@ $tombol_unduh = array(
 	</div>
 </div>
 <script type="text/javascript">
-var inputan1 = document.getElementById('isiDua');
-
-function kasihfokuslah(){
-	inputan1.scrollIntoView();
-}
-
 	$('#tblHutDet').DataTable({
 	"order": [[ 3, "asc" ]]
 });

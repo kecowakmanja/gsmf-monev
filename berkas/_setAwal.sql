@@ -37,13 +37,15 @@ CREATE TABLE IF NOT EXISTS `hutang_master` (
   UNIQUE KEY `hut_mst_dt_hut_mst_nobuk` (`hut_mst_dt`,`hut_mst_nobuk`),
   UNIQUE KEY `hut_mst_nobuk` (`hut_mst_nobuk`),
   KEY `hut_mst_dt_hut_mst_tgl` (`hut_mst_dt`,`hut_mst_tgl`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table gsmf-monev.hutang_master: ~1 rows (approximately)
+-- Dumping data for table gsmf-monev.hutang_master: ~2 rows (approximately)
 /*!40000 ALTER TABLE `hutang_master` DISABLE KEYS */;
 INSERT INTO `hutang_master` (`hutprm`, `hut_mst_lock`, `hut_mst_dt`, `hut_mst_nobuk`, `hut_mst_sts`, `hut_mst_tgl`, `hut_mst_tglrnc`, `hut_mst_pst`, `hut_mst_kel`, `hut_mst_rek`, `hut_mst_rnc`, `hut_mst_ttl`, `hut_mst_ket`, `hut_mst_dok`) VALUES
-	(8, 0, 'AGR', 'AGR-20210407-72239', 'BARU', '2021-04-07', '2021-05-01', 'GSU', 'F-01', '2121-01', 5450000, NULL, 'COBAIN INPUT PROGRAM', 'AGR-20210407-72239.docx'),
-	(9, 0, 'AGR', 'AGR-20210407-48937', 'BARU', '2021-04-07', '2021-04-07', 'GSU', 'F-01', '2122-01', 1250000, NULL, 'COBAIN TAMBAH BIAYA RUTIN', 'AGR-20210407-48937.jpeg');
+	(8, 0, 'AGR', 'AGR-20210407-72239', 'TOLAK', '2021-04-07', '2021-05-01', 'GSU', 'F-01', '2121-01', 5450000, NULL, 'COBAIN INPUT PROGRAM', 'AGR-20210407-72239.docx'),
+	(9, 0, 'AGR', 'AGR-20210407-48937', 'SETUJU', '2021-04-07', '2021-04-07', 'GSU', 'F-01', '2122-01', 1250000, NULL, 'COBAIN TAMBAH BIAYA RUTIN', 'AGR-20210407-48937.jpeg'),
+	(10, 0, 'AGR', 'AGR-20210407-83933', 'BARU', '2021-04-07', '2021-05-31', 'GSU', 'F-01', '2121-02', 2535000, NULL, 'PROGRAM INPUT COBAIN', 'AGR-20210407-83933.docx'),
+	(11, 0, 'AGR', 'AGR-20210407-27600', 'BARU', '2021-04-07', '2021-05-10', 'GSU', 'F-01', '2122-07', 250000, NULL, 'BIAYA BIAYA TEST', 'AGR-20210407-27600.jpg');
 /*!40000 ALTER TABLE `hutang_master` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.info_level_1
@@ -255,6 +257,28 @@ INSERT INTO `kelompok_master` (`kelprm`, `kel_mst_sts`, `kel_mst_kode`, `kel_mst
 	(132, 'AKTIF', 'G', 'G-11', 'KEPANITIAAN', 'PANITIA LAIN-LAIN');
 /*!40000 ALTER TABLE `kelompok_master` ENABLE KEYS */;
 
+-- Dumping structure for table gsmf-monev.periksa_master
+CREATE TABLE IF NOT EXISTS `periksa_master` (
+  `perprm` int(11) NOT NULL AUTO_INCREMENT,
+  `per_mst_dt` varchar(20) DEFAULT NULL,
+  `per_mst_nobuk` varchar(20) DEFAULT NULL,
+  `per_mst_sts` varchar(20) DEFAULT NULL,
+  `per_mst_tgl` date DEFAULT NULL,
+  `per_mst_pst` varchar(20) DEFAULT NULL,
+  `per_mst_ket` varchar(2000) DEFAULT NULL,
+  PRIMARY KEY (`perprm`),
+  KEY `per_mst_dt_per_mst_nobuk` (`per_mst_dt`,`per_mst_nobuk`),
+  KEY `per_mst_nobuk_per_mst_sts` (`per_mst_nobuk`,`per_mst_sts`),
+  KEY `per_mst_tgl` (`per_mst_tgl`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table gsmf-monev.periksa_master: ~0 rows (approximately)
+/*!40000 ALTER TABLE `periksa_master` DISABLE KEYS */;
+INSERT INTO `periksa_master` (`perprm`, `per_mst_dt`, `per_mst_nobuk`, `per_mst_sts`, `per_mst_tgl`, `per_mst_pst`, `per_mst_ket`) VALUES
+	(1, 'VER', 'AGR-20210407-48937', 'SETUJU', '2021-04-07', 'GSU', ''),
+	(2, 'VER', 'AGR-20210407-72239', 'TOLAK', '2021-04-07', 'GSU', 'tolak... ga ada duit di kas');
+/*!40000 ALTER TABLE `periksa_master` ENABLE KEYS */;
+
 -- Dumping structure for table gsmf-monev.peserta_master
 CREATE TABLE IF NOT EXISTS `peserta_master` (
   `pstprm` int(11) NOT NULL AUTO_INCREMENT,
@@ -273,8 +297,7 @@ CREATE TABLE IF NOT EXISTS `peserta_master` (
 -- Dumping data for table gsmf-monev.peserta_master: ~2 rows (approximately)
 /*!40000 ALTER TABLE `peserta_master` DISABLE KEYS */;
 INSERT INTO `peserta_master` (`pstprm`, `pst_mst_sts`, `pst_mst_kode`, `pst_mst_kel`, `pst_mst_hak`, `pst_mst_nm`, `pst_mst_pswd`, `pst_mst_lock`) VALUES
-	(5, 'AKTIF', 'ROOT', 'F-01', 'PEMILIK', 'GSATRIOUTOMO', '68ba07abf0d370630620ea43c68fabbd', 1),
-	(10, 'AKTIF', 'GSU', 'F-01', 'PEMILIK', 'GREGORIUSSATRIOUTOMO', 'a906449d5769fa7361d7ecc6aa3f6d28', 1);
+	(10, 'AKTIF', 'GSU', 'F-01', 'PEMILIK', 'GREGORIUSSATRIOUTOMO', '68ba07abf0d370630620ea43c68fabbd', 1);
 /*!40000 ALTER TABLE `peserta_master` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.rekening_master

@@ -95,7 +95,7 @@ class klik_a extends CI_Controller {
 			$this->form_validation->set_message('required','%s ngga boleh dikosongin');
 			$this->form_validation->set_message('is_unique','%s udah ada tuh, coba ganti yang lain deh');
 			$this->form_validation->set_message('max_length[20]','%s kepanjangan, maksimal 20 karakter');
-			$this->form_validation->set_message('max_length[2000]','%s kepanjangan, maksimal 20000 karakter');
+			$this->form_validation->set_message('max_length[2000]','%s kepanjangan, maksimal 2000 karakter');
 
 			if($this->form_validation->run() != false){
 				$nilai_master = array(

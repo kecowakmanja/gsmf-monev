@@ -320,7 +320,7 @@ class klik_b extends CI_Controller {
 		}
 		
 		if ($t_hut_mst_sts != "BARU" || $t_hut_mst_lock != 0){
-			$validasi_b1 = array(
+			$validasi_b2 = array(
 				'validasi_b2' => "Pengajuan anggaran lagi di proses, nda boleh hapus data yang sudah masuk..."
 			);
 			$this->session->set_userdata($validasi_b2);
@@ -357,13 +357,14 @@ class klik_b extends CI_Controller {
 				'validasi_b1' => "Pengajuan anggaran lagi di proses, nda boleh ubah-ubah data yang sudah masuk..."
 			);
 			$this->session->set_userdata($validasi_b1);
+			redirect($this->KePilihanB1);
 			
 		} else {
 			$nilai_master = array('hut_mst_lock' => '1');
 			$this->m_db->ubah_data($kondisi1,$nilai_master,$this->TabelHutangMaster);
+			$this->load->view($this->FormB1,$data);
 		}
 		
-		redirect($this->KePilihanB1);
 		$this->kosong_operator_validasi();
 	}
 	
@@ -393,13 +394,14 @@ class klik_b extends CI_Controller {
 				'validasi_b2' => "Pengajuan anggaran lagi di proses, nda boleh ubah-ubah data yang sudah masuk..."
 			);
 			$this->session->set_userdata($validasi_b2);
+			redirect($this->KePilihanB2);
 			
 		} else {
 			$nilai_master = array('hut_mst_lock' => '1');
 			$this->m_db->ubah_data($kondisi1,$nilai_master,$this->TabelHutangMaster);
+			$this->load->view($this->FormB2,$data);
 		}
 		
-		redirect($this->KePilihanB2);
 		$this->kosong_operator_validasi();
 	}
 
