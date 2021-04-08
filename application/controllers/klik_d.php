@@ -38,10 +38,11 @@ class klik_d extends CI_Controller {
 	}
 
 	function pilihan_d1(){
+		
 		$kondisi1 = array(
 			'rek_mst_kel' => 'ANGGARAN',
 			'rek_mst_gol' => 'ABTT',
-			'rek_mst_sub_gol' => 'BIAYA',
+			'rek_mst_sub_gol' => 'BIAYA'
 		);
 		
 		$kondisi2 = array(
@@ -51,7 +52,7 @@ class klik_d extends CI_Controller {
 			'rek_mst_kode' => 'PROGRAM'
 		);
 
-		$data['daftar_hutang_master'] = $this->m_db->ambil_data_hutang($kondisi1)->result();
+		$data['daftar_hutang_master'] = $this->m_db->ambil_data_hutang_periksa($kondisi1)->result();
 		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi2,$this->TabelRekeningMaster)->result();
 		$this->load->view($this->FormD1,$data);
 		$this->kosong_operator_validasi();

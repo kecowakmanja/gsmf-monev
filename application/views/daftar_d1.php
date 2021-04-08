@@ -99,9 +99,9 @@ $tombol_unduh = array(
 				</h5>
 				<p class="card-text">
 					<ul>
-						<li>Silahkan manfaatkan kotak <strong>SEARCH</strong> untuk melakukan pencarian.</li>
-						<li><strong>JUDUL TABEL</strong> dapat di tekan untuk melakukan pengurutan untuk membantu permudah pencarian.</li>
-						<li>Tombol operator <strong>DETAIL</strong> untuk melihat lebih detail sebelum melakukan ACC.</li>
+						<li>Tekan <strong>DETAIL</strong> di <strong>DAFTAR PENGAJUAN ANGGARAN</strong> dulu supaya muncul informasi lengkap.</li>
+						<li>Periksa berkas yang dilampirkan saat pengajuan anggaran dengan menekan tombol <strong>UNDUH</strong> di <strong>KOLOM PERSETUJUAN</strong>.</li>
+						<li>Verifikator bisa pilih tombol <strong>TOLAK</strong> atau <strong>SETUJU</strong>, catatan tambahan diperlukan kalo pengajuan di tolak.</li>
 					</ul>
 				</p>
 			</div>

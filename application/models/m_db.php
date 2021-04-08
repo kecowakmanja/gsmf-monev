@@ -10,91 +10,51 @@ class M_db extends CI_Model{
 		$this->db->where($kondisi);
 		return $this->db->get();
 	}
-
-	function ambil_data_hutang_detail($kondisi){
-		$this->db->select('hd.*, rm.*');
-		$this->db->from('hutang_master as hm');
-		$this->db->join('hutang_detail as hd','hd.hut_det_nobuk = hm.hut_mst_nobuk');
-		$this->db->join('rekening_master as rm','rm.rek_mst_kode = hd.hut_det_rek');
-		$this->db->where($kondisi);
-		return $this->db->get();
-	}
 	
-	function ambil_data_hutang_setuju(){
-		$blmcair = array('BARU');
+	function ambil_data_hutang_periksa($kondisi){
+		$blmcair = array('BARU','SETUJU','TOLAK');
 		$this->db->select('*');
 		$this->db->from('hutang_master as h');
-		$this->db->join('peserta as p','p.pgnprm = h.hutpgnprm');
-		$this->db->join('rekening as rb','rb.rekprm = h.hutrekprm');
-		$this->db->where_in('h.hutsts',$blmcair);
+		$this->db->join('rekening_master as r','r.rek_mst_sub_kode = h.hut_mst_rek');
+		$this->db->join('kelompok_master as k','k.kel_mst_subkode = h.hut_mst_kel');
+		$this->db->join('peserta_master as p','p.pst_mst_kode = h.hut_mst_pst');
+		$this->db->where($kondisi);
+		$this->db->where_in('h.hut_mst_sts',$blmcair);
 		return $this->db->get();
 	}
-
-	function ambil_data_hutang_setuju_saring($saring){
+	
+	function ambil_data_hutang_cair($kondisi){
+		$blmcair = array('SETUJU','CAIR');
 		$this->db->select('*');
-		$this->db->from('hutang as h');
-		$this->db->join('peserta as p','p.pgnprm = h.hutpgnprm');
-		$this->db->join('rekening as rb','rb.rekprm = h.hutrekprm');
-		$this->db->like($saring);
+		$this->db->from('hutang_master as h');
+		$this->db->join('rekening_master as r','r.rek_mst_sub_kode = h.hut_mst_rek');
+		$this->db->join('kelompok_master as k','k.kel_mst_subkode = h.hut_mst_kel');
+		$this->db->join('peserta_master as p','p.pst_mst_kode = h.hut_mst_pst');
+		$this->db->where($kondisi);
+		$this->db->where('hut_mst_rnc>hut_mst_ttl');
+		$this->db->where_in('h.hut_mst_sts',$blmcair);
 		return $this->db->get();
 	}
-
-	function ambil_data_hutang_cair(){
-		$where_in = array('SETUJU','CAIR');
+	
+	function ambil_data_peserta($kondisi,$tabel){
 		$this->db->select('*');
-		$this->db->from('hutang as h');
-		$this->db->join('peserta as p','p.pgnprm = h.hutpgnprm');
-		$this->db->join('rekening as rb','rb.rekprm = h.hutrekprm');
-		$this->db->where_in('h.hutsts',$where_in);
-		return $this->db->get();
-	}
-
-	function ambil_data_hutang_cair_saring($saring){
-		$where_in = array('SETUJU','CAIR');
-		$this->db->select('*');
-		$this->db->from('hutang as h');
-		$this->db->join('peserta as p','p.pgnprm = h.hutpgnprm');
-		$this->db->join('rekening as rb','rb.rekprm = h.hutrekprm');
-		$this->db->where_in('h.hutsts',$where_in);
-		$this->db->like($saring);
-		return $this->db->get();
-	}
-
-	function ambil_data_hutang_cair_ok($kondisi,$tabel){
-		$this->db->select('*');
-		$this->db->from('hutang as h');
-		$this->db->join('peserta as p','p.pgnprm = h.hutpgnprm');
-		$this->db->join('rekening as rb','rb.rekprm = h.hutrekprm');
+		$this->db->from('peserta_master as pm');
+		$this->db->join('kelompok_master as km','km.kel_mst_subkode = pm.pst_mst_kel','left');
 		$this->db->where($kondisi);
 		return $this->db->get();
 	}
-
 	
-	function ambil_data_kas(){
-		$where_in = array('KK');
-		$this->db->select('m.*,p.*,h.*,rk.rekprm as rkrekprm, rk.rekket as rkrekket, rb.rekprm as rbrekprm, rb.rekket as rbrekket');
-		$this->db->from('mutasi as m');
-		$this->db->join('peserta as p','p.pgnprm = m.mtspgnprm');
-		$this->db->join('rekening as rk','rk.rekprm = m.mtsrekprm');
-		$this->db->join('hutang as h','h.hutprm = m.mtshutpiuprm');
-		$this->db->join('rekening as rb','rb.rekprm = h.hutrekprm');
-		$this->db->where_in('m.mtsdt',$where_in);
+	function ambil_data_kas($kondisi){
+		$this->db->select('*');
+		$this->db->from('kas_master as k');
+		$this->db->join('rekening_master as r','r.rek_mst_sub_kode = k.kas_mst_rek');
+		$this->db->join('hutang_master as h','h.hut_mst_nobuk = k.kas_mst_noref','left');
+		$this->db->join('kelompok_master as kl','kl.kel_mst_subkode = h.hut_mst_kel');
+		$this->db->join('peserta_master as p','p.pst_mst_kode = h.hut_mst_pst');
+		$this->db->where($kondisi);
 		return $this->db->get();
 	}
-
-	function ambil_data_kas_saring($saring){
-		$where_in = array('KK');
-		$this->db->select('m.*,p.*,h.*,rk.rekprm as rkrekprm, rk.rekket as rkrekket, rb.rekprm as rbrekprm, rb.rekket as rbrekket');
-		$this->db->from('mutasi as m');
-		$this->db->join('peserta as p','p.pgnprm = m.mtspgnprm');
-		$this->db->join('rekening as rk','rk.rekprm = m.mtsrekprm');
-		$this->db->join('hutang as h','h.hutprm = m.mtshutpiuprm');
-		$this->db->join('rekening as rb','rb.rekprm = h.hutrekprm');
-		$this->db->where_in('m.mtsdt',$where_in);
-		$this->db->like($saring);
-		return $this->db->get();
-	}
-
+	
 	function ambil_data_seperti_kondisi($kondisi,$seperti,$kelompok,$tabel){
 		$this->db->like($seperti);
 		$this->db->where($kondisi);
@@ -147,22 +107,6 @@ class M_db extends CI_Model{
 		return $this->db->get();
 	}
 	
-	function ambil_data_acc($kondisi,$tabel){
-		$this->db->select('*');
-		$this->db->from('acc as a');
-		$this->db->join('hutang as h','h.hutprm = a.acchutpiuprm');
-		$this->db->join('peserta as p','p.pgnprm = h.hutpgnprm');
-		$this->db->join('rekening as rb','rb.rekprm = h.hutrekprm');
-		$this->db->where($kondisi);
-		return $this->db->get();
-	}
-
-	function ambil_data_peserta($kondisi,$tabel){
-		$this->db->select('*');
-		$this->db->from('peserta_master as pm');
-		$this->db->join('kelompok_master as km','km.kel_mst_subkode = pm.pst_mst_kel','left');
-		$this->db->where($kondisi);
-		return $this->db->get();
-	}
+	
 
 }

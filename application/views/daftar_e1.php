@@ -16,7 +16,7 @@
 
 $formulir_prm = array();
 $formulir_urut = "";
-$formulir_nobuk = "";
+$formulir_nobuk_hut = "";
 $formulir_sts = "";
 $formulir_tgl= "";
 $formulir_tglrnc = "";
@@ -27,10 +27,29 @@ $formulir_rnc = "";
 $formulir_ket = "";
 $formulir_dok = "";
 
-if($this->session->userdata('operator_d1') == "UBAH" && empty($this->session->userdata('validasi_d1'))){
+foreach($daftar_rekening_master as $rm){
+		$rekkode[$rm->rek_mst_sub_kode] = $rm->rek_mst_ket_sub_kode;
+}
+		
+$formulir_kas = array(
+	'name' => 't_kas_mst_rek',
+	'options' => $rekkode,
+	'class' => 'form-control',
+	'id' => 't_kas_mst_rek'
+	);
+	
+$formulir_cair = array(
+	'name' => 't_kas_mst_ttl',
+	'type' => 'number',
+	'class' => 'form-control',
+	'value' => '0',
+	'id' => 't_kas_mst_ttl'
+	);
+
+if($this->session->userdata('operator_e1') == "UBAH" && empty($this->session->userdata('validasi_e1'))){
 	foreach($daftar_hutang_master as $hm){
 		$formulir_urut = $hm->hutprm;
-		$formulir_nobuk = $hm->hut_mst_nobuk;
+		$formulir_nobuk_hut = $hm->hut_mst_nobuk;
 		$formulir_sts = $hm->hut_mst_sts;
 		$formulir_tgl = $hm->hut_mst_tgl;
 		$formulir_tglrnc = $hm->hut_mst_tglrnc;
@@ -53,24 +72,25 @@ $formulir_catatan = array(
 	'class '=> 'form-control form-control-sm',
 	'rows' => '3'
 	);
+	
+$formulir_nobuk = array(
+		'name' => 't_kas_mst_nobuk',
+		'class' => 'form-control',
+		'readonly' => 'true',
+		'id' => 't_kas_mst_nobuk'
+	);
 
-$tombol_setuju = array(
+$tombol_cair = array(
 	'name' => 'btnKirim',
-	'value' => 'SETUJU',
-	'class' => 'btn btn-success btn-lg'
+	'value' => 'CAIR',
+	'class' => 'btn btn-primary btn-sm'
 	);
 
 
 $tombol_batal = array(
 	'name' => 'btnKirim',
 	'value'=> 'BATAL',
-	'class'=> 'btn btn-primary btn-lg'
-	);
-	
-$tombol_tolak = array(
-	'name' => 'btnKirim',
-	'value' => 'TOLAK',
-	'class' => 'btn btn-danger btn-lg'
+	'class'=> 'btn btn-danger btn-sm'
 	);
 	
 $tombol_unduh = array(
@@ -88,7 +108,10 @@ $tombol_unduh = array(
 					<a class="nav-link" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_d/pilihan_d1'?>"><strong>E1. REALISASI</strong></a>
+					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_e/pilihan_e1'?>"><strong>E1. REALISASI</strong></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo base_url().'index.php/klik_e/pilihan_e2'?>"><strong>E2. DAFTAR</strong></a>
 				</li>
 			</ul>
 		</div>
@@ -99,9 +122,9 @@ $tombol_unduh = array(
 				</h5>
 				<p class="card-text">
 					<ul>
-						<li>Silahkan manfaatkan kotak <strong>SEARCH</strong> untuk melakukan pencarian.</li>
-						<li><strong>JUDUL TABEL</strong> dapat di tekan untuk melakukan pengurutan untuk membantu permudah pencarian.</li>
-						<li>Tombol operator <strong>DETAIL</strong> untuk melihat lebih detail sebelum melakukan realisasi.</li>
+						<li>Tekan <strong>DETAIL</strong> di <strong>DAFTAR PENGAJUAN ANGGARAN</strong> dulu supaya bisa cairkan anggaran.</li>
+						<li>Jangan sampai salah pilih <strong>POS REKENING</strong>.</li>
+						<li><strong>BESAR PENCAIRAN</strong> yaitu sebesar sisa rencana anggaran.</li>
 					</ul>
 				</p>
 			</div>
@@ -144,7 +167,7 @@ $tombol_unduh = array(
 										<td><?php echo 'Rp'. number_format($hm->hut_mst_rnc,2,",",".") ?></td>
 										<td><?php echo 'Rp'. number_format($hm->hut_mst_ttl,2,",",".") ?></td>
 										<td>
-											<a href="<?php echo base_url().'index.php/klik_d/detail_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-primary" onClick="kasihfokuslah()">DETAIL</a>
+											<a href="<?php echo base_url().'index.php/klik_e/detail_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-primary" onClick="kasihfokuslah()">DETAIL</a>
 										</td>
 									</tr>
 									<?php } ?>
@@ -164,7 +187,7 @@ $tombol_unduh = array(
 					</h6>
 					<div id="isiDua" class="accordion-collapse collapse show" data-bs-parent="#frmHutDet2" aria-labelledby="judulDua">
 						<div class="accordion-body">
-							<table class="table table-sm text-start">
+							<table class="table table-sm text-start table-light">
 								<?php echo form_open('klik_d/proses_hutang_ok','',$formulir_prm); ?>
 								<tr>
 									<td><?php echo form_label('NOMOR URUT'); ?></td>
@@ -172,7 +195,7 @@ $tombol_unduh = array(
 								</tr>
 								<tr>
 									<td><?php echo form_label('NOMOR BUKTI PENGAJUAN ANGGARAN'); ?></td>
-									<td><?php echo form_label($formulir_nobuk); ?></td>
+									<td><?php echo form_label($formulir_nobuk_hut); ?></td>
 								</tr>
 								<tr>
 									<td><?php echo form_label('STATUS'); ?></td>
@@ -219,26 +242,29 @@ $tombol_unduh = array(
 									</td>
 								</tr>
 							</table>
-							<table class="table table-sm table-borderless text-center">
-								<?php echo form_open('klik_d/ubah_hutang_ok','',$formulir_prm); ?>
+							<table class="table table-sm text-start table-bordered table-light">
+								<?php echo form_open('klik_e/ubah_hutang_ok','',$formulir_prm); ?>
 								<tr>
-									<th><?php echo form_label('CATATAN TAMBAHAN'); ?></th>
-								</tr>	
+									<td><?php echo form_label('NOMOR BUKTI PENCAIRAN ANGGARAN'); ?></td>
+									<td><?php echo form_input($formulir_nobuk); ?></td>
+								</tr>
 								<tr>
-									<td><?php echo form_textarea($formulir_catatan)?></td>
+									<td><?php echo form_label('POS REKENING'); ?></td>
+									<td><?php echo form_dropdown($formulir_kas); ?></td>
+								</tr>
+								<tr>
+									<td><?php echo form_label('BESAR PENCAIRAN'); ?></td>
+									<td><?php echo form_input($formulir_cair); ?></td>
 								</tr>
 								<tr>
 									<td>
-										<div class="row justify-content-center">
-											<div class="col col-sm-4">
-												<?php 
-												echo form_submit($tombol_tolak);
-												echo form_submit($tombol_setuju);
-												echo form_submit($tombol_batal);
-												echo form_close();
-												?>
-											</div>
-										</div>
+									</td>
+									<td>
+										<?php 
+										echo form_submit($tombol_cair);
+										echo form_submit($tombol_batal);
+										echo form_close();
+										?>
 									</td>
 								</tr>
 							</table>
