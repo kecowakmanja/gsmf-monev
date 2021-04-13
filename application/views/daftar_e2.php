@@ -23,20 +23,18 @@
 					<a class="nav-link" href="<?php echo base_url().'index.php/klik_e/pilihan_e1'?>"><strong>E1. REALISASI</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_e/pilihan_e2'?>"><strong>E2. DAFTAR</strong></a>
+					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_e/pilihan_e2'?>"><strong>E2. HISTORIS</strong></a>
 				</li>
 			</ul>
 		</div>
 		<div class="card-body">
 			<div class="alert alert-info text-start">
 				<h5 class="card-title">
-					REALISASI ANGGARAN PROGRAM DAN BIAYA RUTIN
+					HISTORIS AKTIVITAS KAS DAN SETARA KAS
 				</h5>
 				<p class="card-text">
 					<ul>
-						<li>Tekan <strong>DETAIL</strong> di <strong>DAFTAR PENGAJUAN ANGGARAN</strong> dulu supaya bisa cairkan anggaran.</li>
-						<li>Jangan sampai salah pilih <strong>POS REKENING</strong>.</li>
-						<li><strong>BESAR PENCAIRAN</strong> yaitu sebesar sisa rencana anggaran.</li>
+						<li>Tekan <strong>DETAIL</strong> di <strong>DAFTAR MUTASI KAS DAN SETARA KAS</strong> dulu supaya bisa melihat detail jurnal.</li>
 					</ul>
 				</p>
 			</div>
@@ -79,7 +77,7 @@
 										<td><?php echo $km->kas_mst_sts ?></td>
 										<td><?php echo 'Rp'. number_format($km->kas_mst_ttl,2,",",".") ?></td>
 										<td>
-											<a href="<?php echo base_url().'index.php/klik_e/detail_kas_ok/'.$km->kasprm ?>" class="btn btn-sm btn-primary" onClick="kasihfokuslah()">DETAIL</a>
+											<a href="#" class="btn btn-primary btn-sm" onClick="cari_jurnal('<?php echo $km->kas_mst_nobuk; ?>')">DETAIL</a>
 										</td>
 									</tr>
 									<?php } ?>
@@ -95,10 +93,61 @@
 		</div>
 	</div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="mdlJrn" tabindex="-1" aria-labelledby="mdlJrnLbl" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="mdlJrnLbl">JURNAL</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="TUTUP"></button>
+			</div>
+			<div class="modal-body">
+				<table class="table table-sm table-hover" id="tblKasDet">
+					<thead>
+						<tr>
+							<th>NO.MUTASI</th>
+							<th>TANGGAL</th>
+							<th>REKENING</th>
+							<th>KETERANGAN</th>
+							<th>D/K</th>
+							<th>NOMINAL</th>
+						</tr>
+					</thead>
+					<tbody id="hasilajax">
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">TUTUP</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <script type="text/javascript">
-	$('#tblKasDet').DataTable({
+var url_cari_jurnal = "<?php echo base_url()."index.php/klik_e/cari_jurnal/"?>"
+
+$('#tblKasDet').DataTable({
 	"order": [[ 0, "asc" ]]
 });
+
+function cari_jurnal(t_kas_mst_nobuk){
+	$('#hasilajax').empty();
+	$('#mdlJrn').modal('show');
+	$.ajax({
+		type: "POST",
+		url: url_cari_jurnal,
+		dataType: 'json',
+		data: {t_jrn_mst_nobuk:t_kas_mst_nobuk},
+		success: function(data){
+			$.each(data,function(key,value){
+				$('#hasilajax').append("<tr><td>"+value.jrnnobuk+"</td><td>"+value.jrntgl+"</td><td>"+value.jrnrek+"</td><td>"+value.jrnketrek+"</td><td>"+value.jrndk+"</td><td>"+value.jrnttl+"</td></tr>");
+			})
+			
+		}
+	})
+}
 
 </script>
 </body>

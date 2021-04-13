@@ -51,7 +51,8 @@ if($this->session->userdata('operator_d1') == "UBAH" && empty($this->session->us
 $formulir_catatan = array(
 	'name' => 't_cek_mst_ket',
 	'class '=> 'form-control form-control-sm',
-	'rows' => '3'
+	'rows' => '3',
+	'id' => 't_cek_mst_ket'
 	);
 
 $tombol_setuju = array(
@@ -88,7 +89,10 @@ $tombol_unduh = array(
 					<a class="nav-link" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_d/pilihan_d1'?>"><strong>D1. VERIFIKASI</strong></a>
+					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_d/pilihan_d1'?>"><strong>D1. BELUM</strong></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo base_url().'index.php/klik_d/pilihan_d2'?>"><strong>D2. SELESAI</strong></a>
 				</li>
 			</ul>
 		</div>
@@ -142,7 +146,7 @@ $tombol_unduh = array(
 										<td><?php echo $hm->hut_mst_tglrnc ?></td>
 										<td><?php echo 'Rp'. number_format($hm->hut_mst_rnc,2,",",".") ?></td>
 										<td>
-											<a href="<?php echo base_url().'index.php/klik_d/detail_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-primary" onClick="kasihfokuslah()">DETAIL</a>
+											<a href="<?php echo base_url().'index.php/klik_d/detail_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-primary">DETAIL</a>
 										</td>
 									</tr>
 									<?php } ?>
@@ -251,9 +255,12 @@ $tombol_unduh = array(
 	</div>
 </div>
 <script type="text/javascript">
-	$('#tblHutDet').DataTable({
-	"order": [[ 3, "asc" ]]
+
+$(document).ready(
+function () {
+	$('#tblHutDet').DataTable();
 });
+
 
 </script>
 </body>

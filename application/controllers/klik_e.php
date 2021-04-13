@@ -13,6 +13,7 @@ class klik_e extends CI_Controller {
 		$this->TabelPesertaMaster = "peserta_master";
 		$this->TabelRekeningMaster = "rekening_master";
 		$this->TabelKasMaster = "kas_master";
+		$this->TabelJurnalMaster = "jurnal_master";
 		$this->FormE1 = "daftar_e1";
 		$this->FormE2 = "daftar_e2";
 		$this->KePilihanE1 = "klik_e/pilihan_e1";
@@ -25,7 +26,7 @@ class klik_e extends CI_Controller {
 	}
  
 	function index(){
-		if($this->session->userdata('hak') == "PEMAKAI"){
+		if(($this->session->userdata('hak') == "PENGAWAS") || ($this->session->userdata('hak') == "PEMAKAI")){
 			$validasi_z1 = array('validasi_z1' => "Maaf anda nda boleh masuk laman ini...");
 			$this->session->set_userdata($validasi_z1);
 			redirect($this->KePilihanZ1);
@@ -80,7 +81,7 @@ class klik_e extends CI_Controller {
 			$t_hut_mst_nobuk = $hm->hut_mst_nobuk;
 		}
 
-		if ($t_hut_mst_lock != 0 || ($t_hut_mst_sts != 'CAIR' && $t_hut_mst_sts != 'SETUJU')){
+		if ($t_hut_mst_lock != 0){
 			$validasi_e1 = array(
 				'validasi_e1' => "Pengajuan ini sedang di proses, nda boleh di utak-atik dulu..."
 			);
@@ -116,6 +117,7 @@ class klik_e extends CI_Controller {
 				$t_hut_mst_nobuk = $hm->hut_mst_nobuk;
 				$t_hut_mst_rnc = $hm->hut_mst_rnc;
 				$t_hut_mst_ttl = $hm->hut_mst_ttl;
+				$t_hut_mst_rek = $hm->hut_mst_rek;
 				$maksimum = (float)$hm->hut_mst_rnc-(float)$hm->hut_mst_ttl;
 			}
 			
@@ -128,19 +130,17 @@ class klik_e extends CI_Controller {
 			}
 			
 			if ($this->input->post('btnKirim')!="BATAL"){
-				if (empty($_POST['t_kas_mst_nobuk'])) {
-					$prefix1 = 'KK';
-					$prefix2 = date('Ymd');
-					$prefix3 = date('Y-m-d');
-					$prm1 = 'kas_mst_dt';
-					$prm2 = 'kas_mst_nobuk';
-					$prm3 = 'kas_mst_tgl';
-					$separator = "-";
-		
-					$_POST['t_kas_mst_nobuk'] = $this->m_db->ambil_data_urut($this->TabelKasMaster,$prefix1,$prefix2,$prefix3,$separator,$prm1,$prm2,$prm3)->result();
-					if (empty($data_no_bukti_acak)){ //empty karna blm ada record
-						$_POST['t_kas_mst_nobuk'] = trim(strtoupper($prefix1.$separator.$prefix2.$separator.str_pad(floor(rand(0,99999)),5,"0",STR_PAD_LEFT)));
-					}
+				$prefix1 = 'KK';
+				$prefix2 = date('Ymd');
+				$prefix3 = date('Y-m-d');
+				$prm1 = 'kas_mst_dt';
+				$prm2 = 'kas_mst_nobuk';
+				$prm3 = 'kas_mst_tgl';
+				$separator = "-";
+	
+				$_POST['t_kas_mst_nobuk'] = $this->m_db->ambil_data_urut($this->TabelKasMaster,$prefix1,$prefix2,$prefix3,$separator,$prm1,$prm2,$prm3)->result();
+				if (empty($_POST['t_kas_mst_nobuk'])){ //empty karna blm ada record
+					$_POST['t_kas_mst_nobuk'] = trim(strtoupper($prefix1.$separator.$prefix2.$separator.str_pad(floor(rand(0,99999)),5,"0",STR_PAD_LEFT)));
 				}
 				
 				$nilai_kas_master = array(
@@ -161,6 +161,30 @@ class klik_e extends CI_Controller {
 					'hut_mst_lock' => '0'
 				);
 				
+				$nilai_jurnal_k_master = array(
+					'jrn_mst_lock' => '0',
+					'jrn_mst_dt' => 'KK',
+					'jrn_mst_nobuk' => $this->input->post('t_kas_mst_nobuk'),
+					'jrn_mst_noref' => $t_hut_mst_nobuk,
+					'jrn_mst_pst' => $this->session->userdata('kode'),
+					'jrn_mst_tgl' => date('Y-m-d'),
+					'jrn_mst_rek' => $this->input->post('t_kas_mst_rek'),
+					'jrn_mst_dk' => 'K',
+					'jrn_mst_ttl' => $this->input->post('t_kas_mst_ttl')
+				);
+				
+				$nilai_jurnal_d_master = array(
+					'jrn_mst_lock' => '0',
+					'jrn_mst_dt' => 'KK',
+					'jrn_mst_nobuk' => $this->input->post('t_kas_mst_nobuk'),
+					'jrn_mst_noref' => $t_hut_mst_nobuk,
+					'jrn_mst_pst' => $this->session->userdata('kode'),
+					'jrn_mst_tgl' => date('Y-m-d'),
+					'jrn_mst_rek' => $t_hut_mst_rek,
+					'jrn_mst_dk' => 'D',
+					'jrn_mst_ttl' => $this->input->post('t_kas_mst_ttl')
+				);
+				
 				switch ($this->input->post('btnKirim')){
 					case "CAIR":
 						$this->form_validation->set_rules('t_kas_mst_rek','REKENING PENCAIRAN','required');
@@ -179,6 +203,9 @@ class klik_e extends CI_Controller {
 						} else {
 							$this->m_db->ubah_data($kondisi,$nilai_hutang_master,$this->TabelHutangMaster);
 							$this->m_db->tambah_data($nilai_kas_master,$this->TabelKasMaster);
+							
+							$this->m_db->tambah_data($nilai_jurnal_d_master,$this->TabelJurnalMaster);
+							$this->m_db->tambah_data($nilai_jurnal_k_master,$this->TabelJurnalMaster);
 						}
 						break;
 				}
@@ -193,5 +220,27 @@ class klik_e extends CI_Controller {
 			$this->session->set_userdata($validasi_e1);
 			redirect($this->KePilihanE1);
 		}
-	}	
+	}
+	
+	function cari_jurnal(){
+		$kondisi = array(
+			'jrn_mst_nobuk' => $this->input->post('t_jrn_mst_nobuk')
+		);
+		$data['daftar_jurnal_master'] = $this->m_db->ambil_data_jurnal($kondisi)->result();
+		
+		$t_jrn_mst = array();
+		
+		foreach($data['daftar_jurnal_master'] as $jm){
+			$t_jrn_mst[] = array(
+					'jrnnobuk' => $jm->jrn_mst_nobuk,
+					'jrntgl' => $jm->jrn_mst_tgl,
+					'jrnrek' => $jm->jrn_mst_rek,
+					'jrnketrek' => $jm->rek_mst_sub_gol.' '.$jm->rek_mst_ket_sub_kode,
+					'jrndk' => $jm->jrn_mst_dk,
+					'jrnttl' => 'Rp '. number_format($jm->jrn_mst_ttl,2,",",".")
+			);
+		}
+		echo json_encode($t_jrn_mst);
+		
+	}
 }

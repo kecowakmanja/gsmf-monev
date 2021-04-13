@@ -12,7 +12,7 @@ class M_db extends CI_Model{
 	}
 	
 	function ambil_data_hutang_periksa($kondisi){
-		$blmcair = array('BARU','SETUJU','TOLAK');
+		$blmcair = array('BARU');
 		$this->db->select('*');
 		$this->db->from('hutang_master as h');
 		$this->db->join('rekening_master as r','r.rek_mst_sub_kode = h.hut_mst_rek');
@@ -20,6 +20,18 @@ class M_db extends CI_Model{
 		$this->db->join('peserta_master as p','p.pst_mst_kode = h.hut_mst_pst');
 		$this->db->where($kondisi);
 		$this->db->where_in('h.hut_mst_sts',$blmcair);
+		return $this->db->get();
+	}
+	
+	function ambil_data_hutang_periksa_selesai($kondisi){
+		$blmcair = array('TOLAK','SETUJU');
+		$this->db->select('*');
+		$this->db->from('hutang_master as h');
+		$this->db->join('rekening_master as r','r.rek_mst_sub_kode = h.hut_mst_rek');
+		$this->db->join('periksa_master as a','a.per_mst_nobuk = h.hut_mst_nobuk and a.per_mst_dt = "VER"');
+		$this->db->join('peserta_master as p','p.pst_mst_kode = a.per_mst_pst');
+		$this->db->where($kondisi);
+		$this->db->where_in('a.per_mst_sts',$blmcair);
 		return $this->db->get();
 	}
 	
@@ -54,6 +66,15 @@ class M_db extends CI_Model{
 		$this->db->where($kondisi);
 		return $this->db->get();
 	}
+	
+	function ambil_data_jurnal($kondisi){
+		$this->db->select('*');
+		$this->db->from('jurnal_master as jm');
+		$this->db->join('rekening_master as rm','rm.rek_mst_sub_kode = jm.jrn_mst_rek','left');
+		$this->db->where($kondisi);
+		return $this->db->get();
+	}
+		
 	
 	function ambil_data_seperti_kondisi($kondisi,$seperti,$kelompok,$tabel){
 		$this->db->like($seperti);

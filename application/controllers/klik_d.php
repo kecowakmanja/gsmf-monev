@@ -14,7 +14,9 @@ class klik_d extends CI_Controller {
 		$this->TabelRekeningMaster = "rekening_master";
 		$this->TabelPeriksaMaster = "periksa_master";
 		$this->FormD1 = "daftar_d1";
+		$this->FormD2 = "daftar_d2";
 		$this->KePilihanD1 = "klik_d/pilihan_d1";
+		$this->KePilihanD2 = "klik_d/pilihan_d2";
 		$this->KePilihanZ1 = "klik_z/index";
 
 		if($this->session->userdata('status')!="masuk"){
@@ -23,7 +25,7 @@ class klik_d extends CI_Controller {
 	}
  
 	function index(){
-		if($this->session->userdata('hak') == "PEMAKAI"){
+		if(($this->session->userdata('hak') == "PEMAKAI") || ($this->session->userdata('hak') == "PELAKSANA")){
 			$validasi_z1 = array('validasi_z1' => "Maaf anda nda boleh masuk laman ini...");
 			$this->session->set_userdata($validasi_z1);
 			redirect($this->KePilihanZ1);
@@ -55,6 +57,19 @@ class klik_d extends CI_Controller {
 		$data['daftar_hutang_master'] = $this->m_db->ambil_data_hutang_periksa($kondisi1)->result();
 		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi2,$this->TabelRekeningMaster)->result();
 		$this->load->view($this->FormD1,$data);
+		$this->kosong_operator_validasi();
+	}
+	
+	function pilihan_d2(){
+		
+		$kondisi = array(
+			'rek_mst_kel' => 'ANGGARAN',
+			'rek_mst_gol' => 'ABTT',
+			'rek_mst_sub_gol' => 'BIAYA'
+		);
+		
+		$data['daftar_hutang_master'] = $this->m_db->ambil_data_hutang_periksa_selesai($kondisi)->result();
+		$this->load->view($this->FormD2,$data);
 		$this->kosong_operator_validasi();
 	}
  

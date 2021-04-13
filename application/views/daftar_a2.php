@@ -21,6 +21,7 @@ $formulir_prm = array();
 
 $t_pst_mst_hak = array(
 	'PEMAKAI' => 'PEMAKAI',
+	'PELAKSANA' => 'PELAKSANA',
 	'PENGAWAS' => 'PENGAWAS',
 	'PEMILIK' => 'PEMILIK'
 );

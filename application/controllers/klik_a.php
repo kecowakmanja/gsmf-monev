@@ -74,9 +74,11 @@ class klik_a extends CI_Controller {
 		$kondisi1 = "in_lv_1_dt = 'REKENING'";
 		$kondisi2 = "in_lv_1_dt = 'STATUS'";
 		$kondisi3 = "1=1";
+		$kondisi4 = "in_lv_1_dt = 'AP'";
 		$data['daftar_info_level_1_rek'] = $this->m_db->ambil_data($kondisi1,$this->TabelInfoLevel1)->result();
 		$data['daftar_info_level_1_sts'] = $this->m_db->ambil_data($kondisi2,$this->TabelInfoLevel1)->result();
 		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi3,$this->TabelRekeningMaster)->result();
+		$data['daftar_info_level_1_ap'] = $this->m_db->ambil_data($kondisi4,$this->TabelInfoLevel1)->result();
 		
 		$this->load->view($this->FormA3,$data);
 		$this->kosong_operator_validasi();
@@ -294,9 +296,12 @@ class klik_a extends CI_Controller {
 		$kondisi1 = "in_lv_1_dt = 'REKENING'";
 		$kondisi2 = "in_lv_1_dt = 'STATUS'";
 		$kondisi3 = array('rekprm' => $rekprm);
+		$kondisi4 = "in_lv_1_dt = 'AP'";
 		$data['daftar_info_level_1_rek'] = $this->m_db->ambil_data($kondisi1,$this->TabelInfoLevel1)->result();
 		$data['daftar_info_level_1_sts'] = $this->m_db->ambil_data($kondisi2,$this->TabelInfoLevel1)->result();
 		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi3,$this->TabelRekeningMaster)->result();
+		$data['daftar_info_level_1_ap'] = $this->m_db->ambil_data($kondisi4,$this->TabelInfoLevel1)->result();
+		
 		$this->load->view($this->FormA3,$data);
 
 		$this->kosong_operator_validasi();
@@ -411,7 +416,8 @@ class klik_a extends CI_Controller {
 							'rek_mst_sub_gol' => trim(strtoupper($kolom[3])),
 							'rek_mst_kode' => trim(strtoupper($kolom[4])),
 							'rek_mst_sub_kode' => trim(strtoupper($kolom[5])),
-							'rek_mst_ket_sub_kode' => trim(strtoupper($kolom[6]))
+							'rek_mst_ket_sub_kode' => trim(strtoupper($kolom[6])),
+							'rek_mst_pos' => trim(strtoupper($kolom[7]))
 						);
 							
 						$this->m_db->tambah_data($isi_csv,$this->TabelRekeningMaster);

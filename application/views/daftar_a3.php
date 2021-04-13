@@ -24,6 +24,11 @@ foreach ($daftar_info_level_1_rek as $lv1_rek) {
 	$t_rek_mst_kel[$lv1_rek->in_lv_1_kd] = $lv1_rek->in_lv_1_ket;
 }
 
+foreach ($daftar_info_level_1_ap as $lv1_ap) {
+	$t_rek_mst_pos[$lv1_ap->in_lv_1_kd] = $lv1_ap->in_lv_1_ket;
+}
+
+
 $formulir_prm = array();
 
 if(!empty($this->session->userdata("operator_a3"))){
@@ -39,6 +44,13 @@ if(!empty($this->session->userdata("operator_a3"))){
 				"name" => "t_rek_mst_sts",
 				"options" => $t_rek_mst_sts,
 				"selected" => $rm->rek_mst_sts,
+				"class"=>"form-control custom-select"
+			);
+			
+			$formulir_pos = array(
+				"name" => "t_rek_mst_pos",
+				"options" => $t_rek_mst_pos,
+				"selected" => $rm->rek_mst_pos,
 				"class"=>"form-control custom-select"
 			);
 			
@@ -97,6 +109,12 @@ if(!empty($this->session->userdata("operator_a3"))){
 	$formulir_status = array(
 		"name" => "t_rek_mst_sts",
 		"options" => $t_rek_mst_sts,
+		"class"=>"form-control custom-select"
+	);
+	
+	$formulir_pos = array(
+		"name" => "t_rek_mst_pos",
+		"options" => $t_rek_mst_pos,
 		"class"=>"form-control custom-select"
 	);
 
@@ -228,6 +246,10 @@ $formulir_csv = array(
 									<td><?php echo form_dropdown($formulir_status); ?></td>
 								</tr>
 								<tr>
+									<td><?php echo form_label("POSISI JURNAL"); ?></td>
+									<td><?php echo form_dropdown($formulir_pos); ?></td>
+								</tr>
+								<tr>
 									<td><?php echo form_label("KELOMPOK"); ?></td>
 									<td><?php echo form_dropdown($formulir_kel); ?></td>
 								</tr>
@@ -311,8 +333,8 @@ $formulir_csv = array(
 								<table class="table" id="tblrek">
 									<thead>
 										<tr>
-											<th>URUT</th>
 											<th>STATUS</th>
+											<th>POSISI</th>
 											<th>KELOMPOK</th>
 											<th>GOLONGAN</th>
 											<th>SUB-GOLONGAN</th>
@@ -325,8 +347,8 @@ $formulir_csv = array(
 									<tbody>
 										<?php foreach($daftar_rekening_master as $rm){ ?>
 										<tr>
-											<td><?php echo $rm->rekprm ?></td>
 											<td><?php echo $rm->rek_mst_sts ?></td>
+											<td><?php echo $rm->rek_mst_pos ?></td>
 											<td><?php echo $rm->rek_mst_kel ?></td>
 											<td><?php echo $rm->rek_mst_gol ?></td>
 											<td><?php echo $rm->rek_mst_sub_gol ?></td>

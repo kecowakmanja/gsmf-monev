@@ -24,7 +24,14 @@ class klik_b extends CI_Controller {
 	}
  
 	function index(){
-		redirect($this->KePilihanB1);
+		if(($this->session->userdata('hak') == "PENGAWAS") || ($this->session->userdata('hak') == "PELAKSANA")){
+			$validasi_z1 = array('validasi_z1' => "Maaf anda nda boleh masuk laman ini...");
+			$this->session->set_userdata($validasi_z1);
+			redirect($this->KePilihanZ1);
+		} else {
+			redirect($this->KePilihanB1);
+		}
+		
 	}
 
 	function kosong_operator_validasi(){

@@ -286,6 +286,8 @@ $formulir_csv = array(
 </div>
 </body>
 <script type="text/javascript">
+var inputan1 = document.getElementById('t_hut_mst_ket');
+
 $(document).ready(
 function () {
 	$('#tblHut').DataTable();
