@@ -24,7 +24,7 @@ if($this->session->userdata('operator_b1') == "UBAH" && empty($this->session->us
 	$tombol_tambah = array(
 	'name' => 'btnKirim',
 	'value' => 'UBAH',
-	'class' => 'btn btn-primary btn-sm'
+	'class' => 'btn btn-success btn-sm'
 	);
 	
 	foreach ($daftar_program_master as $hm){
@@ -80,7 +80,7 @@ if($this->session->userdata('operator_b1') == "UBAH" && empty($this->session->us
 	$tombol_tambah = array(
 		'name' => 'btnKirim',
 		'value' => 'TAMBAH',
-		'class' => 'btn btn-primary btn-sm'
+		'class' => 'btn btn-success btn-sm'
 	);
 	
 	$formulir_nobuk = array(
@@ -160,14 +160,13 @@ $formulir_csv = array(
 		<div class="card-body">
 			<div class="alert alert-info text-start">
 				<h5 class="card-title">
-					DAFTAR PENGAJUAN ANGGARAN
+					DAFTAR PENGAJUAN PROGRAM
 				</h5>
 				<p class="card-text">
 					<ul>
-						<li>Untuk mengisi formulir pengajuan anggaran, sila tekan <strong>TAMBAH</strong> pada baris navigasi.</li>
-						<li>Silahkan manfaatkan kotak <strong>SEARCH</strong> untuk melakukan pencarian pengajuan anggaran.</li>
-						<li><strong>JUDUL TABEL</strong> dapat di tekan untuk melakukan pengurutan untuk membantu permudah pencarian.</li>
+						<li>Untuk menambah pengajuan sila terlebih dahulu untuk mengisi formulir pengajuan anggaran dan diakhiri dengan tekan <strong>TAMBAH</strong> pada baris navigasi.</li>
 						<li>Tombol operator <strong>UBAH</strong> dan <strong>HAPUS</strong> untuk melakukan perubahan atau menghapus pengajuan.</li>
+						<li>Silahkan manfaatkan kotak <strong>SEARCH</strong> untuk melakukan pencarian pengajuan anggaran.</li>
 					</ul>
 				</p>
 			</div>
@@ -186,7 +185,7 @@ $formulir_csv = array(
 					</h6>
 					<div id="isiSatu" class="accordion-collapse collapse show" data-bs-parent="#frmHutDet1" aria-labelledby="judulSatu">
 						<div class="accordion-body">
-							<table class="table table-sm table-bordered table-light">
+							<table class="table table-sm table-borderless table-light">
 								<?php 
 
 								echo form_open_multipart('klik_b/tambah_program_ok','',$formulir_prm);
@@ -240,10 +239,9 @@ $formulir_csv = array(
 					<div id="isiDua" class="accordion-collapse collapse show" data-bs-parent="#frmhutDet2" aria-labelledby="judulDua">
 						<div class="accordion-body">
 							<div class="table thead-light text-start">
-								<table class="table" id="tblHut">
+								<table class="table table-hover" id="tblHut">
 									<thead>
 										<tr>
-											<th>URUT</th>
 											<th>NO.MUTASI</th>
 											<th>KELOMPOK</th>
 											<th>STATUS</th>
@@ -257,7 +255,6 @@ $formulir_csv = array(
 									<tbody>
 										<?php foreach($daftar_program_master as $hm){ ?>
 										<tr>
-											<td><?php echo $hm->hutprm; ?></td>
 											<td><?php echo $hm->hut_mst_nobuk ?></td>
 											<td><?php echo $hm->kel_mst_subket ?></td>
 											<td><?php echo $hm->hut_mst_sts ?></td>

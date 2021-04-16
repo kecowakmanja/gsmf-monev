@@ -14,13 +14,82 @@
 <body>
 <?php
 
-$formulir_prm = array();
-$formulir_tgl= "";
-$formulir_pst = "";
-$formulir_kel = "";
-$formulir_rek = "";
-$formulir_rnc = "";
-$formulir_ket = "";
+$formulir_catatan = array(
+	'name' => 't_kas_mst_ket',
+	'class '=> 'form-control form-control',
+	'rows' => '3',
+	'id' => 't_cek_mst_ket',
+	'placeholder' => '(tunai) Di-isi Ktp/Nama/no.hp/identitas lainnya... (non-tunai) No.rekening asal/tujuan...',
+	'required'
+);
+
+$formulir_urut = array(
+	'id' => 't_hutprm',
+	'name' => 't_hutprm',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+$formulir_nobuk = array(
+	'id' => 't_hut_mst_nobuk',
+	'name' => 't_hut_mst_nobuk',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+
+$formulir_tgl = array(
+	'id' => 't_hut_mst_tgl',
+	'name' => 't_hut_mst_tgl',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+$formulir_tglrnc = array(
+	'id' => 't_hut_mst_tglrnc',
+	'name' => 't_hut_mst_tglrnc',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+$formulir_pst = array(
+	'id' => 't_hut_mst_pst',
+	'name' => 't_hut_mst_pst',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+$formulir_kel = array(
+	'id' => 't_hut_mst_kel',
+	'name' => 't_hut_mst_kel',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+$formulir_rek = array(
+	'id' => 't_hut_mst_rek',
+	'name' => 't_hut_mst_rek',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+$formulir_rnc = array(
+	'id' => 't_hut_mst_rnc',
+	'name' => 't_hut_mst_rnc',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+$formulir_ttl = array(
+	'id' => 't_hut_mst_ttl',
+	'name' => 't_hut_mst_ttl',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+$formulir_sisa = array(
+	'id' => 't_hut_mst_sisa',
+	'name' => 't_hut_mst_sisa',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+$formulir_ket = array(
+	'id' => 't_hut_mst_ket',
+	'name' => 't_hut_mst_ket',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
 
 foreach($daftar_rekening_master as $rm){
 		$rekkode[$rm->rek_mst_sub_kode] = $rm->rek_mst_ket_sub_kode;
@@ -40,42 +109,17 @@ $formulir_cair = array(
 	'value' => '0',
 	'id' => 't_kas_mst_ttl'
 	);
-
-if($this->session->userdata('operator_e1') == "UBAH" && empty($this->session->userdata('validasi_e1'))){
-	foreach($daftar_hutang_master as $hm){
-		$formulir_tgl = $hm->hut_mst_tgl;
-		$formulir_pst = $hm->pst_mst_nm;
-		$formulir_kel = $hm->kel_mst_ket;
-		$formulir_rek = $hm->rek_mst_ket_sub_kode;
-		$formulir_rnc = 'Rp. '.number_format(($hm->hut_mst_rnc-$hm->hut_mst_ttl),2,",",".");
-		$formulir_ket = $hm->hut_mst_ket;
-		
-					
-		$formulir_prm = array(
-		"hutprm" => $hm->hutprm
-		);
-		
-		
-	}
-}
-
-$formulir_catatan = array(
-	'name' => 't_cek_mst_ket',
-	'class '=> 'form-control form-control-sm',
-	'rows' => '3'
-	);
 	
 $tombol_cair = array(
 	'name' => 'btnKirim',
 	'value' => 'CAIR',
-	'class' => 'btn btn-primary btn-sm'
+	'class' => 'btn btn-success btn-lg'
 	);
-
 
 $tombol_batal = array(
 	'name' => 'btnKirim',
 	'value'=> 'BATAL',
-	'class'=> 'btn btn-danger btn-sm'
+	'class'=> 'btn btn-danger btn-lg'
 	);
 	
 $tombol_unduh = array(
@@ -83,6 +127,8 @@ $tombol_unduh = array(
 	"value" => "UNDUH",
 	"class" => "btn btn-sm btn-warning"
 );
+
+
 
 ?>
 <div class="container-fluid">
@@ -109,6 +155,7 @@ $tombol_unduh = array(
 					<ul>
 						<li>Tekan <strong>DETAIL</strong> di <strong>DAFTAR PENGAJUAN ANGGARAN</strong> dulu supaya bisa cairkan anggaran.</li>
 						<li>Jangan sampai salah pilih <strong>POS REKENING</strong>.</li>
+						<li>Periksa berkas yang dilampirkan saat pengajuan anggaran dengan menekan tombol <strong>UNDUH</strong> di <strong>DAFTAR PENGAJUAN ANGGARAN</strong>.</li>
 						<li><strong>BESAR PENCAIRAN</strong> yaitu sebesar sisa rencana anggaran.</li>
 					</ul>
 				</p>
@@ -131,12 +178,11 @@ $tombol_unduh = array(
 							<table class="table table-sm table-hover" id="tblHutDet">
 								<thead>
 									<tr>
-										<th>URUT</th>
 										<th>NO.MUTASI</th>
 										<th>JENIS</th>
-										<th>STATUS</th>
-										<th>PELAKSANAAN</th>
+										<th>KELOMPOK</th>
 										<th>RENCANA</th>
+										<th>ANGGARAN</th>
 										<th>CAIR</th>
 										<th>OPERATOR</th>
 									</tr>
@@ -144,79 +190,19 @@ $tombol_unduh = array(
 								<tbody>
 									<?php foreach($daftar_hutang_master as $hm){ ?>
 									<tr>
-										<td><?php echo $hm->hutprm; ?></td>
 										<td><?php echo $hm->hut_mst_nobuk ?></td>
 										<td><?php echo $hm->rek_mst_kode ?></td>
-										<td><?php echo $hm->hut_mst_sts ?></td>
+										<td><?php echo $hm->kel_mst_subket ?></td>
 										<td><?php echo $hm->hut_mst_tglrnc ?></td>
 										<td><?php echo 'Rp'. number_format($hm->hut_mst_rnc,2,",",".") ?></td>
 										<td><?php echo 'Rp'. number_format($hm->hut_mst_ttl,2,",",".") ?></td>
 										<td>
-											<a href="<?php echo base_url().'index.php/klik_e/detail_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-primary">DETAIL</a>
+											<a href="#" onclick="detail_hutang_ok('<?php echo $hm->hutprm; ?>')" class="btn btn-sm btn-primary">DETAIL</a>
+											<a href="<?php echo base_url().'index.php/klik_e/unduh_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-warning">UNDUH</a>
 										</td>
 									</tr>
 									<?php } ?>
 								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-			<br>
-			<div class="accordion">
-				<div class="accordion-item" id="frmHutDet2">
-					<h6 class="accordion-header" id="judulDua">
-						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiDua" aria-expanded="true" aria-control="isiDua">
-							<strong>KOLOM REALISASI</strong>
-						</button>
-					</h6>
-					<div id="isiDua" class="accordion-collapse collapse show" data-bs-parent="#frmHutDet2" aria-labelledby="judulDua">
-						<div class="accordion-body">
-							<table class="table table-sm text-start table-light">
-								<?php echo form_open('klik_e/ubah_hutang_ok','',$formulir_prm); ?>
-								<tr>
-									<td><?php echo form_label('TANGGAL PENGAJUAN'); ?></td>
-									<td><?php echo form_label($formulir_tgl); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label('NAMA'); ?></td>
-									<td><?php echo form_label($formulir_pst); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label('KELOMPOK'); ?></td>
-									<td><?php echo form_label($formulir_kel); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label('POS ANGGARAN'); ?></td>
-									<td><?php echo form_label($formulir_rek); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label('SISA ANGGARAN'); ?></td>
-									<td><?php echo form_label($formulir_rnc); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label('NAMA PROPOSAL KEGIATAN'); ?></td>
-									<td><?php echo form_label($formulir_ket); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label('POS REKENING'); ?></td>
-									<td><?php echo form_dropdown($formulir_kas); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label('BESAR PENCAIRAN'); ?></td>
-									<td><?php echo form_input($formulir_cair); ?></td>
-								</tr>
-								<tr>
-									<td>
-									</td>
-									<td>
-										<?php 
-										echo form_submit($tombol_cair);
-										echo form_submit($tombol_batal);
-										echo form_close();
-										?>
-									</td>
-								</tr>
 							</table>
 						</div>
 					</div>
@@ -228,16 +214,95 @@ $tombol_unduh = array(
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-var inputan1 = document.getElementById('t_kas_mst_ttl');
+<div class="container-fluid">
+	<div class="modal" id="mdlKas" tabindex="-1" aria-labelledby="mdlKasLbl" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<?php echo form_open('klik_e/ubah_hutang_ok','',$formulir_urut); ?>
+				<div class="modal-header">
+					<h5 class="modal-title" id="mdlKasLbl"><strong>REALISASI</strong></h5>
+				</div>
+				<div class="modal-body">
+					<table class="table table-sm table-borderless">
+						<tbody>
+							<tr>
+								<td><?php echo form_label('URUT'); ?></td>
+								<td><?php echo form_input($formulir_urut); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('MUTASI'); ?></td>
+								<td><?php echo form_input($formulir_nobuk); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('ANGGARAN') ?></td>
+								<td><?php echo form_input($formulir_rnc); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('SISA') ?></td>
+								<td><?php echo form_input($formulir_sisa); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('POS'); ?></td>
+								<td><?php echo form_dropdown($formulir_kas); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('REALISASI'); ?></td>
+								<td><?php echo form_input($formulir_cair); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('CATATAN') ?></td>
+								<td><?php echo form_textarea($formulir_catatan); ?></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<?php 
+						echo form_submit($tombol_cair);
+						echo form_submit($tombol_batal); 
+					?>
+				</div>
+				<?php echo form_close(); ?>
+			</div>
+		</div>
+	</div>
+</div>
 
-function kasihfokuslah(){
-	inputan1.focus();
-}
+
+
+<script type="text/javascript">
+var url_detail_hutang_ok = "<?php echo base_url()."index.php/klik_e/detail_hutang_ok/"?>";
 
 $('#tblHutDet').DataTable({
 	"order": [[ 3, "asc" ]]
 });
+
+function detail_hutang_ok(t_hutprm){
+	$.ajax({
+		type: "POST",
+		url: url_detail_hutang_ok,
+		dataType: 'json',
+		data: {hutprm:t_hutprm,hutlock:'0'},
+		success: function(data){
+			if(!$.trim(data)){
+				alert('Pengajuan ini sedang di verifikasi...');
+			} else {
+				$('#t_hutprm').val(data[0].hutprm);
+				$('#t_hut_mst_nobuk').val(data[0].hutnobuk);
+				$('#t_hut_mst_tgl').val(data[0].huttgl);
+				$('#t_hut_mst_tglrnc').val(data[0].huttglrnc);
+				$('#t_hut_mst_pst').val(data[0].hutpst);
+				$('#t_hut_mst_kel').val(data[0].hutkel);
+				$('#t_hut_mst_rek').val(data[0].hutrek);
+				$('#t_hut_mst_rnc').val(data[0].hutrnc);
+				$('#t_hut_mst_ttl').val(data[0].hutttl);
+				$('#t_hut_mst_sisa').val(data[0].hutsisa);
+				$('#t_hut_mst_ket').val(data[0].hutket);
+				$('#mdlKas').modal('toggle');
+			}
+		}
+	})
+}
 
 </script>
 </body>

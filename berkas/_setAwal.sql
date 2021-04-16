@@ -14,10 +14,12 @@
 
 
 -- Dumping database structure for gsmf-monev
+DROP DATABASE IF EXISTS `gsmf-monev`;
 CREATE DATABASE IF NOT EXISTS `gsmf-monev` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `gsmf-monev`;
 
 -- Dumping structure for table gsmf-monev.hutang_master
+DROP TABLE IF EXISTS `hutang_master`;
 CREATE TABLE IF NOT EXISTS `hutang_master` (
   `hutprm` int(11) NOT NULL AUTO_INCREMENT,
   `hut_mst_lock` int(11) DEFAULT 0,
@@ -36,19 +38,22 @@ CREATE TABLE IF NOT EXISTS `hutang_master` (
   PRIMARY KEY (`hutprm`),
   UNIQUE KEY `hut_mst_dt_hut_mst_nobuk` (`hut_mst_dt`,`hut_mst_nobuk`),
   UNIQUE KEY `hut_mst_nobuk` (`hut_mst_nobuk`),
-  KEY `hut_mst_dt_hut_mst_tgl` (`hut_mst_dt`,`hut_mst_tgl`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+  KEY `hut_mst_dt_hut_mst_tgl` (`hut_mst_dt`,`hut_mst_tgl`),
+  KEY `hut_mst_sts` (`hut_mst_sts`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table gsmf-monev.hutang_master: ~2 rows (approximately)
+-- Dumping data for table gsmf-monev.hutang_master: ~5 rows (approximately)
 /*!40000 ALTER TABLE `hutang_master` DISABLE KEYS */;
 INSERT INTO `hutang_master` (`hutprm`, `hut_mst_lock`, `hut_mst_dt`, `hut_mst_nobuk`, `hut_mst_sts`, `hut_mst_tgl`, `hut_mst_tglrnc`, `hut_mst_pst`, `hut_mst_kel`, `hut_mst_rek`, `hut_mst_rnc`, `hut_mst_ttl`, `hut_mst_ket`, `hut_mst_dok`) VALUES
-	(8, 0, 'AGR', 'AGR-20210407-72239', 'TOLAK', '2021-04-07', '2021-05-01', 'GSU', 'F-01', '2121-01', 5450000, NULL, 'COBAIN INPUT PROGRAM', 'AGR-20210407-72239.docx'),
-	(9, 0, 'AGR', 'AGR-20210407-48937', 'SETUJU', '2021-04-07', '2021-04-07', 'GSU', 'F-01', '2122-01', 1250000, NULL, 'COBAIN TAMBAH BIAYA RUTIN', 'AGR-20210407-48937.jpeg'),
-	(10, 0, 'AGR', 'AGR-20210407-83933', 'BARU', '2021-04-07', '2021-05-31', 'GSU', 'F-01', '2121-02', 2535000, NULL, 'PROGRAM INPUT COBAIN', 'AGR-20210407-83933.docx'),
-	(11, 0, 'AGR', 'AGR-20210407-27600', 'BARU', '2021-04-07', '2021-05-10', 'GSU', 'F-01', '2122-07', 250000, NULL, 'BIAYA BIAYA TEST', 'AGR-20210407-27600.jpg');
+	(8, 0, 'AGR', 'AGR-20210407-72239', 'CAIR', '2021-04-07', '2021-05-01', 'GSU', 'F-01', '2121-01', 5450000, 250000, 'COBAIN INPUT PROGRAM', 'AGR-20210407-72239.docx'),
+	(9, 0, 'AGR', 'AGR-20210407-48937', 'CAIR', '2021-04-07', '2021-04-07', 'GSU', 'F-01', '2122-01', 1250000, 1000000, 'COBAIN TAMBAH BIAYA RUTIN', 'AGR-20210407-48937.jpeg'),
+	(11, 0, 'AGR', 'AGR-20210407-27600', 'TOLAK', '2021-04-07', '2021-05-10', 'GSU', 'F-01', '2122-07', 250000, 0, 'BIAYA BIAYA TEST', 'AGR-20210407-27600.jpg'),
+	(13, 0, 'AGR', 'AGR-20210415-79067', 'BARU', '2021-04-15', '2021-04-16', 'GSU', 'F-01', '2122-07', 5000000, NULL, 'KEGIATAN APAAN NIH', 'AGR-20210415-79067.jpeg'),
+	(14, 0, 'AGR', 'AGR-20210415-76228', 'BARU', '2021-04-15', '2021-04-15', 'GSU', 'F-01', '2121-01', 2750000, NULL, 'COBAIN INPUTIN', 'AGR-20210415-76228.docx');
 /*!40000 ALTER TABLE `hutang_master` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.info_level_1
+DROP TABLE IF EXISTS `info_level_1`;
 CREATE TABLE IF NOT EXISTS `info_level_1` (
   `infoprm` int(11) NOT NULL AUTO_INCREMENT,
   `in_lv_1_dt` varchar(20) DEFAULT NULL,
@@ -56,18 +61,21 @@ CREATE TABLE IF NOT EXISTS `info_level_1` (
   `in_lv_1_ket` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`infoprm`) USING BTREE,
   UNIQUE KEY `in_lv_1_dt_in_lv_1_kd` (`in_lv_1_dt`,`in_lv_1_kd`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gsmf-monev.info_level_1: ~4 rows (approximately)
+-- Dumping data for table gsmf-monev.info_level_1: ~6 rows (approximately)
 /*!40000 ALTER TABLE `info_level_1` DISABLE KEYS */;
 INSERT INTO `info_level_1` (`infoprm`, `in_lv_1_dt`, `in_lv_1_kd`, `in_lv_1_ket`) VALUES
 	(8, 'STATUS', 'AKTIF', 'AKTIF'),
 	(9, 'STATUS', 'PASIF', 'PASIF'),
 	(13, 'REKENING', 'ANGGARAN', 'ANGGARAN'),
-	(14, 'REKENING', 'NERACA', 'NERACA');
+	(14, 'REKENING', 'NERACA', 'NERACA'),
+	(15, 'AP', 'AKTIVA', 'AKTIVA'),
+	(16, 'AP', 'PASIVA', 'PASIVA');
 /*!40000 ALTER TABLE `info_level_1` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.info_level_2
+DROP TABLE IF EXISTS `info_level_2`;
 CREATE TABLE IF NOT EXISTS `info_level_2` (
   `infoprm` int(11) NOT NULL AUTO_INCREMENT,
   `in_lv_1_dt` varchar(20) DEFAULT NULL,
@@ -91,6 +99,7 @@ INSERT INTO `info_level_2` (`infoprm`, `in_lv_1_dt`, `in_lv_1_kd`, `in_lv_2_kd`,
 /*!40000 ALTER TABLE `info_level_2` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.info_level_3
+DROP TABLE IF EXISTS `info_level_3`;
 CREATE TABLE IF NOT EXISTS `info_level_3` (
   `infoprm` int(11) NOT NULL AUTO_INCREMENT,
   `in_lv_1_dt` varchar(20) DEFAULT NULL,
@@ -122,6 +131,7 @@ INSERT INTO `info_level_3` (`infoprm`, `in_lv_1_dt`, `in_lv_1_kd`, `in_lv_2_kd`,
 /*!40000 ALTER TABLE `info_level_3` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.info_level_4
+DROP TABLE IF EXISTS `info_level_4`;
 CREATE TABLE IF NOT EXISTS `info_level_4` (
   `infoprm` int(11) NOT NULL AUTO_INCREMENT,
   `in_lv_1_dt` varchar(20) DEFAULT NULL,
@@ -137,44 +147,103 @@ CREATE TABLE IF NOT EXISTS `info_level_4` (
 -- Dumping data for table gsmf-monev.info_level_4: ~35 rows (approximately)
 /*!40000 ALTER TABLE `info_level_4` DISABLE KEYS */;
 INSERT INTO `info_level_4` (`infoprm`, `in_lv_1_dt`, `in_lv_1_kd`, `in_lv_2_kd`, `in_lv_3_kd`, `in_lv_4_kd`, `in_lv_4_ket`) VALUES
-	(1, 'REKENING', 'NERACA', 'ASET', 'ASETLANCAR', 'SETARAKAS\r', 'SETARAKAS\r'),
-	(2, 'REKENING', 'NERACA', 'ASET', 'ASETLANCAR', 'PIUTANG\r', 'PIUTANG\r'),
-	(3, 'REKENING', 'NERACA', 'ASET', 'ASETLANCAR', 'PERSEDIAAN\r', 'PERSEDIAAN\r'),
-	(4, 'REKENING', 'NERACA', 'ASET', 'ASETLANCAR', 'PERLENGKAPAN\r', 'PERLENGKAPAN\r'),
-	(5, 'REKENING', 'NERACA', 'ASET', 'ASETTETAP', 'BERGERAK\r', 'BERGERAK\r'),
-	(6, 'REKENING', 'NERACA', 'ASET', 'ASETTETAP', 'TIDAKBERGERAK\r', 'TIDAKBERGERAK\r'),
-	(7, 'REKENING', 'NERACA', 'ASET', 'ASETLAIN', 'LAIN\r', 'LAIN\r'),
-	(8, 'REKENING', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'JANGKAPANJANG\r', 'JANGKAPANJANG\r'),
-	(9, 'REKENING', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'JANGKAPENDEK\r', 'JANGKAPENDEK\r'),
-	(10, 'REKENING', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'KHUSUS\r', 'KHUSUS\r'),
-	(11, 'REKENING', 'NERACA', 'ASET BERSIH', 'TIDAKTERIKAT', 'TIDAKTERIKAT\r', 'TIDAKTERIKAT\r'),
-	(12, 'REKENING', 'NERACA', 'ASET BERSIH', 'TERIKATSEMENTARA', 'NONPEMBANGUNAN\r', 'NONPEMBANGUNAN\r'),
-	(13, 'REKENING', 'NERACA', 'ASET BERSIH', 'TERIKATSEMENTARA', 'PEMBANGUNAN\r', 'PEMBANGUNAN\r'),
-	(14, 'REKENING', 'NERACA', 'ASET BERSIH', 'TERIKATSEMENTARA', 'UKSP\r', 'UKSP\r'),
-	(15, 'REKENING', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'KOLEKTE\r', 'KOLEKTE\r'),
-	(16, 'REKENING', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'BANTUAN\r', 'BANTUAN\r'),
-	(17, 'REKENING', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'UMUM\r', 'UMUM\r'),
-	(18, 'REKENING', 'ANGGARAN', 'ABTT', 'BIAYA', 'PROGRAM\r', 'PROGRAM\r'),
-	(19, 'REKENING', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN\r', 'RUTIN\r'),
-	(20, 'REKENING', 'ANGGARAN', 'ABTT', 'BIAYA', 'UMUM\r', 'UMUM\r'),
-	(21, 'REKENING', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'KOLEKTE\r', 'KOLEKTE\r'),
-	(22, 'REKENING', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'BANTUAN\r', 'BANTUAN\r'),
-	(23, 'REKENING', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'UMUM\r', 'UMUM\r'),
-	(24, 'REKENING', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'RUTIN\r', 'RUTIN\r'),
-	(25, 'REKENING', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM\r', 'UMUM\r'),
-	(26, 'REKENING', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'KOLEKTE\r', 'KOLEKTE\r'),
-	(27, 'REKENING', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'BANTUAN\r', 'BANTUAN\r'),
-	(28, 'REKENING', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'UMUM\r', 'UMUM\r'),
-	(29, 'REKENING', 'ANGGARAN', 'ABTS-P', 'BIAYA', 'RUTIN\r', 'RUTIN\r'),
-	(30, 'REKENING', 'ANGGARAN', 'ABTS-P', 'BIAYA', 'UMUM\r', 'UMUM\r'),
-	(31, 'REKENING', 'ANGGARAN', 'ABTS-UKSP', 'PENDAPATAN', 'KOLEKTE\r', 'KOLEKTE\r'),
-	(32, 'REKENING', 'ANGGARAN', 'ABTS-UKSP', 'PENDAPATAN', 'BANTUAN\r', 'BANTUAN\r'),
-	(33, 'REKENING', 'ANGGARAN', 'ABTS-UKSP', 'PENDAPATAN', 'UMUM\r', 'UMUM\r'),
-	(34, 'REKENING', 'ANGGARAN', 'ABTS-UKSP', 'BIAYA', 'RUTIN\r', 'RUTIN\r'),
-	(35, 'REKENING', 'ANGGARAN', 'ABTS-UKSP', 'BIAYA', 'UMUM\r', 'UMUM\r');
+	(1, 'REKENING', 'NERACA', 'ASET', 'ASETLANCAR', 'SETARAKAS', 'SETARAKAS\r'),
+	(2, 'REKENING', 'NERACA', 'ASET', 'ASETLANCAR', 'PIUTANG', 'PIUTANG\r'),
+	(3, 'REKENING', 'NERACA', 'ASET', 'ASETLANCAR', 'PERSEDIAAN', 'PERSEDIAAN\r'),
+	(4, 'REKENING', 'NERACA', 'ASET', 'ASETLANCAR', 'PERLENGKAPAN', 'PERLENGKAPAN\r'),
+	(5, 'REKENING', 'NERACA', 'ASET', 'ASETTETAP', 'BERGERAK', 'BERGERAK\r'),
+	(6, 'REKENING', 'NERACA', 'ASET', 'ASETTETAP', 'TIDAKBERGERAK', 'TIDAKBERGERAK\r'),
+	(7, 'REKENING', 'NERACA', 'ASET', 'ASETLAIN', 'LAIN', 'LAIN\r'),
+	(8, 'REKENING', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'JANGKAPANJANG', 'JANGKAPANJANG\r'),
+	(9, 'REKENING', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'JANGKAPENDEK', 'JANGKAPENDEK\r'),
+	(10, 'REKENING', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'KHUSUS', 'KHUSUS\r'),
+	(11, 'REKENING', 'NERACA', 'ASET BERSIH', 'TIDAKTERIKAT', 'TIDAKTERIKAT', 'TIDAKTERIKAT\r'),
+	(12, 'REKENING', 'NERACA', 'ASET BERSIH', 'TERIKATSEMENTARA', 'NONPEMBANGUNAN', 'NONPEMBANGUNAN\r'),
+	(13, 'REKENING', 'NERACA', 'ASET BERSIH', 'TERIKATSEMENTARA', 'PEMBANGUNAN', 'PEMBANGUNAN\r'),
+	(14, 'REKENING', 'NERACA', 'ASET BERSIH', 'TERIKATSEMENTARA', 'UKSP', 'UKSP\r'),
+	(15, 'REKENING', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'KOLEKTE', 'KOLEKTE\r'),
+	(16, 'REKENING', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'BANTUAN', 'BANTUAN\r'),
+	(17, 'REKENING', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'UMUM', 'UMUM\r'),
+	(18, 'REKENING', 'ANGGARAN', 'ABTT', 'BIAYA', 'PROGRAM', 'PROGRAM\r'),
+	(19, 'REKENING', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', 'RUTIN\r'),
+	(20, 'REKENING', 'ANGGARAN', 'ABTT', 'BIAYA', 'UMUM', 'UMUM\r'),
+	(21, 'REKENING', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'KOLEKTE', 'KOLEKTE\r'),
+	(22, 'REKENING', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'BANTUAN', 'BANTUAN\r'),
+	(23, 'REKENING', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'UMUM', 'UMUM\r'),
+	(24, 'REKENING', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'RUTIN', 'RUTIN\r'),
+	(25, 'REKENING', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', 'UMUM\r'),
+	(26, 'REKENING', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'KOLEKTE', 'KOLEKTE\r'),
+	(27, 'REKENING', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'BANTUAN', 'BANTUAN\r'),
+	(28, 'REKENING', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'UMUM', 'UMUM\r'),
+	(29, 'REKENING', 'ANGGARAN', 'ABTS-P', 'BIAYA', 'RUTIN', 'RUTIN\r'),
+	(30, 'REKENING', 'ANGGARAN', 'ABTS-P', 'BIAYA', 'UMUM', 'UMUM\r'),
+	(31, 'REKENING', 'ANGGARAN', 'ABTS-UKSP', 'PENDAPATAN', 'KOLEKTE', 'KOLEKTE\r'),
+	(32, 'REKENING', 'ANGGARAN', 'ABTS-UKSP', 'PENDAPATAN', 'BANTUAN', 'BANTUAN\r'),
+	(33, 'REKENING', 'ANGGARAN', 'ABTS-UKSP', 'PENDAPATAN', 'UMUM', 'UMUM\r'),
+	(34, 'REKENING', 'ANGGARAN', 'ABTS-UKSP', 'BIAYA', 'RUTIN', 'RUTIN\r'),
+	(35, 'REKENING', 'ANGGARAN', 'ABTS-UKSP', 'BIAYA', 'UMUM', 'UMUM\r');
 /*!40000 ALTER TABLE `info_level_4` ENABLE KEYS */;
 
+-- Dumping structure for table gsmf-monev.jurnal_master
+DROP TABLE IF EXISTS `jurnal_master`;
+CREATE TABLE IF NOT EXISTS `jurnal_master` (
+  `jrnprm` int(11) NOT NULL AUTO_INCREMENT,
+  `jrn_mst_lock` int(11) DEFAULT NULL,
+  `jrn_mst_dt` varchar(20) DEFAULT NULL,
+  `jrn_mst_nobuk` varchar(20) DEFAULT NULL,
+  `jrn_mst_noref` varchar(20) DEFAULT NULL,
+  `jrn_mst_pst` varchar(20) DEFAULT NULL,
+  `jrn_mst_tgl` date DEFAULT NULL,
+  `jrn_mst_rek` varchar(20) DEFAULT NULL,
+  `jrn_mst_dk` varchar(20) DEFAULT NULL,
+  `jrn_mst_ttl` double DEFAULT NULL,
+  PRIMARY KEY (`jrnprm`) USING BTREE,
+  KEY `jrn_mst_dt_kas_mst_nobuk` (`jrn_mst_dt`,`jrn_mst_nobuk`) USING BTREE,
+  KEY `jrn_mst_nobuk` (`jrn_mst_nobuk`) USING BTREE,
+  KEY `jrn_mst_dt_kas_mst_tgl` (`jrn_mst_dt`,`jrn_mst_tgl`) USING BTREE,
+  KEY `jrn_mst_noref` (`jrn_mst_noref`) USING BTREE,
+  KEY `jrn_mst_rek` (`jrn_mst_rek`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table gsmf-monev.jurnal_master: ~4 rows (approximately)
+/*!40000 ALTER TABLE `jurnal_master` DISABLE KEYS */;
+INSERT INTO `jurnal_master` (`jrnprm`, `jrn_mst_lock`, `jrn_mst_dt`, `jrn_mst_nobuk`, `jrn_mst_noref`, `jrn_mst_pst`, `jrn_mst_tgl`, `jrn_mst_rek`, `jrn_mst_dk`, `jrn_mst_ttl`) VALUES
+	(10, 0, 'KK', 'KK-20210412-45572', 'AGR-20210407-72239', 'BENDAHARA1', '2021-04-12', '2121-01', 'D', 250000),
+	(11, 0, 'KK', 'KK-20210412-45572', 'AGR-20210407-72239', 'BENDAHARA1', '2021-04-12', '1111-02', 'K', 250000),
+	(12, 0, 'KK', 'KK-20210412-22741', 'AGR-20210407-48937', 'BENDAHARA1', '2021-04-12', '2122-01', 'D', 1000000),
+	(13, 0, 'KK', 'KK-20210412-22741', 'AGR-20210407-48937', 'BENDAHARA1', '2021-04-12', '1111-01', 'K', 1000000);
+/*!40000 ALTER TABLE `jurnal_master` ENABLE KEYS */;
+
+-- Dumping structure for table gsmf-monev.kas_master
+DROP TABLE IF EXISTS `kas_master`;
+CREATE TABLE IF NOT EXISTS `kas_master` (
+  `kasprm` int(11) NOT NULL AUTO_INCREMENT,
+  `kas_mst_lock` int(11) DEFAULT NULL,
+  `kas_mst_dt` varchar(20) DEFAULT NULL,
+  `kas_mst_nobuk` varchar(20) DEFAULT NULL,
+  `kas_mst_sts` varchar(20) DEFAULT NULL,
+  `kas_mst_tgl` date DEFAULT NULL,
+  `kas_mst_pst` varchar(20) DEFAULT NULL,
+  `kas_mst_noref` varchar(20) DEFAULT NULL,
+  `kas_mst_rek` varchar(20) DEFAULT NULL,
+  `kas_mst_ttl` double DEFAULT NULL,
+  PRIMARY KEY (`kasprm`),
+  UNIQUE KEY `kas_mst_dt_kas_mst_nobuk` (`kas_mst_dt`,`kas_mst_nobuk`),
+  UNIQUE KEY `kas_mst_nobuk` (`kas_mst_nobuk`),
+  KEY `kas_mst_dt_kas_mst_tgl` (`kas_mst_dt`,`kas_mst_tgl`),
+  KEY `kas_mst_noref` (`kas_mst_noref`),
+  KEY `kas_mst_rek` (`kas_mst_rek`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table gsmf-monev.kas_master: ~2 rows (approximately)
+/*!40000 ALTER TABLE `kas_master` DISABLE KEYS */;
+INSERT INTO `kas_master` (`kasprm`, `kas_mst_lock`, `kas_mst_dt`, `kas_mst_nobuk`, `kas_mst_sts`, `kas_mst_tgl`, `kas_mst_pst`, `kas_mst_noref`, `kas_mst_rek`, `kas_mst_ttl`) VALUES
+	(10, 0, 'KK', 'KK-20210412-45572', 'CAIR', '2021-04-12', 'BENDAHARA1', 'AGR-20210407-72239', '1111-02', -250000),
+	(11, 0, 'KK', 'KK-20210412-22741', 'CAIR', '2021-04-12', 'BENDAHARA1', 'AGR-20210407-48937', '1111-01', -1000000);
+/*!40000 ALTER TABLE `kas_master` ENABLE KEYS */;
+
 -- Dumping structure for table gsmf-monev.kelompok_master
+DROP TABLE IF EXISTS `kelompok_master`;
 CREATE TABLE IF NOT EXISTS `kelompok_master` (
   `kelprm` int(11) NOT NULL AUTO_INCREMENT,
   `kel_mst_sts` varchar(20) DEFAULT NULL,
@@ -185,9 +254,9 @@ CREATE TABLE IF NOT EXISTS `kelompok_master` (
   PRIMARY KEY (`kelprm`),
   UNIQUE KEY `kel_mst_kode_kel_mst_subkode_kel_mst_sts` (`kel_mst_sts`,`kel_mst_kode`,`kel_mst_subkode`),
   UNIQUE KEY `kel_mst_subkode` (`kel_mst_subkode`)
-) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table gsmf-monev.kelompok_master: ~65 rows (approximately)
+-- Dumping data for table gsmf-monev.kelompok_master: ~66 rows (approximately)
 /*!40000 ALTER TABLE `kelompok_master` DISABLE KEYS */;
 INSERT INTO `kelompok_master` (`kelprm`, `kel_mst_sts`, `kel_mst_kode`, `kel_mst_subkode`, `kel_mst_ket`, `kel_mst_subket`) VALUES
 	(68, 'AKTIF', 'A', 'A-01', 'BIDANG LITURGI DAN PERIBADATAN', 'BIDANG LITURGI DAN PERIBADATAN'),
@@ -254,10 +323,12 @@ INSERT INTO `kelompok_master` (`kelprm`, `kel_mst_sts`, `kel_mst_kode`, `kel_mst
 	(129, 'AKTIF', 'G', 'G-08', 'KEPANITIAAN', 'PANITIA HARI PANGAN SEDUNIA'),
 	(130, 'AKTIF', 'G', 'G-09', 'KEPANITIAAN', 'PEMBEKALAN PENGURUS DEWAN PASTORAL PAROKI'),
 	(131, 'AKTIF', 'G', 'G-10', 'KEPANITIAAN', 'PANITIA SAKRAMEN INISIASI'),
-	(132, 'AKTIF', 'G', 'G-11', 'KEPANITIAAN', 'PANITIA LAIN-LAIN');
+	(132, 'AKTIF', 'G', 'G-11', 'KEPANITIAAN', 'PANITIA LAIN-LAIN'),
+	(133, 'AKTIF', 'H', 'H-01', 'DPPH', 'BENDAHARA');
 /*!40000 ALTER TABLE `kelompok_master` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.periksa_master
+DROP TABLE IF EXISTS `periksa_master`;
 CREATE TABLE IF NOT EXISTS `periksa_master` (
   `perprm` int(11) NOT NULL AUTO_INCREMENT,
   `per_mst_dt` varchar(20) DEFAULT NULL,
@@ -267,19 +338,20 @@ CREATE TABLE IF NOT EXISTS `periksa_master` (
   `per_mst_pst` varchar(20) DEFAULT NULL,
   `per_mst_ket` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`perprm`),
-  KEY `per_mst_dt_per_mst_nobuk` (`per_mst_dt`,`per_mst_nobuk`),
-  KEY `per_mst_nobuk_per_mst_sts` (`per_mst_nobuk`,`per_mst_sts`),
+  UNIQUE KEY `per_mst_dt_per_mst_nobuk` (`per_mst_dt`,`per_mst_nobuk`) USING BTREE,
   KEY `per_mst_tgl` (`per_mst_tgl`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table gsmf-monev.periksa_master: ~0 rows (approximately)
+-- Dumping data for table gsmf-monev.periksa_master: ~3 rows (approximately)
 /*!40000 ALTER TABLE `periksa_master` DISABLE KEYS */;
 INSERT INTO `periksa_master` (`perprm`, `per_mst_dt`, `per_mst_nobuk`, `per_mst_sts`, `per_mst_tgl`, `per_mst_pst`, `per_mst_ket`) VALUES
-	(1, 'VER', 'AGR-20210407-48937', 'SETUJU', '2021-04-07', 'GSU', ''),
-	(2, 'VER', 'AGR-20210407-72239', 'TOLAK', '2021-04-07', 'GSU', 'tolak... ga ada duit di kas');
+	(5, 'VER', 'AGR-20210407-72239', 'SETUJU', '2021-04-12', 'VERIFIKATOR1', 'OKE SETUJU'),
+	(6, 'VER', 'AGR-20210407-27600', 'TOLAK', '2021-04-12', 'VERIFIKATOR1', 'BERKAS UPLOAD TIDAK SAMA NOMINALNYA'),
+	(7, 'VER', 'AGR-20210407-48937', 'SETUJU', '2021-04-12', 'VERIFIKATOR1', '');
 /*!40000 ALTER TABLE `periksa_master` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.peserta_master
+DROP TABLE IF EXISTS `peserta_master`;
 CREATE TABLE IF NOT EXISTS `peserta_master` (
   `pstprm` int(11) NOT NULL AUTO_INCREMENT,
   `pst_mst_sts` varchar(20) DEFAULT NULL,
@@ -291,16 +363,23 @@ CREATE TABLE IF NOT EXISTS `peserta_master` (
   `pst_mst_lock` int(11) DEFAULT NULL,
   PRIMARY KEY (`pstprm`),
   UNIQUE KEY `pst_mst_kode_pst_mst_sts` (`pst_mst_sts`,`pst_mst_kode`),
-  UNIQUE KEY `pst_mst_kode` (`pst_mst_kode`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+  UNIQUE KEY `pst_mst_kode` (`pst_mst_kode`),
+  KEY `pst_mst_kel` (`pst_mst_kel`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table gsmf-monev.peserta_master: ~2 rows (approximately)
+-- Dumping data for table gsmf-monev.peserta_master: ~6 rows (approximately)
 /*!40000 ALTER TABLE `peserta_master` DISABLE KEYS */;
 INSERT INTO `peserta_master` (`pstprm`, `pst_mst_sts`, `pst_mst_kode`, `pst_mst_kel`, `pst_mst_hak`, `pst_mst_nm`, `pst_mst_pswd`, `pst_mst_lock`) VALUES
-	(10, 'AKTIF', 'GSU', 'F-01', 'PEMILIK', 'GREGORIUSSATRIOUTOMO', '68ba07abf0d370630620ea43c68fabbd', 1);
+	(10, 'AKTIF', 'GSU', 'F-01', 'PEMILIK', 'GREGORIUSSATRIOUTOMO', '254fdf40e3d857f739b7ee57e44b8757', 1),
+	(12, 'AKTIF', 'VERIFIKATOR1', 'H-01', 'PENGAWAS', 'NAMAVERIFIKATOR1', '68ba07abf0d370630620ea43c68fabbd', 0),
+	(13, 'AKTIF', 'BENDAHARA1', 'H-01', 'PELAKSANA', 'ISINAMABENDAHARA1', '68ba07abf0d370630620ea43c68fabbd', 0),
+	(14, 'AKTIF', 'UJICOBA1', 'F-02', 'PEMAKAI', 'NAMAUJICOBA1', '68ba07abf0d370630620ea43c68fabbd', 0),
+	(15, 'AKTIF', 'UJICOBA2', 'F-03', 'PEMAKAI', 'NAMAUJICOBA2', '68ba07abf0d370630620ea43c68fabbd', 0),
+	(16, 'AKTIF', 'UJICOBA3', 'E-02', 'PEMAKAI', 'NAMAUJICOBA3', '68ba07abf0d370630620ea43c68fabbd', 0);
 /*!40000 ALTER TABLE `peserta_master` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.rekening_master
+DROP TABLE IF EXISTS `rekening_master`;
 CREATE TABLE IF NOT EXISTS `rekening_master` (
   `rekprm` int(11) NOT NULL AUTO_INCREMENT,
   `rek_mst_sts` varchar(20) DEFAULT NULL,
@@ -310,87 +389,88 @@ CREATE TABLE IF NOT EXISTS `rekening_master` (
   `rek_mst_kode` varchar(20) DEFAULT NULL,
   `rek_mst_sub_kode` varchar(20) DEFAULT NULL,
   `rek_mst_ket_sub_kode` varchar(2000) DEFAULT NULL,
+  `rek_mst_pos` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`rekprm`),
   UNIQUE KEY `komplit` (`rek_mst_sts`,`rek_mst_kel`,`rek_mst_gol`,`rek_mst_sub_gol`,`rek_mst_kode`,`rek_mst_sub_kode`),
   UNIQUE KEY `rek_mst_sub_kode` (`rek_mst_sub_kode`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=148 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table gsmf-monev.rekening_master: ~73 rows (approximately)
 /*!40000 ALTER TABLE `rekening_master` DISABLE KEYS */;
-INSERT INTO `rekening_master` (`rekprm`, `rek_mst_sts`, `rek_mst_kel`, `rek_mst_gol`, `rek_mst_sub_gol`, `rek_mst_kode`, `rek_mst_sub_kode`, `rek_mst_ket_sub_kode`) VALUES
-	(1, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'SETARAKAS', '1111-01', 'KAS'),
-	(2, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'SETARAKAS', '1111-02', 'BANK'),
-	(3, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'SETARAKAS', '1111-03', 'DEPOSITO'),
-	(4, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'SETARAKAS', '1111-04', 'GIRO'),
-	(5, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'PIUTANG', '1112-01', 'LEMBAGA'),
-	(6, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'PIUTANG', '1112-02', 'PERORANGAN'),
-	(7, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'PIUTANG', '1112-03', 'BIDANG'),
-	(8, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'PIUTANG', '1112-04', 'TIMPELAYANAN'),
-	(9, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'PERSEDIAAN', '1113-01', 'PERSEDIAAN'),
-	(10, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'PERLENGKAPAN', '1113-02', 'HABISPAKAI'),
-	(11, 'AKTIF', 'NERACA', 'ASET', 'ASETTETAP', 'BERGERAK', '1121-01', 'TANAH'),
-	(12, 'AKTIF', 'NERACA', 'ASET', 'ASETTETAP', 'BERGERAK', '1121-02', 'BANGUNAN'),
-	(13, 'AKTIF', 'NERACA', 'ASET', 'ASETTETAP', 'BERGERAK', '1121-03', 'SUSUT'),
-	(14, 'AKTIF', 'NERACA', 'ASET', 'ASETTETAP', 'TIDAKBERGERAK', '1122-01', 'KENDARAAN'),
-	(15, 'AKTIF', 'NERACA', 'ASET', 'ASETTETAP', 'TIDAKBERGERAK', '1122-02', 'SUSUT'),
-	(16, 'AKTIF', 'NERACA', 'ASET', 'ASETLAIN', 'LAIN', '1131-01', 'LAIN'),
-	(17, 'AKTIF', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'JANGKAPANJANG', '1211-01', 'LEMBAGA'),
-	(18, 'AKTIF', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'JANGKAPANJANG', '1211-02', 'PERORANGAN'),
-	(19, 'AKTIF', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'JANGKAPENDEK', '1212-01', 'LEMBAGA'),
-	(20, 'AKTIF', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'JANGKAPENDEK', '1212-02', 'PERORANGAN'),
-	(21, 'AKTIF', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'KHUSUS', '1213-01', 'LEMBAGA'),
-	(22, 'AKTIF', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'KHUSUS', '1213-02', 'PERORANGAN'),
-	(23, 'AKTIF', 'NERACA', 'ASET BERSIH', 'TIDAKTERIKAT', 'TIDAKTERIKAT', '1311-01', 'AKUMULASI'),
-	(24, 'AKTIF', 'NERACA', 'ASET BERSIH', 'TERIKATSEMENTARA', 'NONPEMBANGUNAN', '1321-01', 'AKUMULASI'),
-	(25, 'AKTIF', 'NERACA', 'ASET BERSIH', 'TERIKATSEMENTARA', 'PEMBANGUNAN', '1322-01', 'AKUMULASI'),
-	(26, 'AKTIF', 'NERACA', 'ASET BERSIH', 'TERIKATSEMENTARA', 'UKSP', '1323-01', 'AKUMULASI'),
-	(27, 'AKTIF', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'KOLEKTE', '2111-01', 'MISAUMUM'),
-	(28, 'AKTIF', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'KOLEKTE', '2111-02', 'MISAKHUSUS'),
-	(29, 'AKTIF', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'BANTUAN', '2112-01', 'LEMBAGA'),
-	(30, 'AKTIF', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'BANTUAN', '2112-02', 'PERORANGAN'),
-	(31, 'AKTIF', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'UMUM', '2113-01', 'BUNGABANK'),
-	(32, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'PROGRAM', '2121-01', 'BIDANG'),
-	(33, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'PROGRAM', '2121-02', 'TIMPELAYANAN'),
-	(34, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-01', 'KARYAWAN'),
-	(35, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-02', 'GEREJA'),
-	(36, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-03', 'RUMAHTANGGA'),
-	(37, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-04', 'KEAMANAN'),
-	(38, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-05', 'ADMINISTRASI'),
-	(39, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-06', 'DEVOSIONALIA'),
-	(40, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-07', 'AULAPAROKI'),
-	(41, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-08', 'DEWANPASTORAL'),
-	(42, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-09', 'PENYUSUTAN'),
-	(43, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-10', 'PAJAKBUNGABANK'),
-	(44, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-11', 'ADMINISTRASIBANK'),
-	(45, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-12', 'PAJAK'),
-	(46, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'BANTUAN', '2211-01', 'PENDIDIKAN'),
-	(47, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'BANTUAN', '2211-02', 'KESEHATAN'),
-	(48, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'BANTUAN', '2211-03', 'SEMINARI'),
-	(49, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'UMUM', '2212-01', 'DANAPAPAMISKIN'),
-	(50, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'UMUM', '2212-02', 'APP'),
-	(51, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'UMUM', '2212-03', 'PANGRUKTILAYA'),
-	(52, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'UMUM', '2212-04', 'BKSY'),
-	(53, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'UMUM', '2212-05', 'PENDINGCOFFEE'),
-	(54, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'UMUM', '2212-06', 'BUNGABANK'),
-	(55, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-01', 'DANAPAPAMISKIN'),
-	(56, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-02', 'PENDIDIKAN'),
-	(57, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-03', 'KESEHATAN'),
-	(58, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-04', 'SEMINARI'),
-	(59, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-05', 'APP'),
-	(60, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-06', 'PANGRUKTILAYA'),
-	(61, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-07', 'BKSY'),
-	(62, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-08', 'PENDINGCOFFEE'),
-	(63, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'RUTIN', '2214-01', 'PAJAKBUNGABANK'),
-	(64, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'RUTIN', '2214-02', 'ADMINISTRASIBANK'),
-	(65, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'RUTIN', '2214-03', 'PAJAK'),
-	(66, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'KOLEKTE', '2311-01', 'MISAUMUM'),
-	(67, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'KOLEKTE', '2311-02', 'MISAKHUSUS'),
-	(68, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'BANTUAN', '2312-01', 'LEMBAGA'),
-	(69, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'BANTUAN', '2312-02', 'PERORANGAN'),
-	(70, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'UMUM', '2313-01', 'BUNGABANK'),
-	(71, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'BIAYA', 'RUTIN', '2321-01', 'PAJAKBUNGABANK'),
-	(72, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'BIAYA', 'RUTIN', '2321-02', 'ADMINISTRASIBANK'),
-	(73, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'BIAYA', 'RUTIN', '2321-03', 'PAJAK');
+INSERT INTO `rekening_master` (`rekprm`, `rek_mst_sts`, `rek_mst_kel`, `rek_mst_gol`, `rek_mst_sub_gol`, `rek_mst_kode`, `rek_mst_sub_kode`, `rek_mst_ket_sub_kode`, `rek_mst_pos`) VALUES
+	(74, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'SETARAKAS', '1111-01', 'KAS', 'AKTIVA'),
+	(75, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'SETARAKAS', '1111-02', 'BANK', 'AKTIVA'),
+	(76, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'SETARAKAS', '1111-03', 'DEPOSITO', 'AKTIVA'),
+	(77, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'SETARAKAS', '1111-04', 'GIRO', 'AKTIVA'),
+	(78, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'PIUTANG', '1112-01', 'LEMBAGA', 'AKTIVA'),
+	(79, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'PIUTANG', '1112-02', 'PERORANGAN', 'AKTIVA'),
+	(80, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'PIUTANG', '1112-03', 'BIDANG', 'AKTIVA'),
+	(81, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'PIUTANG', '1112-04', 'TIMPELAYANAN', 'AKTIVA'),
+	(82, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'PERSEDIAAN', '1113-01', 'PERSEDIAAN', 'AKTIVA'),
+	(83, 'AKTIF', 'NERACA', 'ASET', 'ASETLANCAR', 'PERLENGKAPAN', '1113-02', 'HABISPAKAI', 'AKTIVA'),
+	(84, 'AKTIF', 'NERACA', 'ASET', 'ASETTETAP', 'BERGERAK', '1121-01', 'TANAH', 'AKTIVA'),
+	(85, 'AKTIF', 'NERACA', 'ASET', 'ASETTETAP', 'BERGERAK', '1121-02', 'BANGUNAN', 'AKTIVA'),
+	(86, 'AKTIF', 'NERACA', 'ASET', 'ASETTETAP', 'BERGERAK', '1121-03', 'SUSUT', 'AKTIVA'),
+	(87, 'AKTIF', 'NERACA', 'ASET', 'ASETTETAP', 'TIDAKBERGERAK', '1122-01', 'KENDARAAN', 'AKTIVA'),
+	(88, 'AKTIF', 'NERACA', 'ASET', 'ASETTETAP', 'TIDAKBERGERAK', '1122-02', 'SUSUT', 'AKTIVA'),
+	(89, 'AKTIF', 'NERACA', 'ASET', 'ASETLAIN', 'LAIN', '1131-01', 'LAIN', 'AKTIVA'),
+	(90, 'AKTIF', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'JANGKAPANJANG', '1211-01', 'LEMBAGA', 'PASIVA'),
+	(91, 'AKTIF', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'JANGKAPANJANG', '1211-02', 'PERORANGAN', 'PASIVA'),
+	(92, 'AKTIF', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'JANGKAPENDEK', '1212-01', 'LEMBAGA', 'PASIVA'),
+	(93, 'AKTIF', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'JANGKAPENDEK', '1212-02', 'PERORANGAN', 'PASIVA'),
+	(94, 'AKTIF', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'KHUSUS', '1213-01', 'LEMBAGA', 'PASIVA'),
+	(95, 'AKTIF', 'NERACA', 'KEWAJIBAN', 'KEWAJIBAN', 'KHUSUS', '1213-02', 'PERORANGAN', 'PASIVA'),
+	(96, 'AKTIF', 'NERACA', 'ASET BERSIH', 'TIDAKTERIKAT', 'TIDAKTERIKAT', '1311-01', 'AKUMULASI', 'PASIVA'),
+	(97, 'AKTIF', 'NERACA', 'ASET BERSIH', 'TERIKATSEMENTARA', 'NONPEMBANGUNAN', '1321-01', 'AKUMULASI', 'PASIVA'),
+	(98, 'AKTIF', 'NERACA', 'ASET BERSIH', 'TERIKATSEMENTARA', 'PEMBANGUNAN', '1322-01', 'AKUMULASI', 'PASIVA'),
+	(99, 'AKTIF', 'NERACA', 'ASET BERSIH', 'TERIKATSEMENTARA', 'UKSP', '1323-01', 'AKUMULASI', 'PASIVA'),
+	(100, 'AKTIF', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'KOLEKTE', '2111-01', 'MISAUMUM', 'PASIVA'),
+	(101, 'AKTIF', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'KOLEKTE', '2111-02', 'MISAKHUSUS', 'PASIVA'),
+	(102, 'AKTIF', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'BANTUAN', '2112-01', 'LEMBAGA', 'PASIVA'),
+	(103, 'AKTIF', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'BANTUAN', '2112-02', 'PERORANGAN', 'PASIVA'),
+	(104, 'AKTIF', 'ANGGARAN', 'ABTT', 'PENDAPATAN', 'UMUM', '2113-01', 'BUNGABANK', 'PASIVA'),
+	(105, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'PROGRAM', '2121-01', 'BIDANG', 'AKTIVA'),
+	(106, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'PROGRAM', '2121-02', 'TIMPELAYANAN', 'AKTIVA'),
+	(107, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-01', 'KARYAWAN', 'AKTIVA'),
+	(108, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-02', 'GEREJA', 'AKTIVA'),
+	(109, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-03', 'RUMAHTANGGA', 'AKTIVA'),
+	(110, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-04', 'KEAMANAN', 'AKTIVA'),
+	(111, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-05', 'ADMINISTRASI', 'AKTIVA'),
+	(112, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-06', 'DEVOSIONALIA', 'AKTIVA'),
+	(113, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-07', 'AULAPAROKI', 'AKTIVA'),
+	(114, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-08', 'DEWANPASTORAL', 'AKTIVA'),
+	(115, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-09', 'PENYUSUTAN', 'AKTIVA'),
+	(116, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-10', 'PAJAKBUNGABANK', 'AKTIVA'),
+	(117, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-11', 'ADMINISTRASIBANK', 'AKTIVA'),
+	(118, 'AKTIF', 'ANGGARAN', 'ABTT', 'BIAYA', 'RUTIN', '2122-12', 'PAJAK', 'AKTIVA'),
+	(119, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'BANTUAN', '2211-01', 'PENDIDIKAN', 'PASIVA'),
+	(120, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'BANTUAN', '2211-02', 'KESEHATAN', 'PASIVA'),
+	(121, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'BANTUAN', '2211-03', 'SEMINARI', 'PASIVA'),
+	(122, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'UMUM', '2212-01', 'DANAPAPAMISKIN', 'PASIVA'),
+	(123, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'UMUM', '2212-02', 'APP', 'PASIVA'),
+	(124, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'UMUM', '2212-03', 'PANGRUKTILAYA', 'PASIVA'),
+	(125, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'UMUM', '2212-04', 'BKSY', 'PASIVA'),
+	(126, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'UMUM', '2212-05', 'PENDINGCOFFEE', 'PASIVA'),
+	(127, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'PENDAPATAN', 'UMUM', '2212-06', 'BUNGABANK', 'PASIVA'),
+	(128, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-01', 'DANAPAPAMISKIN', 'AKTIVA'),
+	(129, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-02', 'PENDIDIKAN', 'AKTIVA'),
+	(130, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-03', 'KESEHATAN', 'AKTIVA'),
+	(131, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-04', 'SEMINARI', 'AKTIVA'),
+	(132, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-05', 'APP', 'AKTIVA'),
+	(133, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-06', 'PANGRUKTILAYA', 'AKTIVA'),
+	(134, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-07', 'BKSY', 'AKTIVA'),
+	(135, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'UMUM', '2213-08', 'PENDINGCOFFEE', 'AKTIVA'),
+	(136, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'RUTIN', '2214-01', 'PAJAKBUNGABANK', 'AKTIVA'),
+	(137, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'RUTIN', '2214-02', 'ADMINISTRASIBANK', 'AKTIVA'),
+	(138, 'AKTIF', 'ANGGARAN', 'ABTS-NP', 'BIAYA', 'RUTIN', '2214-03', 'PAJAK', 'AKTIVA'),
+	(139, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'KOLEKTE', '2311-01', 'MISAUMUM', 'PASIVA'),
+	(140, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'KOLEKTE', '2311-02', 'MISAKHUSUS', 'PASIVA'),
+	(141, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'BANTUAN', '2312-01', 'LEMBAGA', 'PASIVA'),
+	(142, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'BANTUAN', '2312-02', 'PERORANGAN', 'PASIVA'),
+	(143, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'PENDAPATAN', 'UMUM', '2313-01', 'BUNGABANK', 'PASIVA'),
+	(144, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'BIAYA', 'RUTIN', '2321-01', 'PAJAKBUNGABANK', 'AKTIVA'),
+	(145, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'BIAYA', 'RUTIN', '2321-02', 'ADMINISTRASIBANK', 'AKTIVA'),
+	(146, 'AKTIF', 'ANGGARAN', 'ABTS-P', 'BIAYA', 'RUTIN', '2321-03', 'PAJAK', 'AKTIVA');
 /*!40000 ALTER TABLE `rekening_master` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -12,6 +12,7 @@ class klik_a extends CI_Controller {
 		$this->TabelKelompokMaster = "kelompok_master";
 		$this->TabelPesertaMaster = "peserta_master";
 		$this->TabelRekeningMaster = "rekening_master";
+		$this->TabelJurnalMaster = "jurnal_master";
 		$this->TabelInfoLevel1 = "info_level_1";
 		$this->TabelInfoLevel2 = "info_level_2";
 		$this->TabelInfoLevel3 = "info_level_3";
@@ -51,7 +52,7 @@ class klik_a extends CI_Controller {
 
 	function pilihan_a1(){
 		$kondisi1 = "1=1";
-		$kondisi2 = "in_lv_1_dt = 'STATUS'";
+		$kondisi2 = array('in_lv_1_dt' => 'STATUS');
 		$data['daftar_kelompok_master'] = $this->m_db->ambil_data($kondisi1,$this->TabelKelompokMaster)->result();
 		$data['daftar_info_level_1_sts'] = $this->m_db->ambil_data($kondisi2,$this->TabelInfoLevel1)->result();
 		
@@ -60,25 +61,27 @@ class klik_a extends CI_Controller {
 	}
 
 	function pilihan_a2(){
-		$kondisi1 = "1=1";
-		$kondisi2 = "in_lv_1_dt = 'STATUS'";
+		$kondisi1 = array('kel_mst_sts' => 'AKTIF');
+		$kondisi2 = array('in_lv_1_dt' => 'STATUS');
+		$kondisi3 = "1=1";
 		$data['daftar_kelompok_master'] = $this->m_db->ambil_data($kondisi1,$this->TabelKelompokMaster)->result();
-		$data['daftar_peserta_master'] = $this->m_db->ambil_data_peserta($kondisi1,$this->TabelPesertaMaster)->result();
 		$data['daftar_info_level_1_sts'] = $this->m_db->ambil_data($kondisi2,$this->TabelInfoLevel1)->result();
+		$data['daftar_peserta_master'] = $this->m_db->ambil_data_peserta($kondisi3,$this->TabelPesertaMaster)->result();
+		
 		
 		$this->load->view($this->FormA2,$data);
 		$this->kosong_operator_validasi();
 	}
 
 	function pilihan_a3(){
-		$kondisi1 = "in_lv_1_dt = 'REKENING'";
-		$kondisi2 = "in_lv_1_dt = 'STATUS'";
-		$kondisi3 = "1=1";
-		$kondisi4 = "in_lv_1_dt = 'AP'";
+		$kondisi1 = array('in_lv_1_dt' => 'REKENING');
+		$kondisi2 = array('in_lv_1_dt' => 'STATUS');
+		$kondisi3 = array('in_lv_1_dt' => 'AP');
+		$kondisi4 = "1=1";
 		$data['daftar_info_level_1_rek'] = $this->m_db->ambil_data($kondisi1,$this->TabelInfoLevel1)->result();
 		$data['daftar_info_level_1_sts'] = $this->m_db->ambil_data($kondisi2,$this->TabelInfoLevel1)->result();
-		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi3,$this->TabelRekeningMaster)->result();
-		$data['daftar_info_level_1_ap'] = $this->m_db->ambil_data($kondisi4,$this->TabelInfoLevel1)->result();
+		$data['daftar_info_level_1_ap'] = $this->m_db->ambil_data($kondisi3,$this->TabelInfoLevel1)->result();
+		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi4,$this->TabelRekeningMaster)->result();
 		
 		$this->load->view($this->FormA3,$data);
 		$this->kosong_operator_validasi();
@@ -231,33 +234,63 @@ class klik_a extends CI_Controller {
 
 	}
 
-	function hapus_kelompok_ok($kelprm){
-		$kondisi = array ('kelprm' => $kelprm);
-		$this->m_db->hapus_data($kondisi,$this->TabelKelompokMaster);
+	function hapus_kelompok_ok($kel_mst_subkode){
+		$kondisi1 = array(
+			'pst_mst_kel' => $kel_mst_subkode
+		);
+		
+		$kondisi2 = array(
+			'kel_mst_subkode' => $kel_mst_subkode
+		);
+		
+		$data['daftar_peserta_master'] = $this->m_db->ambil_data($kondisi1,$this->TabelPesertaMaster)->result();
+		
+		if(empty($data['daftar_peserta_master'])){
+			$this->m_db->hapus_data($kondisi2,$this->TabelKelompokMaster);
+		} else {
+			$validasi_a1 = array('validasi_a1' => 'Kelompok ini ada pesertanya...');
+			$this->session->set_userdata($validasi_a1);
+		}
 		redirect($this->KePilihanA1);
+		$this->kosong_operator_validasi();
 	}
 
 	function hapus_peserta_ok($pstprm){
-		$kondisi = array ('pstprm' => $pstprm);
+		$kondisi = array (
+			'pstprm' => $pstprm,
+			'pst_mst_lock' => '0'
+		);
+		
 		$data['daftar_peserta_master'] = $this->m_db->ambil_data($kondisi,$this->TabelPesertaMaster)->result();
 		
-		foreach ($data['daftar_peserta_master'] as $pm) {
-				$t_pst_mst_lock = $pm->pst_mst_lock;
-			}
-		
-		if($t_pst_mst_lock == '0' ){
+		if(!empty($data['daftar_peserta_master'])){
 			$this->m_db->hapus_data($kondisi,$this->TabelPesertaMaster);
 		} else {
 			$validasi_a2 = array('validasi_a2' => 'Pemakai ini lagi masuk, nda boleh hapus');
 			$this->session->set_userdata($validasi_a2);
 		}
 		redirect($this->KePilihanA2);
+		$this->kosong_operator_validasi();
 	}
 
-	function hapus_rekening_ok($rekprm){
-		$kondisi = array ('rekprm' => $rekprm);
-		$this->m_db->hapus_data($kondisi,$this->TabelRekeningMaster);
+	function hapus_rekening_ok($rek_mst_sub_kode){
+		$kondisi1 = array(
+			'jrn_mst_rek' => $rek_mst_sub_kode
+		);
+		$kondisi2 = array(
+			'rek_mst_sub_kode' => $rek_mst_sub_kode
+		);
+		
+		$data['daftar_jurnal_master'] = $this->m_db->ambil_data($kondisi1,$this->TabelJurnalMaster)->result();
+		
+		if(empty($data['daftar_jurnal_master'])){
+			$this->m_db->hapus_data($kondisi2,$this->TabelRekeningMaster);
+		} else {
+			$validasi_a3 = array('validasi_a3' => 'Rekening ini sudah pernah ada jurnal...');
+			$this->session->set_userdata($validasi_a3);
+		}
 		redirect($this->KePilihanA3);
+		$this->kosong_operator_validasi();
 	}
 
 	function ubah_kelompok_ok($kelprm){

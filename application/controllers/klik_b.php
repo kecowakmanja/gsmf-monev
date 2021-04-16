@@ -44,6 +44,7 @@ class klik_b extends CI_Controller {
 	function pilihan_b1(){
 		if($this->session->userdata('hak')=="PEMILIK"){
 			$kondisi1 = array(
+				'rek_mst_sts' => 'AKTIF',
 				'rek_mst_kel' => 'ANGGARAN',
 				'rek_mst_gol' => 'ABTT',
 				'rek_mst_sub_gol' => 'BIAYA',
@@ -53,6 +54,7 @@ class klik_b extends CI_Controller {
 		else{
 			$kondisi1 = array(
 				'hut_mst_kel' => $this->session->userdata('kelompok'),
+				'rek_mst_sts' => 'AKTIF',
 				'rek_mst_kel' => 'ANGGARAN',
 				'rek_mst_gol' => 'ABTT',
 				'rek_mst_sub_gol' => 'BIAYA',
@@ -61,6 +63,7 @@ class klik_b extends CI_Controller {
 		};
 
 		$kondisi2 = array(
+			'rek_mst_sts' => 'AKTIF',
 			'rek_mst_kel' => 'ANGGARAN',
 			'rek_mst_gol' => 'ABTT',
 			'rek_mst_sub_gol' => 'BIAYA',
@@ -76,6 +79,7 @@ class klik_b extends CI_Controller {
 	function pilihan_b2(){
 		if($this->session->userdata('hak')=="PEMILIK"){
 			$kondisi1 = array(
+				'rek_mst_sts' => 'AKTIF',
 				'rek_mst_kel' => 'ANGGARAN',
 				'rek_mst_gol' => 'ABTT',
 				'rek_mst_sub_gol' => 'BIAYA',
@@ -85,6 +89,7 @@ class klik_b extends CI_Controller {
 		else{
 			$kondisi1 = array(
 				'hut_mst_kel'=>$this->session->userdata('kelompok'),
+				'rek_mst_sts' => 'AKTIF',
 				'rek_mst_kel' => 'ANGGARAN',
 				'rek_mst_gol' => 'ABTT',
 				'rek_mst_sub_gol' => 'BIAYA',
@@ -93,6 +98,7 @@ class klik_b extends CI_Controller {
 		};
 
 		$kondisi2 = array(
+			'rek_mst_sts' => 'AKTIF',
 			'rek_mst_kel' => 'ANGGARAN',
 			'rek_mst_gol' => 'ABTT',
 			'rek_mst_sub_gol' => 'BIAYA',
@@ -172,6 +178,7 @@ class klik_b extends CI_Controller {
 					'hut_mst_kel' => $this->session->userdata('kelompok'),
 					'hut_mst_rek' => $this->input->post('t_hut_mst_rek'),
 					'hut_mst_rnc' => $this->input->post('t_hut_mst_rnc'),
+					'hut_mst_ttl' => '0',
 					'hut_mst_ket' => trim(strtoupper($this->input->post('t_hut_mst_ket'))),
 					'hut_mst_dok' => $this->upload->data('file_name')
 				);
@@ -267,6 +274,7 @@ class klik_b extends CI_Controller {
 					'hut_mst_kel' => $this->session->userdata('kelompok'),
 					'hut_mst_rek' => $this->input->post('t_hut_mst_rek'),
 					'hut_mst_rnc' => $this->input->post('t_hut_mst_rnc'),
+					'hut_mst_ttl' => '0',
 					'hut_mst_ket' => trim(strtoupper($this->input->post('t_hut_mst_ket'))),
 					'hut_mst_dok' => $this->upload->data('file_name')
 				);
@@ -295,18 +303,16 @@ class klik_b extends CI_Controller {
 	}
 
 	function hapus_program_ok($hutprm){
-		$kondisi = array('hutprm' => $hutprm);
+		$kondisi = array(
+			'hutprm' => $hutprm,
+			'hut_mst_sts' => 'BARU',
+			'hut_mst_lock' => '0'
+		);
 		$data['daftar_program_master'] = $this->m_db->ambil_data($kondisi,$this->TabelHutangMaster)->result();
 		
-		foreach ($data['daftar_program_master'] as $hm){
-			$t_hut_mst_lock = $hm->hut_mst_lock;
-			$t_hut_mst_sts = $hm->hut_mst_sts;
-			$t_hut_mst_nobuk = $hm->hut_mst_nobuk;
-		}
-		
-		if ($t_hut_mst_sts != "BARU" || $t_hut_mst_lock != 0){
+		if (empty($data['daftar_program_master'])){
 			$validasi_b1 = array(
-				'validasi_b1' => "Pengajuan anggaran lagi di proses, nda boleh hapus data yang sudah masuk..."
+				'validasi_b1' => "Pengajuan anggaran sudah selesai di proses, nda boleh hapus data yang sudah masuk..."
 			);
 			$this->session->set_userdata($validasi_b1);
 		} else {
@@ -317,18 +323,17 @@ class klik_b extends CI_Controller {
 	}
 	
 	function hapus_rutin_ok($hutprm){
-		$kondisi = array('hutprm' => $hutprm);
+		$kondisi = array(
+			'hutprm' => $hutprm,
+			'hut_mst_sts' => 'BARU',
+			'hut_mst_lock' => '0'
+		);
+		
 		$data['daftar_rutin_master'] = $this->m_db->ambil_data($kondisi,$this->TabelHutangMaster)->result();
 		
-		foreach ($data['daftar_rutin_master'] as $hm){
-			$t_hut_mst_lock = $hm->hut_mst_lock;
-			$t_hut_mst_sts = $hm->hut_mst_sts;
-			$t_hut_mst_nobuk = $hm->hut_mst_nobuk;
-		}
-		
-		if ($t_hut_mst_sts != "BARU" || $t_hut_mst_lock != 0){
+		if (empty($data['daftar_rutin_master'])){
 			$validasi_b2 = array(
-				'validasi_b2' => "Pengajuan anggaran lagi di proses, nda boleh hapus data yang sudah masuk..."
+				'validasi_b2' => "Pengajuan udah di proses, nda boleh hapus data yang sudah masuk..."
 			);
 			$this->session->set_userdata($validasi_b2);
 		} else {
@@ -342,8 +347,14 @@ class klik_b extends CI_Controller {
 		$operator_b1 = array('operator_b1' => "UBAH");
 		$this->session->set_userdata($operator_b1);
 
-		$kondisi1 = array('hutprm' => $hutprm);
+		$kondisi1 = array(
+			'hutprm' => $hutprm,
+			'hut_mst_sts' => 'BARU',
+			'hut_mst_lock' => '0'
+		);
+		
 		$kondisi2 = array(
+			'rek_mst_sts' => 'AKTIF',
 			'rek_mst_kel' => 'ANGGARAN',
 			'rek_mst_gol' => 'ABTT',
 			'rek_mst_sub_gol' => 'BIAYA',
@@ -352,20 +363,13 @@ class klik_b extends CI_Controller {
 		
 		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi2,$this->TabelRekeningMaster)->result();
 		$data['daftar_program_master'] = $this->m_db->ambil_data_hutang($kondisi1)->result();
-		
-		foreach ($data['daftar_program_master'] as $hm){
-			$t_hut_mst_lock = $hm->hut_mst_lock;
-			$t_hut_mst_sts = $hm->hut_mst_sts;
-			$t_hut_mst_nobuk = $hm->hut_mst_nobuk;
-		}
 
-		if ($t_hut_mst_sts != "BARU" || $t_hut_mst_lock != 0){
+		if (empty($data['daftar_program_master'])){
 			$validasi_b1 = array(
-				'validasi_b1' => "Pengajuan anggaran lagi di proses, nda boleh ubah-ubah data yang sudah masuk..."
+				'validasi_b1' => "Pengajuan udah di proses, nda boleh ubah data yang sudah masuk..."
 			);
 			$this->session->set_userdata($validasi_b1);
 			redirect($this->KePilihanB1);
-			
 		} else {
 			$nilai_master = array('hut_mst_lock' => '1');
 			$this->m_db->ubah_data($kondisi1,$nilai_master,$this->TabelHutangMaster);
@@ -379,8 +383,14 @@ class klik_b extends CI_Controller {
 		$operator_b2 = array('operator_b2' => "UBAH");
 		$this->session->set_userdata($operator_b2);
 
-		$kondisi1 = array('hutprm' => $hutprm);
+		$kondisi1 = array(
+			'hutprm' => $hutprm,
+			'hut_mst_sts' => 'BARU',
+			'hut_mst_lock' => '0'
+		);
+		
 		$kondisi2 = array(
+			'rek_mst_sts' => 'AKTIF',
 			'rek_mst_kel' => 'ANGGARAN',
 			'rek_mst_gol' => 'ABTT',
 			'rek_mst_sub_gol' => 'BIAYA',
@@ -389,20 +399,13 @@ class klik_b extends CI_Controller {
 		
 		$data['daftar_rekening_master'] = $this->m_db->ambil_data($kondisi2,$this->TabelRekeningMaster)->result();
 		$data['daftar_rutin_master'] = $this->m_db->ambil_data_hutang($kondisi1)->result();
-		
-		foreach ($data['daftar_rutin_master'] as $hm){
-			$t_hut_mst_lock = $hm->hut_mst_lock;
-			$t_hut_mst_sts = $hm->hut_mst_sts;
-			$t_hut_mst_nobuk = $hm->hut_mst_nobuk;
-		}
 
-		if ($t_hut_mst_sts != "BARU" || $t_hut_mst_lock != 0){
+		if (empty($data['daftar_rutin_master'])){
 			$validasi_b2 = array(
-				'validasi_b2' => "Pengajuan anggaran lagi di proses, nda boleh ubah-ubah data yang sudah masuk..."
+				'validasi_b2' => "Pengajuan udah di proses, nda boleh ubah data yang sudah masuk..."
 			);
 			$this->session->set_userdata($validasi_b2);
 			redirect($this->KePilihanB2);
-			
 		} else {
 			$nilai_master = array('hut_mst_lock' => '1');
 			$this->m_db->ubah_data($kondisi1,$nilai_master,$this->TabelHutangMaster);

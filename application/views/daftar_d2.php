@@ -12,26 +12,6 @@
 	
 </head>
 <body>
-<?php
-
-if($this->session->userdata('operator_d1') == "UBAH" && empty($this->session->userdata('validasi_d1'))){
-	foreach($daftar_hutang_master as $hm){
-		$formulir_urut = $hm->hutprm;
-		$formulir_nobuk = $hm->hut_mst_nobuk;
-		$formulir_sts = $hm->hut_mst_sts;
-		$formulir_tgl = $hm->hut_mst_tgl;
-		$formulir_tglrnc = $hm->hut_mst_tglrnc;
-		$formulir_pst = $hm->pst_mst_nm;
-		$formulir_kel = $hm->kel_mst_ket;
-		$formulir_rek = $hm->rek_mst_ket_sub_kode;
-		$formulir_rnc = 'Rp. '.number_format($hm->hut_mst_rnc,2,",",".");
-		$formulir_ket = $hm->hut_mst_ket;
-		$formulir_dok = $hm->hut_mst_dok;
-		
-	}
-}
-
-?>
 <div class="container-fluid">
 	<div class="card text-center bg-light">
 		<div class="card-header">
@@ -75,10 +55,9 @@ if($this->session->userdata('operator_d1') == "UBAH" && empty($this->session->us
 					</h6>
 					<div id="isiSatu" class="accordion-collapse collapse show" data-bs-parent="#frmkelDet1" aria-labelledby="judulSatu">
 						<div class="accordion-body">
-							<table class="table table-sm table-hover" id="tblHutDet">
+							<table class="table table-hover" id="tblHutDet">
 								<thead>
 									<tr>
-										<th>URUT</th>
 										<th>NO.MUTASI</th>
 										<th>JENIS</th>
 										<th>HASIL</th>
@@ -90,7 +69,6 @@ if($this->session->userdata('operator_d1') == "UBAH" && empty($this->session->us
 								<tbody>
 									<?php foreach($daftar_hutang_master as $hm){ ?>
 									<tr>
-										<td><?php echo $hm->hutprm; ?></td>
 										<td><?php echo $hm->hut_mst_nobuk ?></td>
 										<td><?php echo $hm->rek_mst_kode ?></td>
 										<td><?php echo $hm->per_mst_sts ?></td>

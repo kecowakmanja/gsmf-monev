@@ -56,12 +56,11 @@
 							<table class="table table-sm table-hover" id="tblKasDet">
 								<thead>
 									<tr>
-										<th>URUT</th>
 										<th>NO.MUTASI</th>
 										<th>NO.REFERENSI</th>
 										<th>JENIS</th>
 										<th>TANGGAL</th>
-										<th>STATUS</th>
+										<th>KETERANGAN</th>
 										<th>NOMINAL</th>
 										<th>OPERATOR</th>
 									</tr>
@@ -69,12 +68,11 @@
 								<tbody>
 									<?php foreach($daftar_kas_master as $km){ ?>
 									<tr>
-										<td><?php echo $km->kasprm; ?></td>
 										<td><?php echo $km->kas_mst_nobuk ?></td>
 										<td><?php echo $km->kas_mst_noref ?></td>
 										<td><?php echo $km->rek_mst_ket_sub_kode ?></td>
 										<td><?php echo $km->kas_mst_tgl ?></td>
-										<td><?php echo $km->kas_mst_sts ?></td>
+										<td><?php echo $km->kas_mst_ket ?></td>
 										<td><?php echo 'Rp'. number_format($km->kas_mst_ttl,2,",",".") ?></td>
 										<td>
 											<a href="#" class="btn btn-primary btn-sm" onClick="cari_jurnal('<?php echo $km->kas_mst_nobuk; ?>')">DETAIL</a>
@@ -94,36 +92,37 @@
 	</div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="mdlJrn" tabindex="-1" aria-labelledby="mdlJrnLbl" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="mdlJrnLbl">JURNAL</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="TUTUP"></button>
-			</div>
-			<div class="modal-body">
-				<table class="table table-sm table-hover" id="tblKasDet">
-					<thead>
-						<tr>
-							<th>NO.MUTASI</th>
-							<th>TANGGAL</th>
-							<th>REKENING</th>
-							<th>KETERANGAN</th>
-							<th>D/K</th>
-							<th>NOMINAL</th>
-						</tr>
-					</thead>
-					<tbody id="hasilajax">
-					</tbody>
-				</table>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">TUTUP</button>
+<div class="container-fluid">
+	<div class="modal" id="mdlJrn" tabindex="-1" aria-labelledby="mdlJrnLbl" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="mdlJrnLbl">JURNAL</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="TUTUP"></button>
+				</div>
+				<div class="modal-body">
+					<table class="table table-sm table-hover" id="tblKasDet">
+						<thead>
+							<tr>
+								<th>NO.MUTASI</th>
+								<th>TANGGAL</th>
+								<th>REKENING</th>
+								<th>KETERANGAN</th>
+								<th>D/K</th>
+								<th>NOMINAL</th>
+							</tr>
+						</thead>
+						<tbody id="hasilajax">
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">TUTUP</button>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
 
 <script type="text/javascript">
 var url_cari_jurnal = "<?php echo base_url()."index.php/klik_e/cari_jurnal/"?>"

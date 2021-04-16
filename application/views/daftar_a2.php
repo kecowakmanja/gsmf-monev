@@ -32,11 +32,10 @@ foreach($daftar_kelompok_master as $km){
 
 if(!empty($this->session->userdata('operator_a2'))){
 	if($this->session->userdata('operator_a2')!="TAMBAH"){
-		$judul_navigasi = "UBAH";
 		$tombol_tambah = array(
 			'name' => 'btnKirim',
 			'value' => 'UBAH',
-			'class' => 'btn btn-sm btn-primary'
+			'class' => 'btn btn-sm btn-success'
 		);
 		foreach($daftar_peserta_master as $pm){
 			$formulir_prm = array(
@@ -90,11 +89,10 @@ if(!empty($this->session->userdata('operator_a2'))){
 		}
 	} 
 } else {
-	$judul_navigasi = "TAMBAH";
 	$tombol_tambah = array(
 		'name' => 'btnKirim',
 		'value' => 'TAMBAH',
-		'class' => 'btn btn-sm btn-primary'
+		'class' => 'btn btn-sm btn-success'
 	);
 	$formulir_status = array(
 		'name' => 't_pst_mst_sts',
@@ -144,7 +142,7 @@ $tombol_reset = array(
 $tombol_proses = array(
 	"name" => "btnProses",
 	"value" => "PROSES",
-	"class" => "btn btn-sm btn-primary"
+	"class" => "btn btn-sm btn-success"
 );
 
 $tombol_unduh = array(
@@ -194,8 +192,6 @@ $formulir_csv = array(
 				<p class="card-text">
 					<ul>
 						<li>Untuk menambah, sila tekan tombol <strong>TAMBAH</strong> pada <strong>DETAIL PESERTA</strong>.</li>
-						<li>Silahkan manfaatkan kotak <strong>SEARCH</strong> untuk melakukan pencarian.</li>
-						<li><strong>JUDUL TABEL</strong> dapat di tekan untuk melakukan pengurutan untuk membantu permudah pencarian.</li>
 						<li>Tombol operator <strong>UBAH</strong>, <strong>HAPUS</strong> pada <strong>DAFTAR PESERTA</strong> untuk melakukan perubahan dan menghapus.</li>
 					</ul>
 				</p>
@@ -215,7 +211,7 @@ $formulir_csv = array(
 					</h6>
 					<div id="isiSatu" class="accordion-collapse collapse show" data-bs-parent="#frmpstDet1" aria-labelledby="judulSatu">
 						<div class="accordion-body">
-							<table class="table table-sm table-bordered table-light">
+							<table class="table table-sm table-borderless table-light">
 								<?php 
 									echo form_open('klik_a/tambah_peserta_ok','',$formulir_prm);
 								?> 	 
@@ -267,7 +263,7 @@ $formulir_csv = array(
 					</h6>
 					<div id="isiTiga" class="accordion-collapse collapse show" data-bs-parent="#frmrekDet3" aria-labelledby="judulTiga">
 						<div class="accordion-body">
-							<table class="table table-sm table-bordered table-light">
+							<table class="table table-sm table-borderless table-light">
 								<?php 
 									echo form_open_multipart("klik_a/proses_peserta_ok");
 								?> 	 
@@ -299,14 +295,12 @@ $formulir_csv = array(
 					<div id="isiDua" class="accordion-collapse collapse show" data-bs-parent="#frmpstDet2" aria-labelledby="judulDua">
 						<div class="accordion-body">
 							<div class="table thead-light text-start">
-								<table class="table" id="tblpst">
+								<table class="table table-hover" id="tblpst">
 									<thead>
 										<tr>
-											<th>URUT</th>
-											<th>STATUS</th>
 											<th>KODE</th>
-											<th>KELOMPOK</th>
 											<th>HAK</th>
+											<th>KELOMPOK</th>
 											<th>NAMA</th>
 											<th>OPERATOR</th>
 										</tr>
@@ -314,11 +308,9 @@ $formulir_csv = array(
 									<tbody>
 										<?php foreach($daftar_peserta_master as $pm){ ?>
 										<tr>
-											<td><?php echo $pm->pstprm ?></td>
-											<td><?php echo $pm->pst_mst_sts ?></td>
 											<td><?php echo $pm->pst_mst_kode ?></td>
-											<td><?php echo $pm->kel_mst_subket ?></td>
 											<td><?php echo $pm->pst_mst_hak ?></td>
+											<td><?php echo $pm->kel_mst_subket ?></td>
 											<td><?php echo $pm->pst_mst_nm ?></td>
 											<td><a href="<?php echo base_url().'index.php/klik_a/ubah_peserta_ok/'.$pm->pstprm ?>" class="btn btn-sm btn-warning">UBAH</a>
 												<a href="<?php echo base_url().'index.php/klik_a/hapus_peserta_ok/'.$pm->pstprm?>" class="btn btn-sm btn-danger">HAPUS</a>

@@ -24,7 +24,7 @@ if(!empty($this->session->userdata('operator_a1'))){
 		$tombol_tambah = array(
 			'name' => 'btnKirim',
 			'value' => 'UBAH',
-			'class' => 'btn btn-sm btn-primary'
+			'class' => 'btn btn-sm btn-success'
 		);
 		foreach($daftar_kelompok_master as $km){
 			$formulir_prm = array(
@@ -81,7 +81,7 @@ if(!empty($this->session->userdata('operator_a1'))){
 	$tombol_tambah = array(
 		'name' => 'btnKirim',
 		'value' => 'TAMBAH',
-		'class' => 'btn btn-sm btn-primary'
+		'class' => 'btn btn-sm btn-success'
 	);
 	$formulir_status = array(
 		'name' => 't_kel_mst_sts',
@@ -128,7 +128,7 @@ $tombol_reset = array(
 $tombol_proses = array(
 	"name" => "btnProses",
 	"value" => "PROSES",
-	"class" => "btn btn-sm btn-primary"
+	"class" => "btn btn-sm btn-success"
 );
 
 $tombol_unduh = array(
@@ -180,8 +180,6 @@ $formulir_csv = array(
 				<p class="card-text">
 					<ul>
 						<li>Untuk menambah, sila tekan tombol <strong>TAMBAH</strong> pada <strong>DETAIL KELOMPOK</strong>.</li>
-						<li>Silahkan manfaatkan kotak <strong>SEARCH</strong> untuk melakukan pencarian.</li>
-						<li><strong>JUDUL TABEL</strong> dapat di tekan untuk melakukan pengurutan untuk membantu permudah pencarian.</li>
 						<li>Tombol operator <strong>UBAH</strong>, <strong>HAPUS</strong> pada <strong>DAFTAR KELOMPOK</strong> untuk melakukan perubahan dan menghapus.</li>
 					</ul>
 				</p>
@@ -201,7 +199,7 @@ $formulir_csv = array(
 					</h6>
 					<div id="isiSatu" class="accordion-collapse collapse show" data-bs-parent="#frmkelDet1" aria-labelledby="judulSatu">
 						<div class="accordion-body">
-							<table class="table table-sm table-bordered table-light">
+							<table class="table table-sm table-borderless table-light">
 								<?php 
 									echo form_open('klik_a/tambah_kelompok_ok','',$formulir_prm);
 								?> 	 
@@ -256,7 +254,7 @@ $formulir_csv = array(
 					</h6>
 					<div id="isiTiga" class="accordion-collapse collapse show" data-bs-parent="#frmrekDet3" aria-labelledby="judulTiga">
 						<div class="accordion-body">
-							<table class="table table-sm table-bordered table-light">
+							<table class="table table-sm table-borderless table-light">
 								<?php 
 									echo form_open_multipart("klik_a/proses_kelompok_ok");
 								?> 	 
@@ -288,14 +286,11 @@ $formulir_csv = array(
 					<div id="isiDua" class="accordion-collapse collapse show" data-bs-parent="#frmkelDet2" aria-labelledby="judulDua">
 						<div class="accordion-body">
 							<div class="table thead-light text-start">
-								<table class="table" id="tblKel">
+								<table class="table table-hover" id="tblKel">
 									<thead>
 										<tr>
-											<th>URUT</th>
-											<th>STATUS</th>
 											<th>KODE</th>
 											<th>SUB-KODE</th>
-											<th>KETERANGAN</th>
 											<th>SUB-KETERANGAN</th>
 											<th>OPERATOR</th>
 										</tr>
@@ -303,14 +298,11 @@ $formulir_csv = array(
 									<tbody>
 										<?php foreach($daftar_kelompok_master as $km){ ?>
 										<tr>
-											<td><?php echo $km->kelprm ?></td>
-											<td><?php echo $km->kel_mst_sts ?></td>
 											<td><?php echo $km->kel_mst_kode ?></td>
 											<td><?php echo $km->kel_mst_subkode ?></td>
-											<td><?php echo $km->kel_mst_ket ?></td>
 											<td><?php echo $km->kel_mst_subket ?></td>
 											<td><a href="<?php echo base_url().'index.php/klik_a/ubah_kelompok_ok/'.$km->kelprm ?>" class="btn btn-sm btn-warning">UBAH</a>
-												<a href="<?php echo base_url().'index.php/klik_a/hapus_kelompok_ok/'.$km->kelprm?>" class="btn btn-sm btn-danger">HAPUS</a>
+												<a href="<?php echo base_url().'index.php/klik_a/hapus_kelompok_ok/'.$km->kel_mst_subkode ?>" class="btn btn-sm btn-danger">HAPUS</a>
 											</td>
 										</tr>
 										<?php } ?>

@@ -33,11 +33,10 @@ $formulir_prm = array();
 
 if(!empty($this->session->userdata("operator_a3"))){
 	if($this->session->userdata("operator_a3")!="TAMBAH"){
-		$judul_navigasi = "UBAH";
 		$tombol_tambah = array(
 			"name" => "btnKirim",
 			"value" => "UBAH",
-			"class" => "btn btn-sm btn-primary"
+			"class" => "btn btn-sm btn-success"
 		);
 		foreach($daftar_rekening_master as $rm){
 			$formulir_status = array(
@@ -100,11 +99,10 @@ if(!empty($this->session->userdata("operator_a3"))){
 		}
 	} 
 } else {
-	$judul_navigasi = "TAMBAH";
 	$tombol_tambah = array(
 		"name" => "btnKirim",
 		"value" => "TAMBAH",
-		"class" => "btn btn-sm btn-primary"
+		"class" => "btn btn-sm btn-success"
 	);
 	$formulir_status = array(
 		"name" => "t_rek_mst_sts",
@@ -165,7 +163,7 @@ $tombol_reset = array(
 $tombol_proses = array(
 	"name" => "btnProses",
 	"value" => "PROSES",
-	"class" => "btn btn-sm btn-primary"
+	"class" => "btn btn-sm btn-success"
 );
 
 $tombol_unduh = array(
@@ -216,8 +214,6 @@ $formulir_csv = array(
 				<p class="card-text">
 					<ul>
 						<li>Untuk menambah, sila tekan tombol <strong>TAMBAH</strong> pada <strong>DETAIL REKENING</strong>.</li>
-						<li>Silahkan manfaatkan kotak <strong>SEARCH</strong> untuk melakukan pencarian.</li>
-						<li><strong>JUDUL TABEL</strong> dapat di tekan untuk melakukan pengurutan untuk membantu permudah pencarian.</li>
 						<li>Tombol operator <strong>UBAH</strong>, <strong>HAPUS</strong> pada <strong>DAFTAR REKENING</strong> untuk melakukan perubahan dan menghapus.</li>
 					</ul>
 				</p>
@@ -237,7 +233,7 @@ $formulir_csv = array(
 					</h6>
 					<div id="isiSatu" class="accordion-collapse collapse show" data-bs-parent="#frmrekDet1" aria-labelledby="judulSatu">
 						<div class="accordion-body">
-							<table class="table table-sm table-bordered table-light">
+							<table class="table table-sm table-borderless">
 								<?php 
 									echo form_open("klik_a/tambah_rekening_ok","",$formulir_prm);
 								?> 	 
@@ -298,7 +294,7 @@ $formulir_csv = array(
 					</h6>
 					<div id="isiTiga" class="accordion-collapse collapse show" data-bs-parent="#frmrekDet3" aria-labelledby="judulTiga">
 						<div class="accordion-body">
-							<table class="table table-sm table-bordered table-light">
+							<table class="table table-sm table-borderless">
 								<?php 
 									echo form_open_multipart("klik_a/proses_rekening_ok");
 								?> 	 
@@ -330,12 +326,9 @@ $formulir_csv = array(
 					<div id="isiDua" class="accordion-collapse collapse show" data-bs-parent="#frmrekDet2" aria-labelledby="judulDua">
 						<div class="accordion-body">
 							<div class="table thead-light text-start">
-								<table class="table" id="tblrek">
+								<table class="table table-hover" id="tblrek">
 									<thead>
 										<tr>
-											<th>STATUS</th>
-											<th>POSISI</th>
-											<th>KELOMPOK</th>
 											<th>GOLONGAN</th>
 											<th>SUB-GOLONGAN</th>
 											<th>KODE</th>
@@ -347,16 +340,13 @@ $formulir_csv = array(
 									<tbody>
 										<?php foreach($daftar_rekening_master as $rm){ ?>
 										<tr>
-											<td><?php echo $rm->rek_mst_sts ?></td>
-											<td><?php echo $rm->rek_mst_pos ?></td>
-											<td><?php echo $rm->rek_mst_kel ?></td>
 											<td><?php echo $rm->rek_mst_gol ?></td>
 											<td><?php echo $rm->rek_mst_sub_gol ?></td>
 											<td><?php echo $rm->rek_mst_kode ?></td>
 											<td><?php echo $rm->rek_mst_sub_kode ?></td>
 											<td><?php echo $rm->rek_mst_ket_sub_kode ?></td>
 											<td><a href="<?php echo base_url()."index.php/klik_a/ubah_rekening_ok/".$rm->rekprm ?>" class="btn btn-sm btn-warning">UBAH</a>
-												<a href="<?php echo base_url()."index.php/klik_a/hapus_rekening_ok/".$rm->rekprm?>" class="btn btn-sm btn-danger">HAPUS</a>
+												<a href="<?php echo base_url()."index.php/klik_a/hapus_rekening_ok/".$rm->rek_mst_sub_kode ?>" class="btn btn-sm btn-danger">HAPUS</a>
 											</td>
 										</tr>
 										<?php } ?>

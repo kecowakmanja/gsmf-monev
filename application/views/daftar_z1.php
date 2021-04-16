@@ -8,27 +8,88 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 </head>
+<?php 
+$formulir_urut = array(
+	'id' => 't_pstprm',
+	'name' => 't_pstprm',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+$formulir_kode = array(
+	'id' => 't_pstkode',
+	'name' => 't_pstkode',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+$formulir_nama = array(
+	'id' => 't_pstnama',
+	'name' => 't_pstnama',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+$formulir_kel = array(
+	'id' => 't_pstkel',
+	'name' => 't_pstkel',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+$formulir_hak = array(
+	'id' => 't_psthak',
+	'name' => 't_psthak',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+$formulir_kunci = array(
+	'name' => 't_pstpswd',
+	'class'=>'form-control',
+	'placeholder' => 'Kunci...',
+	'id' => 't_pstpswd',
+	'type' => 'password'
+);
+$tombol_ubah = array(
+	'name' => 'btnKirim',
+	'class' => 'btn btn-lg btn-success',
+	'value' => 'UBAH'
+);
+$tombol_batal = array(
+	'name' => 'btnKirim',
+	'class' => 'btn btn-lg btn-danger',
+	'value' => 'BATAL'
+);
+?>
 <body>
 <div class="container-fluid">
 	<div class="card text-center bg-light">
 		<div class="card-header">
-			<h1><strong>GSMF-MONEV</h1></strong>
-		</div>
-		<div class="card-body">
-			<div class="alert alert-success text-start">
-				<p class="card-text">
-					Hai <strong><?php echo $this->session->userdata('nama') ?></strong>
-					anda sedang login sebagai <strong><?php echo $this->session->userdata('kode') ?></strong> dengan hak akses <strong><?php echo $this->session->userdata('hak') ?></strong>
-					Pada waktu <strong><?php echo $this->session->userdata('tgl_masuk') ?></strong>.
-					<a class="btn btn-sm btn-outline-danger" href="<?php echo base_url().'index.php/klik_z/kepareng/'?>">PAMIT</a>
-				</p>
-			</div>
-			<?php if(!empty($this->session->userdata('validasi_z1'))) { ?>
-				<div class="alert alert-sm alert-danger alert-dismissible fade show">
-					<?php echo $this->session->userdata('validasi_z1'); ?>
-					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick="<?php echo $this->session->unset_userdata('validasi_z1') ?>"></button>
+			<div class="row">
+				<div class="col-sm-1">
+					<img src=<?php echo base_url().'assets/img/logo_gsmf.png'?> width="80" height="70">
 				</div>
-			<?php } ?>
+				<div class="col-sm-3 text-start">
+					<h1><strong>GSMF-MONEV</h1></strong>
+				</div>
+				<div class="col-sm-6 text-start">
+					<a class="btn btn-sm btn-outline-dark" href="#">[kode=<strong><?php echo $this->session->userdata('kode') ?></strong>]</a>
+					<a class="btn btn-sm btn-outline-dark" href="#">[hak=<strong><?php echo $this->session->userdata('hak') ?></strong>]</a>
+					<a class="btn btn-sm btn-outline-dark" href="#">[nama=<strong><?php echo $this->session->userdata('nama') ?></strong>]</a>
+					<a class="btn btn-sm btn-outline-dark" href="#">[kelompok=<strong><?php echo $this->session->userdata('nmkel') ?></strong>]</a>
+					<a class="btn btn-sm btn-outline-dark" href="#">[alamat=<strong><?php echo $_SERVER['REMOTE_ADDR'] ?></strong>]</a>
+				</div>
+				<div class="col-sm-2 text-end">
+					<div class="btn-group">
+						<a class="btn btn-lg btn-success" href=# onclick="profil_peserta('<?php echo $this->session->userdata('prm'); ?>')">PROFIL</a>
+						<a class="btn btn-lg btn-danger" href="<?php echo base_url().'index.php/klik_z/kepareng/'?>">PAMIT</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php if(!empty($this->session->userdata('validasi_z1'))) { ?>
+			<div class="alert alert-sm alert-danger alert-dismissible fade show">
+				<?php echo $this->session->userdata('validasi_z1'); ?>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick="<?php echo $this->session->unset_userdata('validasi_z1') ?>"></button>
+			</div>
+		<?php } ?>
+		<div class="card-body">
 			<div class="row align-items-start">
 				<div class="col-sm-3">	
 					<div class="card text-dark bg-warning">
@@ -101,4 +162,75 @@
 	</div>
 </div>
 </body>
+<!-- Modal -->
+<div class="modal" id="mdlPst" tabindex="-1" aria-labelledby="mdlPstLbl" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<?php echo form_open('klik_z/ngubah/','',$formulir_urut); ?>
+			<div class="modal-header">
+				<h5 class="modal-title" id="mdlPstLbl"><strong>GANTI KATA KUNCI</strong></h5>
+			</div>
+			<div class="modal-body">
+				<table class="table table-sm table-borderless">
+					<tbody>
+						<tr>
+							<td><?php echo form_label('URUT'); ?></td>
+							<td><?php echo form_input($formulir_urut); ?></td>
+						</tr>
+						<tr>
+							<td><?php echo form_label('KODE'); ?></td>
+							<td><?php echo form_input($formulir_kode); ?></td>
+						</tr>
+						<tr>
+							<td><?php echo form_label('NAMA'); ?></td>
+							<td><?php echo form_input($formulir_nama); ?></td>
+						</tr>
+						<tr>
+							<td><?php echo form_label('KELOMPOK'); ?></td>
+							<td><?php echo form_input($formulir_kel); ?></td>
+						</tr>
+						<tr>
+							<td><?php echo form_label('HAK'); ?></td>
+							<td><?php echo form_input($formulir_hak); ?></td>
+						</tr>
+						<tr>
+							<td><?php echo form_label('KATA KUNCI') ?></td>
+							<td><?php echo form_input($formulir_kunci); ?></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<?php 
+					echo form_submit($tombol_ubah);
+					echo form_submit($tombol_batal);
+				?>
+			</div>
+			<?php echo form_close(); ?>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+var url_profil_peserta = "<?php echo base_url()."index.php/klik_z/njenengan/"?>"
+var url_ngubah = "<?php echo base_url()."index.php/klik_z/ngubah/"?>"
+
+function profil_peserta(t_pstprm){
+	$('#mdlPst').modal('toggle');
+	$.ajax({
+		type: "POST",
+		url: url_profil_peserta,
+		dataType: 'json',
+		data: {pstprm:t_pstprm},
+		success: function(data){
+			$('#t_pstprm').val(data[0].pstprm);
+			$('#t_pstkode').val(data[0].pstkode);
+			$('#t_pstnama').val(data[0].pstnm);
+			$('#t_pstkel').val(data[0].pstkel);
+			$('#t_psthak').val(data[0].psthak);
+			
+		}
+	})
+}
+</script>
 </html>
