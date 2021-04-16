@@ -12,6 +12,45 @@
 	
 </head>
 <body>
+<?php
+
+$formulir_catatan = array(
+	'name' => 't_cek_mst_ket',
+	'class '=> 'form-control',
+	'rows' => '3',
+	'id' => 't_cek_mst_ket',
+	'placeholder' => 'Alasan tidak di sertakan...',
+	'readonly' => 'true'
+);
+
+$formulir_nobuk = array(
+	'id' => 't_cek_mst_nobuk',
+	'name' => 't_cek_mst_nobuk',
+	'readonly' => 'true',
+	'class' => 'form-control'
+);
+
+$formulir_tgl = array(
+	'id' => 't_cek_mst_tgl',
+	'name' => 't_cek_mst_tgl',
+	'readonly' => 'true',
+	'class' => 'form-control'
+);
+
+$formulir_sts = array(
+	'id' => 't_cek_mst_sts',
+	'name' => 't_cek_mst_sts',
+	'readonly' => 'true',
+	'class' => 'form-control'
+);
+
+$tombol_batal = array(
+		'name' => 'btnKirim',
+		'value' => 'TUTUP',
+		'data-bs-dismiss' => 'modal',
+		'class' => 'btn btn-lg btn-secondary'
+);
+?>
 <div class="container-fluid">
 	<div class="card text-center bg-light">
 		<div class="card-header">
@@ -23,7 +62,7 @@
 					<a class="nav-link" href="<?php echo base_url().'index.php/klik_d/pilihan_d1'?>"><strong>D1. BELUM</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_d/pilihan_d2'?>"><strong>D2. SELESAI</strong></a>
+					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_d/pilihan_d2'?>"><strong>D2. HISTORIS</strong></a>
 				</li>
 			</ul>
 		</div>
@@ -64,6 +103,7 @@
 										<th>TANGGAL</th>
 										<th>RENCANA</th>
 										<th>VERIFIKATOR</th>
+										<th>OPERATOR</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -75,6 +115,10 @@
 										<td><?php echo $hm->per_mst_tgl ?></td>
 										<td><?php echo 'Rp'. number_format($hm->hut_mst_rnc,2,",",".") ?></td>
 										<td><?php echo $hm->pst_mst_nm ?></td>
+										<td>
+											<a href="#" onclick="detail_hutang_ok('<?php echo $hm->hut_mst_nobuk ?>')" class="btn btn-sm btn-primary">DETAIL</a>
+											<a href="<?php echo base_url().'index.php/klik_d/unduh_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-warning">UNDUH</a>
+										</td>
 									</tr>
 									<?php } ?>
 								</tbody>
@@ -89,12 +133,71 @@
 		</div>
 	</div>
 </div>
+<div class="container-fluid">
+	<div class="modal" id="mdlVer" tabindex="-1" aria-labelledby="mdlVerLbl" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="mdlVerLbl"><strong>HASIL</strong></h5>
+				</div>
+				<div class="modal-body">
+					<table class="table table-sm table-borderless">
+						<tbody>
+							<tr>
+								<td><?php echo form_label('MUTASI'); ?></td>
+								<td><?php echo form_input($formulir_nobuk); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('HASIL'); ?></td>
+								<td><?php echo form_input($formulir_sts); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('TANGGAL VERIFIKASI') ?></td>
+								<td><?php echo form_input($formulir_tgl); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('CATATAN') ?></td>
+								<td><?php echo form_textarea($formulir_catatan); ?></td>
+							</tr>
+							
+							
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<?php 
+						echo form_submit($tombol_batal); 
+					?>
+				</div>
+				<?php echo form_close(); ?>
+			</div>
+		</div>
+	</div>
+</div>
 <script type="text/javascript">
+var url_detail_verifikasi_ok = "<?php echo base_url()."index.php/klik_d/detail_verifikasi_ok/"?>";
 
 $(document).ready(
 function () {
 	$('#tblHutDet').DataTable();
 });
+
+function detail_hutang_ok(t_hut_mst_nobuk){
+	$.ajax({
+		type: "POST",
+		url: url_detail_verifikasi_ok,
+		dataType: 'json',
+		data: {per_mst_nobuk:t_hut_mst_nobuk},
+		success: function(data){
+			console.log(data);
+			$('#t_cek_mst_nobuk').val(data[0].pernobuk);
+			$('#t_cek_mst_sts').val(data[0].persts);
+			$('#t_cek_mst_tgl').val(data[0].pertgl);
+			$('#t_cek_mst_ket').val(data[0].perket);
+			$('#mdlVer').modal('toggle');
+		}
+	})
+}
 
 
 </script>

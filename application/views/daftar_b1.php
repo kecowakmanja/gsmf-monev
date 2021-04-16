@@ -11,124 +11,87 @@
 	<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 
 </head>
-<body onload="kasihfokuslah()">
+<body>
 <?php
 
-foreach	($daftar_rekening_master as $rm){
-	$rekkode[$rm->rek_mst_sub_kode] = $rm->rek_mst_ket_sub_kode;
+$tombol_tambah = array(
+'name' => 'btnKirim',
+'value' => 'UBAH',
+'class' => 'btn btn-success btn-sm'
+);
+		
+$formulir_prm = array(
+	'name' => 't_hutprm',
+	'readonly' => 'true',
+	'class' => 'form-control form-control-sm'
+);
+
+$formulir_nobuk = array(
+	'name' => 't_hut_mst_nobuk',
+	'class' => 'form-control',
+	'readonly' => 'true',
+	'id' => 't_hut_mst_nobuk'
+);
+
+$t_hut_jenis[""] = "Pilihan jenis pengajuan...";
+foreach ($daftar_rekening_master as $rm) {
+	$t_hut_jenis[$rm->rek_mst_kode] = $rm->rek_mst_kode;
 }
 
-$formulir_prm = array();
+$formulir_jns = array(
+	'id' => 't_hut_jenis',
+	'name' => 't_hut_jenis',
+	'class' => 'form-control',
+	'options' => $t_hut_jenis
+);
 
-if($this->session->userdata('operator_b1') == "UBAH" && empty($this->session->userdata('validasi_b1'))){
-	$tombol_tambah = array(
+	
+$formulir_nama = array(
+	'name' => 't_hut_mst_ket',
+	'class'=>'form-control',
+	'id' => 't_hut_mst_ket',
+	'placeholder' => 'isi nama kegiatan...'
+);
+
+$formulir_tglrnc = array(
+	'name' => 't_hut_mst_tglrnc',
+	'type' => 'date',
+	'class'=>'form-control',
+	'id' => 't_hut_mst_tglrnc'
+);
+
+$formulir_rek = array(
+	'name' => 't_hut_mst_rek',
+	'class' => 'form-control',
+	'id' => 't_hut_mst_rek'
+);
+	
+$formulir_rnc = array(
+	'name' => 't_hut_mst_rnc',
+	'type' => 'number',
+	'class' => 'form-control',
+	'value' => '0',
+	'id' => 't_hut_mst_rnc'
+);
+
+
+$tombol_tambah = array(
 	'name' => 'btnKirim',
-	'value' => 'UBAH',
-	'class' => 'btn btn-success btn-sm'
-	);
-	
-	foreach ($daftar_program_master as $hm){
-		$t_hut_mst_nobuk = $hm->hut_mst_nobuk;
-		$t_hut_mst_ket = $hm->hut_mst_ket;
-		$t_hut_mst_tglrnc = $hm->hut_mst_tglrnc;
-		$t_hut_mst_rek = $hm->hut_mst_rek;
-		
-		$formulir_prm = array(
-			"hutprm" => $hm->hutprm
-		);
+	'value' => 'TAMBAH',
+	'class' => 'btn btn-success btn-lg'
+);
 
-		$formulir_nobuk = array(
-			'name' => 't_hut_mst_nobuk',
-			'value' => $t_hut_mst_nobuk,
-			'readonly' => 'true',
-			'class' => 'form-control',
-			'id' => 't_hut_mst_nobuk'
-		);
-			
-		$formulir_nama = array(
-			'name' => 't_hut_mst_ket',
-			'value' => $t_hut_mst_ket,
-			'class'=>'form-control',
-			'id' => 't_hut_mst_ket'
-		);
-
-		$formulir_tglrnc = array(
-			'name' => 't_hut_mst_tglrnc',
-			'value' => $t_hut_mst_tglrnc,
-			'type' => 'date',
-			'class'=>'form-control',
-			'id' => 't_hut_mst_tglrnc'
-		);
-
-		$formulir_rek = array(
-			'name' => 't_hut_mst_rek',
-			'options' => $rekkode,
-			'class' => 'form-control',
-			'id' => 't_hut_mst_rek'
-		);
-			
-		$formulir_rnc = array(
-			'name' => 't_hut_mst_rnc',
-			'type' => 'number',
-			'class' => 'form-control',
-			'value' => '0',
-			'id' => 't_hut_mst_rnc'
-		);
-	}
-} else {
-		
-	$tombol_tambah = array(
-		'name' => 'btnKirim',
-		'value' => 'TAMBAH',
-		'class' => 'btn btn-success btn-sm'
-	);
-	
-	$formulir_nobuk = array(
-		'name' => 't_hut_mst_nobuk',
-		'class' => 'form-control',
-		'readonly' => 'true',
-		'id' => 't_hut_mst_nobuk'
-	);
-		
-	$formulir_nama = array(
-		'name' => 't_hut_mst_ket',
-		'class'=>'form-control',
-		'id' => 't_hut_mst_ket'
-	);
-
-	$formulir_tglrnc = array(
-		'name' => 't_hut_mst_tglrnc',
-		'type' => 'date',
-		'class' => 'form-control',
-		'id' => 't_hut_mst_tglrnc'
-	);
-
-	$formulir_rek = array(
-		'name' => 't_hut_mst_rek',
-		'options' => $rekkode,
-		'class'=> 'form-control',
-		'id' => 't_hut_mst_rek'
-	);
-		
-	$formulir_rnc = array(
-		'name' => 't_hut_mst_rnc',
-		'type' => 'number',
-		'class' => 'form-control',
-		'value' => '0',
-		'id' => 't_hut_mst_rnc'
-	);
-}
 	
 $tombol_reset = array(
 	'name' => 'btnBersih',
 	'value' => 'BERSIH',
-	'class' => 'btn btn-sm btn-secondary'
+	'class' => 'btn btn-lg btn-secondary'
 );
 
 $tombol_batal = array(
 	"name" => "btnKirim",
 	"value" => "BATAL",
-	"class" => "btn btn-sm btn-danger"
+	"class" => "btn btn-lg btn-danger"
 );
 
 $formulir_csv = array(
@@ -137,7 +100,7 @@ $formulir_csv = array(
 	"placeholder" => "Masukan file...",
 	"id" => "t_hut_mst_doc",
 	"type" => "file",
-	"accept" => "application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+	"accept" => "application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/*"
 );
 
 ?>
@@ -152,83 +115,33 @@ $formulir_csv = array(
 				<li class="nav-item">
 					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_b/index'?>"><strong>B1. PROGRAM</strong></a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url().'index.php/klik_b/pilihan_b2/'?>"><strong>B2. RUTIN</strong></a>
-				</li>
 			</ul>
 		</div>
 		<div class="card-body">
 			<div class="alert alert-info text-start">
 				<h5 class="card-title">
-					DAFTAR PENGAJUAN PROGRAM
+					DAFTAR PENGAJUAN PROGRAM DAN BIAYA RUTIN
 				</h5>
 				<p class="card-text">
 					<ul>
-						<li>Untuk menambah pengajuan sila terlebih dahulu untuk mengisi formulir pengajuan anggaran dan diakhiri dengan tekan <strong>TAMBAH</strong> pada baris navigasi.</li>
-						<li>Tombol operator <strong>UBAH</strong> dan <strong>HAPUS</strong> untuk melakukan perubahan atau menghapus pengajuan.</li>
+						<li>Untuk menambah pengajuan sila terlebih dahulu untuk tekan tombol <strong>TAMBAH</strong>.</li>
+						<li>Jangan lupa untuk pengajuan program supaya dokumen proposal ikut di unggah atau bukti biaya/nota/struk bila pengajuan rutin.</li>
+						<li>Bila ada kesalahan untuk data yang sudah ter-input, sila tekan <strong>HAPUS</strong> lanjut input ulang.</li>
 						<li>Silahkan manfaatkan kotak <strong>SEARCH</strong> untuk melakukan pencarian pengajuan anggaran.</li>
 					</ul>
 				</p>
 			</div>
+			<div>
 			<?php if(!empty($this->session->userdata('validasi_b1'))) { ?>
 				<div class="alert alert-sm alert-danger alert-dismissible fade show text-start">
 					<?php echo $this->session->userdata('validasi_b1'); ?>
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
 			<?php } ?>
-			<div class="accordion text-start">
-				<div class="accordion-item" id="frmHutDet1">
-					<h6 class="accordion-header" id="judulSatu">
-						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiSatu" aria-expanded="true" aria-control="isiSatu">
-							<strong>DETAIL PROGRAM</strong>
-						</button>
-					</h6>
-					<div id="isiSatu" class="accordion-collapse collapse show" data-bs-parent="#frmHutDet1" aria-labelledby="judulSatu">
-						<div class="accordion-body">
-							<table class="table table-sm table-borderless table-light">
-								<?php 
-
-								echo form_open_multipart('klik_b/tambah_program_ok','',$formulir_prm);
-								?>
-								<tr>
-									<td><?php echo form_label('NOMOR BUKTI PENGAJUAN ANGGARAN'); ?></td>
-									<td><?php echo form_input($formulir_nobuk); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label('NAMA PROPOSAL KEGIATAN'); ?></td>
-									<td><?php echo form_input($formulir_nama); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label('TANGGAL PELAKSANAAN'); ?></td>
-									<td><?php echo form_input($formulir_tglrnc); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label('POS ANGGARAN'); ?></td>
-									<td><?php echo form_dropdown($formulir_rek); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label('RENCANA ANGGARAN'); ?></td>
-									<td><?php echo form_input($formulir_rnc); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label("UNGGAH PROPOSAL (FILE DOC/DOCX)"); ?></td>
-									<td><?php echo form_input($formulir_csv); ?></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td><?php 
-										echo form_submit($tombol_tambah);
-										echo form_reset($tombol_reset);
-										echo form_submit($tombol_batal);
-										echo form_close(); ?>						
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-				</div>
 			</div>
-				<br>
+			<div class="text-end mb-3">
+				<a href="#" data-bs-toggle="modal" data-bs-target="#mdlProgram" class="btn btn-lg btn-primary">TAMBAH</a>
+			</div>
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmhutDet2">
 					<h6 class="accordion-header" id="judulDua">
@@ -243,7 +156,7 @@ $formulir_csv = array(
 									<thead>
 										<tr>
 											<th>NO.MUTASI</th>
-											<th>KELOMPOK</th>
+											<th>JENIS</th>
 											<th>STATUS</th>
 											<th>PELAKSANAAN</th>
 											<th>KETERANGAN</th>
@@ -253,18 +166,17 @@ $formulir_csv = array(
 										</tr>
 									</thead>
 									<tbody>
-										<?php foreach($daftar_program_master as $hm){ ?>
+										<?php foreach($daftar_hutang_master as $hm){ ?>
 										<tr>
 											<td><?php echo $hm->hut_mst_nobuk ?></td>
-											<td><?php echo $hm->kel_mst_subket ?></td>
+											<td><?php echo $hm->rek_mst_kode ?></td>
 											<td><?php echo $hm->hut_mst_sts ?></td>
 											<td><?php echo $hm->hut_mst_tglrnc ?></td>
 											<td><?php echo $hm->hut_mst_ket ?></td>
 											<td><?php echo 'Rp'. number_format($hm->hut_mst_rnc,2,",",".") ?></td>
 											<td><?php echo 'Rp'. number_format($hm->hut_mst_ttl,2,",",".") ?></td>
 											<td>
-												<a href="<?php echo base_url().'index.php/klik_b/ubah_program_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-warning">UBAH</a>
-												<a href="<?php echo base_url().'index.php/klik_b/hapus_program_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-danger">HAPUS</a>
+												<a href="<?php echo base_url().'index.php/klik_b/hapus_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-danger">HAPUS</a>
 											</td>
 										</tr>
 										<?php } ?>
@@ -281,19 +193,88 @@ $formulir_csv = array(
 		</div>
 	</div>
 </div>
+
+<!--- modal untuk program -->
+<div class="container-fluid">
+	<div class="modal" id="mdlProgram" tabindex="-1" aria-labelledby="mdlProgramLbl" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<?php echo form_open_multipart('klik_b/tambah_hutang_ok','',$formulir_prm); ?>
+				<div class="modal-header">
+					<h5 class="modal-title" id="mdlProgramLbl"><strong>PROGRAM DAN BIAYA RUTIN</strong></h5>
+				</div>
+				<div class="modal-body">
+					<table class="table table-sm table-borderless">
+						<tbody>
+							<tr>
+								<td><?php echo form_label('JENIS'); ?></td>
+								<td><?php echo form_dropdown($formulir_jns); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('KEGIATAN'); ?></td>
+								<td><?php echo form_input($formulir_nama); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('PELAKSANAAN'); ?></td>
+								<td><?php echo form_input($formulir_tglrnc); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('POS'); ?></td>
+								<td><?php echo form_dropdown($formulir_rek); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('RENCANA'); ?></td>
+								<td><?php echo form_input($formulir_rnc); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label("UNGGAH PROPOSAL"); ?></td>
+								<td><?php echo form_input($formulir_csv); ?></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<?php 
+						echo form_submit($tombol_tambah);
+						echo form_reset($tombol_reset);
+						echo form_submit($tombol_batal);
+					?>
+				</div>
+				<?php echo form_close(); ?>
+			</div>
+		</div>
+	</div>
+</div>
+
 </body>
 <script type="text/javascript">
 var inputan1 = document.getElementById('t_hut_mst_ket');
+var url_cari_rek = "<?php echo base_url()."index.php/klik_b/cari_rek/"?>"
 
 $(document).ready(
 function () {
 	$('#tblHut').DataTable();
 });
 
+$("#t_hut_jenis").change(function(){
+        var pilih_t_hut_jenis = $("#t_hut_jenis option:selected").val();
+		$("#t_hut_mst_rek").empty();
+		$.ajax({
+            type: "POST",
+            url: url_cari_rek,
+			dataType: 'json',
+            data: {t_kode_rek:pilih_t_hut_jenis},
+			success: function(data){
+				console.log(data);
+				if(pilih_t_hut_jenis != ""){
+					$.each(data,function(key,value){
+						$("#t_hut_mst_rek").append('<option value="'+key+'">'+value+'</option>');
+					})
+				}
+			}
+		})
+	});
 
-function kasihfokuslah(){
-	inputan1.focus();
-}
 
 </script>
 

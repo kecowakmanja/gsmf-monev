@@ -34,67 +34,66 @@ $tombol_batal = array(
 
 $formulir_catatan = array(
 	'name' => 't_cek_mst_ket',
-	'class '=> 'form-control form-control',
+	'class '=> 'form-control',
 	'rows' => '3',
 	'id' => 't_cek_mst_ket',
-	'placeholder' => 'Bila di tolak, harus masukin alasan...',
-	'required'
+	'placeholder' => 'Bila di tolak, harus masukin alasan...'
 );
 
 $formulir_urut = array(
 	'id' => 't_hutprm',
 	'name' => 't_hutprm',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class '=> 'form-control'
 );
 $formulir_nobuk = array(
 	'id' => 't_hut_mst_nobuk',
 	'name' => 't_hut_mst_nobuk',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class '=> 'form-control'
 );
 
 $formulir_tgl = array(
 	'id' => 't_hut_mst_tgl',
 	'name' => 't_hut_mst_tgl',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class '=> 'form-control'
 );
 $formulir_tglrnc = array(
 	'id' => 't_hut_mst_tglrnc',
 	'name' => 't_hut_mst_tglrnc',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control'
 );
 $formulir_pst = array(
 	'id' => 't_hut_mst_pst',
 	'name' => 't_hut_mst_pst',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control'
 );
 $formulir_kel = array(
 	'id' => 't_hut_mst_kel',
 	'name' => 't_hut_mst_kel',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control'
 );
 $formulir_rek = array(
 	'id' => 't_hut_mst_rek',
 	'name' => 't_hut_mst_rek',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control'
 );
 $formulir_rnc = array(
 	'id' => 't_hut_mst_rnc',
 	'name' => 't_hut_mst_rnc',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control'
 );
 $formulir_ket = array(
 	'id' => 't_hut_mst_ket',
 	'name' => 't_hut_mst_ket',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control'
 );
 
 ?>
@@ -109,7 +108,7 @@ $formulir_ket = array(
 					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_d/pilihan_d1'?>"><strong>D1. BELUM</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url().'index.php/klik_d/pilihan_d2'?>"><strong>D2. SELESAI</strong></a>
+					<a class="nav-link" href="<?php echo base_url().'index.php/klik_d/pilihan_d2'?>"><strong>D2. HISTORIS</strong></a>
 				</li>
 			</ul>
 		</div>
@@ -246,7 +245,7 @@ function detail_hutang_ok(t_hutprm){
 		type: "POST",
 		url: url_detail_hutang_ok,
 		dataType: 'json',
-		data: {hutprm:t_hutprm,hutlock:'0'},
+		data: {hutprm:t_hutprm,hutlock:'0',hutf:'VER'},
 		success: function(data){
 			if(!$.trim(data)){
 				alert('Pengajuan ini sedang di verifikasi...');

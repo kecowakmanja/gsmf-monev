@@ -90,6 +90,12 @@ class M_db extends CI_Model{
 		$this->db->group_by($kelompok);
 		return $this->db->get($tabel);
 	}
+	
+	function ambil_data_kelompok($kondisi,$kelompok,$tabel,){
+		$this->db->where($kondisi);
+		$this->db->group_by($kelompok);
+		return $this->db->get($tabel);
+	}
 
 	function ambil_data($kondisi,$tabel){
 		$this->db->where($kondisi);

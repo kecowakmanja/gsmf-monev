@@ -13,36 +13,37 @@ $formulir_urut = array(
 	'id' => 't_pstprm',
 	'name' => 't_pstprm',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control-plaintext',
+	'hidden' => 'true'
 );
 $formulir_kode = array(
 	'id' => 't_pstkode',
 	'name' => 't_pstkode',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control'
 );
 $formulir_nama = array(
 	'id' => 't_pstnama',
 	'name' => 't_pstnama',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control'
 );
 $formulir_kel = array(
 	'id' => 't_pstkel',
 	'name' => 't_pstkel',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control'
 );
 $formulir_hak = array(
 	'id' => 't_psthak',
 	'name' => 't_psthak',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control'
 );
 $formulir_kunci = array(
 	'name' => 't_pstpswd',
 	'class'=>'form-control',
-	'placeholder' => 'Kunci...',
+	'placeholder' => 'Silahkan masukin kata kunci yang baru...',
 	'id' => 't_pstpswd',
 	'type' => 'password'
 );
@@ -65,7 +66,7 @@ $tombol_batal = array(
 				<div class="col-sm-1">
 					<img src=<?php echo base_url().'assets/img/logo_gsmf.png'?> width="80" height="70">
 				</div>
-				<div class="col-sm-3 text-start">
+				<div class="col-sm-3 text-center">
 					<h1><strong>GSMF-MONEV</h1></strong>
 				</div>
 				<div class="col-sm-6 text-start">
@@ -75,24 +76,28 @@ $tombol_batal = array(
 					<a class="btn btn-sm btn-outline-dark" href="#">[kelompok=<strong><?php echo $this->session->userdata('nmkel') ?></strong>]</a>
 					<a class="btn btn-sm btn-outline-dark" href="#">[alamat=<strong><?php echo $_SERVER['REMOTE_ADDR'] ?></strong>]</a>
 				</div>
-				<div class="col-sm-2 text-end">
+				<div class="col-sm-2 text-center">
 					<div class="btn-group">
-						<a class="btn btn-lg btn-success" href=# onclick="profil_peserta('<?php echo $this->session->userdata('prm'); ?>')">PROFIL</a>
-						<a class="btn btn-lg btn-danger" href="<?php echo base_url().'index.php/klik_z/kepareng/'?>">PAMIT</a>
+						<a class="btn btn-lg btn-dark" href=# onclick="profil_peserta('<?php echo $this->session->userdata('prm'); ?>')">PROFIL</a>
+						<a class="btn btn-lg btn-dark" href="<?php echo base_url().'index.php/klik_z/kepareng/'?>">PAMIT</a>
 					</div>
 				</div>
 			</div>
 		</div>
-		<?php if(!empty($this->session->userdata('validasi_z1'))) { ?>
-			<div class="alert alert-sm alert-danger alert-dismissible fade show">
-				<?php echo $this->session->userdata('validasi_z1'); ?>
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick="<?php echo $this->session->unset_userdata('validasi_z1') ?>"></button>
-			</div>
-		<?php } ?>
 		<div class="card-body">
+			<div class="row text-start">
+				<div class="col-sm-12">	
+					<?php if(!empty($this->session->userdata('validasi_z1'))) { ?>
+					<div class="alert alert-sm alert-danger alert-dismissible fade show">
+						<?php echo $this->session->userdata('validasi_z1'); ?>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick="<?php echo $this->session->unset_userdata('validasi_z1') ?>"></button>
+					</div>
+					<?php } ?>
+				</div>
+			</div>
 			<div class="row align-items-start">
 				<div class="col-sm-3">	
-					<div class="card text-dark bg-warning">
+					<div class="card text-dark bg-warning border-dark">
 						<div class="card-header">
 							<strong>A. SETELAN AWAL</strong>
 						</div>
@@ -104,7 +109,7 @@ $tombol_batal = array(
 					</div>
 				</div>
 				<div class="col-sm-3">
-					<div class="card text-dark bg-warning">
+					<div class="card text-dark bg-warning border-dark">
 						<div class="card-header">
 							<strong>B. ANGGARAN BELANJA</strong>
 						</div>
@@ -116,7 +121,7 @@ $tombol_batal = array(
 					</div>
 				</div>
 				<div class="col-sm-3">
-					<div class="card text-dark bg-warning">
+					<div class="card text-dark bg-warning border-dark">
 						<div class="card-header">
 							<strong>C. ANGGARAN PENDAPATAN</strong>
 						</div>
@@ -128,7 +133,7 @@ $tombol_batal = array(
 					</div>
 				</div>
 				<div class="col-sm-3">
-					<div class="card text-dark bg-warning">
+					<div class="card text-dark bg-warning border-dark">
 						<div class="card-header">
 							<strong>D. VERIFIKASI</strong>
 						</div>
@@ -143,7 +148,7 @@ $tombol_batal = array(
 			<br>
 			<div class="row align-items-start">
 				<div class="col-sm-3">
-					<div class="card text-dark bg-warning">
+					<div class="card text-dark bg-warning border-dark">
 						<div class="card-header">
 							<strong>E. REALISASI</strong>
 						</div>
@@ -174,27 +179,7 @@ $tombol_batal = array(
 				<table class="table table-sm table-borderless">
 					<tbody>
 						<tr>
-							<td><?php echo form_label('URUT'); ?></td>
 							<td><?php echo form_input($formulir_urut); ?></td>
-						</tr>
-						<tr>
-							<td><?php echo form_label('KODE'); ?></td>
-							<td><?php echo form_input($formulir_kode); ?></td>
-						</tr>
-						<tr>
-							<td><?php echo form_label('NAMA'); ?></td>
-							<td><?php echo form_input($formulir_nama); ?></td>
-						</tr>
-						<tr>
-							<td><?php echo form_label('KELOMPOK'); ?></td>
-							<td><?php echo form_input($formulir_kel); ?></td>
-						</tr>
-						<tr>
-							<td><?php echo form_label('HAK'); ?></td>
-							<td><?php echo form_input($formulir_hak); ?></td>
-						</tr>
-						<tr>
-							<td><?php echo form_label('KATA KUNCI') ?></td>
 							<td><?php echo form_input($formulir_kunci); ?></td>
 						</tr>
 					</tbody>
@@ -213,7 +198,6 @@ $tombol_batal = array(
 
 <script type="text/javascript">
 var url_profil_peserta = "<?php echo base_url()."index.php/klik_z/njenengan/"?>"
-var url_ngubah = "<?php echo base_url()."index.php/klik_z/ngubah/"?>"
 
 function profil_peserta(t_pstprm){
 	$('#mdlPst').modal('toggle');
@@ -224,11 +208,6 @@ function profil_peserta(t_pstprm){
 		data: {pstprm:t_pstprm},
 		success: function(data){
 			$('#t_pstprm').val(data[0].pstprm);
-			$('#t_pstkode').val(data[0].pstkode);
-			$('#t_pstnama').val(data[0].pstnm);
-			$('#t_pstkel').val(data[0].pstkel);
-			$('#t_psthak').val(data[0].psthak);
-			
 		}
 	})
 }

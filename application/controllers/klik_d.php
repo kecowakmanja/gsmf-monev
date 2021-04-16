@@ -162,7 +162,15 @@ class klik_d extends CI_Controller {
 			}
 			$this->m_db->ubah_data($kondisi,$nilai_master,$this->TabelHutangMaster);
 		}
-		redirect($this->KePilihanD1);
+		
+		switch ($this->input->post('btnKirim')){
+			case "TUTUP":
+				redirect($this->KePilihanD2);
+				break;
+			default:
+				redirect($this->KePilihanD1);
+				break;
+		}
 		$this->kosong_operator_validasi();
 	}
 	
@@ -182,6 +190,28 @@ class klik_d extends CI_Controller {
 			}
 		}
 	}
+
+	function detail_verifikasi_ok(){
+		$kondisi = array(
+			'per_mst_nobuk' => $this->input->post('per_mst_nobuk'),
+			);
+			
+		$data['daftar_periksa_master'] = $this->m_db->ambil_data($kondisi,$this->TabelPeriksaMaster)->result();
 		
+		if(!empty($data['daftar_periksa_master'])){
+			foreach ($data['daftar_periksa_master'] as $pm){				
+				$t_per_mst[] = array(
+					'pernobuk' => $pm->per_mst_nobuk,
+					'pertgl' => $pm->per_mst_tgl,
+					'persts' => $pm->per_mst_sts,
+					'perket' => $pm->per_mst_ket
+				);
+			}
+		} else {
+			$t_per_mst[] = array();
+		}
+
+		echo json_encode($t_per_mst);
+	}		
 	
 }

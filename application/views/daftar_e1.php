@@ -27,68 +27,69 @@ $formulir_urut = array(
 	'id' => 't_hutprm',
 	'name' => 't_hutprm',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control-plaintext',
+	'hidden' => 'true'
 );
 $formulir_nobuk = array(
 	'id' => 't_hut_mst_nobuk',
 	'name' => 't_hut_mst_nobuk',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control-plaintext'
 );
 
 $formulir_tgl = array(
 	'id' => 't_hut_mst_tgl',
 	'name' => 't_hut_mst_tgl',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control-plaintext'
 );
 $formulir_tglrnc = array(
 	'id' => 't_hut_mst_tglrnc',
 	'name' => 't_hut_mst_tglrnc',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control'
 );
 $formulir_pst = array(
 	'id' => 't_hut_mst_pst',
 	'name' => 't_hut_mst_pst',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control'
 );
 $formulir_kel = array(
 	'id' => 't_hut_mst_kel',
 	'name' => 't_hut_mst_kel',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control'
 );
 $formulir_rek = array(
 	'id' => 't_hut_mst_rek',
 	'name' => 't_hut_mst_rek',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control'
 );
 $formulir_rnc = array(
 	'id' => 't_hut_mst_rnc',
 	'name' => 't_hut_mst_rnc',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control-plaintext'
 );
 $formulir_ttl = array(
 	'id' => 't_hut_mst_ttl',
 	'name' => 't_hut_mst_ttl',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control-plaintext'
 );
 $formulir_sisa = array(
 	'id' => 't_hut_mst_sisa',
 	'name' => 't_hut_mst_sisa',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control-plaintext'
 );
 $formulir_ket = array(
 	'id' => 't_hut_mst_ket',
 	'name' => 't_hut_mst_ket',
 	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+	'class' => 'form-control'
 );
 
 foreach($daftar_rekening_master as $rm){
@@ -226,11 +227,10 @@ $tombol_unduh = array(
 					<table class="table table-sm table-borderless">
 						<tbody>
 							<tr>
-								<td><?php echo form_label('URUT'); ?></td>
 								<td><?php echo form_input($formulir_urut); ?></td>
 							</tr>
 							<tr>
-								<td><?php echo form_label('MUTASI'); ?></td>
+								<td><?php echo form_label('MUTASI') ?></td>
 								<td><?php echo form_input($formulir_nobuk); ?></td>
 							</tr>
 							<tr>
@@ -242,12 +242,12 @@ $tombol_unduh = array(
 								<td><?php echo form_input($formulir_sisa); ?></td>
 							</tr>
 							<tr>
-								<td><?php echo form_label('POS'); ?></td>
-								<td><?php echo form_dropdown($formulir_kas); ?></td>
-							</tr>
-							<tr>
 								<td><?php echo form_label('REALISASI'); ?></td>
 								<td><?php echo form_input($formulir_cair); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('POS'); ?></td>
+								<td><?php echo form_dropdown($formulir_kas); ?></td>
 							</tr>
 							<tr>
 								<td><?php echo form_label('CATATAN') ?></td>
