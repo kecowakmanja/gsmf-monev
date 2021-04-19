@@ -45,28 +45,33 @@ $formulir_nama = array(
 	'name' => 't_hut_mst_ket',
 	'class'=>'form-control',
 	'id' => 't_hut_mst_ket',
-	'placeholder' => 'isi nama kegiatan...'
+	'placeholder' => 'isi nama kegiatan...',
+	'required' => 'required'
 );
 
 $formulir_tglrnc = array(
 	'name' => 't_hut_mst_tglrnc',
 	'type' => 'date',
 	'class'=>'form-control',
-	'id' => 't_hut_mst_tglrnc'
+	'id' => 't_hut_mst_tglrnc',
+	'required' => 'required'
 );
 
 $formulir_rek = array(
 	'name' => 't_hut_mst_rek',
 	'class' => 'form-control',
-	'id' => 't_hut_mst_rek'
+	'id' => 't_hut_mst_rek',
+	'required' => 'required',
+	'options' => '[kosong]-Pilih jenis pengajuan dulu...'
 );
 	
 $formulir_rnc = array(
 	'name' => 't_hut_mst_rnc',
 	'type' => 'number',
 	'class' => 'form-control',
-	'value' => '0',
-	'id' => 't_hut_mst_rnc'
+	'value' => '1',
+	'id' => 't_hut_mst_rnc',
+	'required' => 'required'
 );
 
 
@@ -86,7 +91,8 @@ $tombol_reset = array(
 $tombol_batal = array(
 	"name" => "btnKirim",
 	"value" => "BATAL",
-	"class" => "btn btn-lg btn-outline-dark"
+	"class" => "btn btn-lg btn-outline-dark",
+	'data-bs-dismiss' => 'modal'
 );
 
 $formulir_csv = array(
@@ -95,7 +101,8 @@ $formulir_csv = array(
 	"placeholder" => "Masukan file...",
 	"id" => "t_hut_mst_doc",
 	"type" => "file",
-	"accept" => "application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/*"
+	"accept" => "application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/*",
+	'required' => 'required'
 );
 
 
