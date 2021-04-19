@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class klik_a extends CI_Controller {
+class Klik_a extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();		

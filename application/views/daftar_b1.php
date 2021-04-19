@@ -14,11 +14,6 @@
 <body>
 <?php
 
-$tombol_tambah = array(
-'name' => 'btnKirim',
-'value' => 'UBAH',
-'class' => 'btn btn-success btn-sm'
-);
 		
 $formulir_prm = array(
 	'name' => 't_hutprm',
@@ -78,20 +73,20 @@ $formulir_rnc = array(
 $tombol_tambah = array(
 	'name' => 'btnKirim',
 	'value' => 'TAMBAH',
-	'class' => 'btn btn-success btn-lg'
+	'class' => 'btn btn-outline-dark btn-lg'
 );
 
 	
 $tombol_reset = array(
 	'name' => 'btnBersih',
 	'value' => 'BERSIH',
-	'class' => 'btn btn-lg btn-secondary'
+	'class' => 'btn btn-lg btn-outline-dark'
 );
 
 $tombol_batal = array(
 	"name" => "btnKirim",
 	"value" => "BATAL",
-	"class" => "btn btn-lg btn-danger"
+	"class" => "btn btn-lg btn-outline-dark"
 );
 
 $formulir_csv = array(
@@ -103,22 +98,62 @@ $formulir_csv = array(
 	"accept" => "application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/*"
 );
 
+
+
+
+$formulir_catatan_cek = array(
+	'name' => 't_cek_mst_ket',
+	'class '=> 'form-control',
+	'rows' => '3',
+	'id' => 't_cek_mst_ket',
+	'placeholder' => 'Alasan tidak di sertakan...',
+	'disabled' => 'true'
+);
+
+$formulir_nobuk_cek = array(
+	'id' => 't_cek_mst_nobuk',
+	'name' => 't_cek_mst_nobuk',
+	'disabled' => 'true',
+	'class' => 'form-control'
+);
+
+$formulir_tgl_cek = array(
+	'id' => 't_cek_mst_tgl',
+	'name' => 't_cek_mst_tgl',
+	'disabled' => 'true',
+	'class' => 'form-control'
+);
+
+$formulir_sts_cek = array(
+	'id' => 't_cek_mst_sts',
+	'name' => 't_cek_mst_sts',
+	'disabled' => 'true',
+	'class' => 'form-control'
+);
+
+$tombol_batal_cek = array(
+		'name' => 'btnKirim',
+		'value' => 'TUTUP',
+		'data-bs-dismiss' => 'modal',
+		'class' => 'btn btn-lg btn-secondary'
+);
+
 ?>
 
 <div class="container-fluid">
-	<div class="card text-center bg-light">
+	<div class="card text-center">
 		<div class="card-header">
 			<ul class="nav nav-tabs card-header-tabs">
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_b/index'?>"><strong>B1. PROGRAM</strong></a>
+					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_b/index'?>"><strong>B1. ANGGARAN</strong></a>
 				</li>
 			</ul>
 		</div>
 		<div class="card-body">
-			<div class="alert alert-info text-start">
+			<div class="alert alert-warning text-start">
 				<h5 class="card-title">
 					DAFTAR PENGAJUAN PROGRAM DAN BIAYA RUTIN
 				</h5>
@@ -140,12 +175,12 @@ $formulir_csv = array(
 			<?php } ?>
 			</div>
 			<div class="text-end mb-3">
-				<a href="#" data-bs-toggle="modal" data-bs-target="#mdlProgram" class="btn btn-lg btn-primary">TAMBAH</a>
+				<a href="#" data-bs-toggle="modal" data-bs-target="#mdlProgram" class="btn btn-lg btn-dark">TAMBAH</a>
 			</div>
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmhutDet2">
 					<h6 class="accordion-header" id="judulDua">
-						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiDua" aria-expanded="true" aria-control="isiDua">
+						<button type="button" class="accordion-button bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiDua" aria-expanded="true" aria-control="isiDua">
 							<strong>DAFTAR PROGRAM</strong>
 						</button>
 					</h6>
@@ -176,7 +211,8 @@ $formulir_csv = array(
 											<td><?php echo 'Rp'. number_format($hm->hut_mst_rnc,2,",",".") ?></td>
 											<td><?php echo 'Rp'. number_format($hm->hut_mst_ttl,2,",",".") ?></td>
 											<td>
-												<a href="<?php echo base_url().'index.php/klik_b/hapus_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-danger">HAPUS</a>
+												<a href="#" onclick="detail_hutang_ok('<?php echo $hm->hut_mst_nobuk ?>')" class="btn btn-sm btn-outline-dark">DETAIL</a>
+												<a href="<?php echo base_url().'index.php/klik_b/hapus_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-outline-dark">HAPUS</a>
 											</td>
 										</tr>
 										<?php } ?>
@@ -188,7 +224,7 @@ $formulir_csv = array(
 				</div>
 			</div>
 		</div>
-		<div class="card-footer text-muted">
+		<div class="card-footer">
 			<h6 class="card-text text-start">LitBang GSMF Banyumanik 2021</h6>
 		</div>
 	</div>
@@ -246,15 +282,57 @@ $formulir_csv = array(
 	</div>
 </div>
 
+<!--- MODAL untuk hasil verifikasi -->
+<div class="container-fluid">
+	<div class="modal" id="mdlVer" tabindex="-1" aria-labelledby="mdlVerLbl" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+		<div class="modal-dialog modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="mdlVerLbl"><strong>HASIL</strong></h5>
+				</div>
+				<div class="modal-body">
+					<table class="table table-sm table-borderless">
+						<tbody>
+							<tr>
+								<td><?php echo form_label('MUTASI'); ?></td>
+								<td><?php echo form_input($formulir_nobuk_cek); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('HASIL'); ?></td>
+								<td><?php echo form_input($formulir_sts_cek); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('TANGGAL VERIFIKASI') ?></td>
+								<td><?php echo form_input($formulir_tgl_cek); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('CATATAN') ?></td>
+								<td><?php echo form_textarea($formulir_catatan_cek); ?></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<?php 
+						echo form_submit($tombol_batal_cek); 
+					?>
+				</div>
+				<?php echo form_close(); ?>
+			</div>
+		</div>
+	</div>
+</div>
+
 </body>
 <script type="text/javascript">
 var inputan1 = document.getElementById('t_hut_mst_ket');
 var url_cari_rek = "<?php echo base_url()."index.php/klik_b/cari_rek/"?>"
+var url_detail_verifikasi_ok = "<?php echo base_url()."index.php/klik_d/detail_verifikasi_ok/"?>";
 
-$(document).ready(
-function () {
-	$('#tblHut').DataTable();
+$('#tblHut').DataTable({
+	"order": [[ 2 , "asc" ]]
 });
+
 
 $("#t_hut_jenis").change(function(){
         var pilih_t_hut_jenis = $("#t_hut_jenis option:selected").val();
@@ -274,6 +352,30 @@ $("#t_hut_jenis").change(function(){
 			}
 		})
 	});
+	
+function detail_hutang_ok(t_hut_mst_nobuk){
+	$.ajax({
+		type: "POST",
+		url: url_detail_verifikasi_ok,
+		dataType: 'json',
+		data: {per_mst_nobuk:t_hut_mst_nobuk},
+		success: function(data){
+			console.log(data);
+			if(!$.trim(data)){
+				$('#t_cek_mst_nobuk').val(t_hut_mst_nobuk);
+				$('#t_cek_mst_sts').val('BELUM VERIFIKASI');
+				$('#t_cek_mst_tgl').val('0000-00-00');
+				$('#t_cek_mst_ket').val('Pengajuan belum di verifikasi...');
+			} else {
+				$('#t_cek_mst_nobuk').val(data[0].pernobuk);
+				$('#t_cek_mst_sts').val(data[0].persts);
+				$('#t_cek_mst_tgl').val(data[0].pertgl);
+				$('#t_cek_mst_ket').val(data[0].perket);
+			}
+			$('#mdlVer').modal('toggle');
+		}
+	})
+}
 
 
 </script>

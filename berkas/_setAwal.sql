@@ -13,13 +13,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Dumping database structure for gsmf-monev
-DROP DATABASE IF EXISTS `gsmf-monev`;
-CREATE DATABASE IF NOT EXISTS `gsmf-monev` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `gsmf-monev`;
-
 -- Dumping structure for table gsmf-monev.hutang_master
-DROP TABLE IF EXISTS `hutang_master`;
 CREATE TABLE IF NOT EXISTS `hutang_master` (
   `hutprm` int(11) NOT NULL AUTO_INCREMENT,
   `hut_mst_lock` int(11) DEFAULT 0,
@@ -40,20 +34,13 @@ CREATE TABLE IF NOT EXISTS `hutang_master` (
   UNIQUE KEY `hut_mst_nobuk` (`hut_mst_nobuk`),
   KEY `hut_mst_dt_hut_mst_tgl` (`hut_mst_dt`,`hut_mst_tgl`),
   KEY `hut_mst_sts` (`hut_mst_sts`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table gsmf-monev.hutang_master: ~5 rows (approximately)
+-- Dumping data for table gsmf-monev.hutang_master: ~1 rows (approximately)
 /*!40000 ALTER TABLE `hutang_master` DISABLE KEYS */;
-INSERT INTO `hutang_master` (`hutprm`, `hut_mst_lock`, `hut_mst_dt`, `hut_mst_nobuk`, `hut_mst_sts`, `hut_mst_tgl`, `hut_mst_tglrnc`, `hut_mst_pst`, `hut_mst_kel`, `hut_mst_rek`, `hut_mst_rnc`, `hut_mst_ttl`, `hut_mst_ket`, `hut_mst_dok`) VALUES
-	(8, 0, 'AGR', 'AGR-20210407-72239', 'CAIR', '2021-04-07', '2021-05-01', 'GSU', 'F-01', '2121-01', 5450000, 250000, 'COBAIN INPUT PROGRAM', 'AGR-20210407-72239.docx'),
-	(9, 0, 'AGR', 'AGR-20210407-48937', 'CAIR', '2021-04-07', '2021-04-07', 'GSU', 'F-01', '2122-01', 1250000, 1000000, 'COBAIN TAMBAH BIAYA RUTIN', 'AGR-20210407-48937.jpeg'),
-	(11, 0, 'AGR', 'AGR-20210407-27600', 'TOLAK', '2021-04-07', '2021-05-10', 'GSU', 'F-01', '2122-07', 250000, 0, 'BIAYA BIAYA TEST', 'AGR-20210407-27600.jpg'),
-	(13, 0, 'AGR', 'AGR-20210415-79067', 'BARU', '2021-04-15', '2021-04-16', 'GSU', 'F-01', '2122-07', 5000000, NULL, 'KEGIATAN APAAN NIH', 'AGR-20210415-79067.jpeg'),
-	(14, 0, 'AGR', 'AGR-20210415-76228', 'BARU', '2021-04-15', '2021-04-15', 'GSU', 'F-01', '2121-01', 2750000, NULL, 'COBAIN INPUTIN', 'AGR-20210415-76228.docx');
 /*!40000 ALTER TABLE `hutang_master` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.info_level_1
-DROP TABLE IF EXISTS `info_level_1`;
 CREATE TABLE IF NOT EXISTS `info_level_1` (
   `infoprm` int(11) NOT NULL AUTO_INCREMENT,
   `in_lv_1_dt` varchar(20) DEFAULT NULL,
@@ -75,7 +62,6 @@ INSERT INTO `info_level_1` (`infoprm`, `in_lv_1_dt`, `in_lv_1_kd`, `in_lv_1_ket`
 /*!40000 ALTER TABLE `info_level_1` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.info_level_2
-DROP TABLE IF EXISTS `info_level_2`;
 CREATE TABLE IF NOT EXISTS `info_level_2` (
   `infoprm` int(11) NOT NULL AUTO_INCREMENT,
   `in_lv_1_dt` varchar(20) DEFAULT NULL,
@@ -99,7 +85,6 @@ INSERT INTO `info_level_2` (`infoprm`, `in_lv_1_dt`, `in_lv_1_kd`, `in_lv_2_kd`,
 /*!40000 ALTER TABLE `info_level_2` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.info_level_3
-DROP TABLE IF EXISTS `info_level_3`;
 CREATE TABLE IF NOT EXISTS `info_level_3` (
   `infoprm` int(11) NOT NULL AUTO_INCREMENT,
   `in_lv_1_dt` varchar(20) DEFAULT NULL,
@@ -131,7 +116,6 @@ INSERT INTO `info_level_3` (`infoprm`, `in_lv_1_dt`, `in_lv_1_kd`, `in_lv_2_kd`,
 /*!40000 ALTER TABLE `info_level_3` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.info_level_4
-DROP TABLE IF EXISTS `info_level_4`;
 CREATE TABLE IF NOT EXISTS `info_level_4` (
   `infoprm` int(11) NOT NULL AUTO_INCREMENT,
   `in_lv_1_dt` varchar(20) DEFAULT NULL,
@@ -142,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `info_level_4` (
   `in_lv_4_ket` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`infoprm`),
   UNIQUE KEY `in_lv_1_dt_in_lv_1_kd_in_lv_2_kd_in_lv_3_kd_in_lv_4_kd` (`in_lv_1_dt`,`in_lv_1_kd`,`in_lv_2_kd`,`in_lv_3_kd`,`in_lv_4_kd`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table gsmf-monev.info_level_4: ~35 rows (approximately)
 /*!40000 ALTER TABLE `info_level_4` DISABLE KEYS */;
@@ -185,7 +169,6 @@ INSERT INTO `info_level_4` (`infoprm`, `in_lv_1_dt`, `in_lv_1_kd`, `in_lv_2_kd`,
 /*!40000 ALTER TABLE `info_level_4` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.jurnal_master
-DROP TABLE IF EXISTS `jurnal_master`;
 CREATE TABLE IF NOT EXISTS `jurnal_master` (
   `jrnprm` int(11) NOT NULL AUTO_INCREMENT,
   `jrn_mst_lock` int(11) DEFAULT NULL,
@@ -197,25 +180,20 @@ CREATE TABLE IF NOT EXISTS `jurnal_master` (
   `jrn_mst_rek` varchar(20) DEFAULT NULL,
   `jrn_mst_dk` varchar(20) DEFAULT NULL,
   `jrn_mst_ttl` double DEFAULT NULL,
+  `jrn_mst_ket` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`jrnprm`) USING BTREE,
   KEY `jrn_mst_dt_kas_mst_nobuk` (`jrn_mst_dt`,`jrn_mst_nobuk`) USING BTREE,
   KEY `jrn_mst_nobuk` (`jrn_mst_nobuk`) USING BTREE,
   KEY `jrn_mst_dt_kas_mst_tgl` (`jrn_mst_dt`,`jrn_mst_tgl`) USING BTREE,
   KEY `jrn_mst_noref` (`jrn_mst_noref`) USING BTREE,
   KEY `jrn_mst_rek` (`jrn_mst_rek`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table gsmf-monev.jurnal_master: ~4 rows (approximately)
+-- Dumping data for table gsmf-monev.jurnal_master: ~0 rows (approximately)
 /*!40000 ALTER TABLE `jurnal_master` DISABLE KEYS */;
-INSERT INTO `jurnal_master` (`jrnprm`, `jrn_mst_lock`, `jrn_mst_dt`, `jrn_mst_nobuk`, `jrn_mst_noref`, `jrn_mst_pst`, `jrn_mst_tgl`, `jrn_mst_rek`, `jrn_mst_dk`, `jrn_mst_ttl`) VALUES
-	(10, 0, 'KK', 'KK-20210412-45572', 'AGR-20210407-72239', 'BENDAHARA1', '2021-04-12', '2121-01', 'D', 250000),
-	(11, 0, 'KK', 'KK-20210412-45572', 'AGR-20210407-72239', 'BENDAHARA1', '2021-04-12', '1111-02', 'K', 250000),
-	(12, 0, 'KK', 'KK-20210412-22741', 'AGR-20210407-48937', 'BENDAHARA1', '2021-04-12', '2122-01', 'D', 1000000),
-	(13, 0, 'KK', 'KK-20210412-22741', 'AGR-20210407-48937', 'BENDAHARA1', '2021-04-12', '1111-01', 'K', 1000000);
 /*!40000 ALTER TABLE `jurnal_master` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.kas_master
-DROP TABLE IF EXISTS `kas_master`;
 CREATE TABLE IF NOT EXISTS `kas_master` (
   `kasprm` int(11) NOT NULL AUTO_INCREMENT,
   `kas_mst_lock` int(11) DEFAULT NULL,
@@ -227,23 +205,20 @@ CREATE TABLE IF NOT EXISTS `kas_master` (
   `kas_mst_noref` varchar(20) DEFAULT NULL,
   `kas_mst_rek` varchar(20) DEFAULT NULL,
   `kas_mst_ttl` double DEFAULT NULL,
+  `kas_mst_ket` varchar(2000) DEFAULT NULL,
   PRIMARY KEY (`kasprm`),
   UNIQUE KEY `kas_mst_dt_kas_mst_nobuk` (`kas_mst_dt`,`kas_mst_nobuk`),
   UNIQUE KEY `kas_mst_nobuk` (`kas_mst_nobuk`),
   KEY `kas_mst_dt_kas_mst_tgl` (`kas_mst_dt`,`kas_mst_tgl`),
   KEY `kas_mst_noref` (`kas_mst_noref`),
   KEY `kas_mst_rek` (`kas_mst_rek`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table gsmf-monev.kas_master: ~2 rows (approximately)
+-- Dumping data for table gsmf-monev.kas_master: ~0 rows (approximately)
 /*!40000 ALTER TABLE `kas_master` DISABLE KEYS */;
-INSERT INTO `kas_master` (`kasprm`, `kas_mst_lock`, `kas_mst_dt`, `kas_mst_nobuk`, `kas_mst_sts`, `kas_mst_tgl`, `kas_mst_pst`, `kas_mst_noref`, `kas_mst_rek`, `kas_mst_ttl`) VALUES
-	(10, 0, 'KK', 'KK-20210412-45572', 'CAIR', '2021-04-12', 'BENDAHARA1', 'AGR-20210407-72239', '1111-02', -250000),
-	(11, 0, 'KK', 'KK-20210412-22741', 'CAIR', '2021-04-12', 'BENDAHARA1', 'AGR-20210407-48937', '1111-01', -1000000);
 /*!40000 ALTER TABLE `kas_master` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.kelompok_master
-DROP TABLE IF EXISTS `kelompok_master`;
 CREATE TABLE IF NOT EXISTS `kelompok_master` (
   `kelprm` int(11) NOT NULL AUTO_INCREMENT,
   `kel_mst_sts` varchar(20) DEFAULT NULL,
@@ -254,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `kelompok_master` (
   PRIMARY KEY (`kelprm`),
   UNIQUE KEY `kel_mst_kode_kel_mst_subkode_kel_mst_sts` (`kel_mst_sts`,`kel_mst_kode`,`kel_mst_subkode`),
   UNIQUE KEY `kel_mst_subkode` (`kel_mst_subkode`)
-) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table gsmf-monev.kelompok_master: ~66 rows (approximately)
 /*!40000 ALTER TABLE `kelompok_master` DISABLE KEYS */;
@@ -328,7 +303,6 @@ INSERT INTO `kelompok_master` (`kelprm`, `kel_mst_sts`, `kel_mst_kode`, `kel_mst
 /*!40000 ALTER TABLE `kelompok_master` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.periksa_master
-DROP TABLE IF EXISTS `periksa_master`;
 CREATE TABLE IF NOT EXISTS `periksa_master` (
   `perprm` int(11) NOT NULL AUTO_INCREMENT,
   `per_mst_dt` varchar(20) DEFAULT NULL,
@@ -340,18 +314,13 @@ CREATE TABLE IF NOT EXISTS `periksa_master` (
   PRIMARY KEY (`perprm`),
   UNIQUE KEY `per_mst_dt_per_mst_nobuk` (`per_mst_dt`,`per_mst_nobuk`) USING BTREE,
   KEY `per_mst_tgl` (`per_mst_tgl`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table gsmf-monev.periksa_master: ~3 rows (approximately)
+-- Dumping data for table gsmf-monev.periksa_master: ~0 rows (approximately)
 /*!40000 ALTER TABLE `periksa_master` DISABLE KEYS */;
-INSERT INTO `periksa_master` (`perprm`, `per_mst_dt`, `per_mst_nobuk`, `per_mst_sts`, `per_mst_tgl`, `per_mst_pst`, `per_mst_ket`) VALUES
-	(5, 'VER', 'AGR-20210407-72239', 'SETUJU', '2021-04-12', 'VERIFIKATOR1', 'OKE SETUJU'),
-	(6, 'VER', 'AGR-20210407-27600', 'TOLAK', '2021-04-12', 'VERIFIKATOR1', 'BERKAS UPLOAD TIDAK SAMA NOMINALNYA'),
-	(7, 'VER', 'AGR-20210407-48937', 'SETUJU', '2021-04-12', 'VERIFIKATOR1', '');
 /*!40000 ALTER TABLE `periksa_master` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.peserta_master
-DROP TABLE IF EXISTS `peserta_master`;
 CREATE TABLE IF NOT EXISTS `peserta_master` (
   `pstprm` int(11) NOT NULL AUTO_INCREMENT,
   `pst_mst_sts` varchar(20) DEFAULT NULL,
@@ -365,21 +334,21 @@ CREATE TABLE IF NOT EXISTS `peserta_master` (
   UNIQUE KEY `pst_mst_kode_pst_mst_sts` (`pst_mst_sts`,`pst_mst_kode`),
   UNIQUE KEY `pst_mst_kode` (`pst_mst_kode`),
   KEY `pst_mst_kel` (`pst_mst_kel`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table gsmf-monev.peserta_master: ~6 rows (approximately)
+-- Dumping data for table gsmf-monev.peserta_master: ~7 rows (approximately)
 /*!40000 ALTER TABLE `peserta_master` DISABLE KEYS */;
 INSERT INTO `peserta_master` (`pstprm`, `pst_mst_sts`, `pst_mst_kode`, `pst_mst_kel`, `pst_mst_hak`, `pst_mst_nm`, `pst_mst_pswd`, `pst_mst_lock`) VALUES
-	(10, 'AKTIF', 'GSU', 'F-01', 'PEMILIK', 'GREGORIUSSATRIOUTOMO', '254fdf40e3d857f739b7ee57e44b8757', 1),
+	(10, 'AKTIF', 'GSU', 'F-01', 'PEMILIK', 'GREGORIUSSATRIOUTOMO', '254fdf40e3d857f739b7ee57e44b8757', 0),
 	(12, 'AKTIF', 'VERIFIKATOR1', 'H-01', 'PENGAWAS', 'NAMAVERIFIKATOR1', '68ba07abf0d370630620ea43c68fabbd', 0),
 	(13, 'AKTIF', 'BENDAHARA1', 'H-01', 'PELAKSANA', 'ISINAMABENDAHARA1', '68ba07abf0d370630620ea43c68fabbd', 0),
 	(14, 'AKTIF', 'UJICOBA1', 'F-02', 'PEMAKAI', 'NAMAUJICOBA1', '68ba07abf0d370630620ea43c68fabbd', 0),
 	(15, 'AKTIF', 'UJICOBA2', 'F-03', 'PEMAKAI', 'NAMAUJICOBA2', '68ba07abf0d370630620ea43c68fabbd', 0),
-	(16, 'AKTIF', 'UJICOBA3', 'E-02', 'PEMAKAI', 'NAMAUJICOBA3', '68ba07abf0d370630620ea43c68fabbd', 0);
+	(16, 'AKTIF', 'UJICOBA3', 'E-02', 'PEMAKAI', 'NAMAUJICOBA3', '68ba07abf0d370630620ea43c68fabbd', 0),
+	(18, 'AKTIF', 'VERIFIKATOR2', 'H-01', 'PENGAWAS', 'INI_DI_ISI_NAMANYA_VERIFIKATOR2', '68ba07abf0d370630620ea43c68fabbd', 0);
 /*!40000 ALTER TABLE `peserta_master` ENABLE KEYS */;
 
 -- Dumping structure for table gsmf-monev.rekening_master
-DROP TABLE IF EXISTS `rekening_master`;
 CREATE TABLE IF NOT EXISTS `rekening_master` (
   `rekprm` int(11) NOT NULL AUTO_INCREMENT,
   `rek_mst_sts` varchar(20) DEFAULT NULL,
@@ -393,7 +362,7 @@ CREATE TABLE IF NOT EXISTS `rekening_master` (
   PRIMARY KEY (`rekprm`),
   UNIQUE KEY `komplit` (`rek_mst_sts`,`rek_mst_kel`,`rek_mst_gol`,`rek_mst_sub_gol`,`rek_mst_kode`,`rek_mst_sub_kode`),
   UNIQUE KEY `rek_mst_sub_kode` (`rek_mst_sub_kode`)
-) ENGINE=InnoDB AUTO_INCREMENT=148 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table gsmf-monev.rekening_master: ~73 rows (approximately)
 /*!40000 ALTER TABLE `rekening_master` DISABLE KEYS */;

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class klik_z extends CI_Controller {
+class Klik_z extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();		
@@ -41,7 +41,7 @@ class klik_z extends CI_Controller {
 		$data['daftar_peserta_master'] = $this->m_db->ambil_data_peserta($kondisi,$this->TabelPesertaMaster)->result();
 	
 		if (empty($data['daftar_peserta_master'])){
-			$validasi_z0 = array('validasi_z0' => "Kombinasi PENGGUNA dan KATA KUNCI nda cocok tuh...");
+			$validasi_z0 = array('validasi_z0' => "KODE dan KATA KUNCI nda cocok tuh");
 			$this->session->set_userdata($validasi_z0);
 			redirect($this->KePilihanZ0);
 		}

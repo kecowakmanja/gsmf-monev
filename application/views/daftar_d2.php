@@ -20,27 +20,27 @@ $formulir_catatan = array(
 	'rows' => '3',
 	'id' => 't_cek_mst_ket',
 	'placeholder' => 'Alasan tidak di sertakan...',
-	'readonly' => 'true'
+	'disabled' => 'true'
 );
 
 $formulir_nobuk = array(
 	'id' => 't_cek_mst_nobuk',
 	'name' => 't_cek_mst_nobuk',
-	'readonly' => 'true',
+	'disabled' => 'true',
 	'class' => 'form-control'
 );
 
 $formulir_tgl = array(
 	'id' => 't_cek_mst_tgl',
 	'name' => 't_cek_mst_tgl',
-	'readonly' => 'true',
+	'disabled' => 'true',
 	'class' => 'form-control'
 );
 
 $formulir_sts = array(
 	'id' => 't_cek_mst_sts',
 	'name' => 't_cek_mst_sts',
-	'readonly' => 'true',
+	'disabled' => 'true',
 	'class' => 'form-control'
 );
 
@@ -48,7 +48,7 @@ $tombol_batal = array(
 		'name' => 'btnKirim',
 		'value' => 'TUTUP',
 		'data-bs-dismiss' => 'modal',
-		'class' => 'btn btn-lg btn-secondary'
+		'class' => 'btn btn-lg btn-outline-dark'
 );
 ?>
 <div class="container-fluid">
@@ -56,10 +56,10 @@ $tombol_batal = array(
 		<div class="card-header">
 			<ul class="nav nav-tabs card-header-tabs">
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url().'index.php/klik_d/pilihan_d1'?>"><strong>D1. BELUM</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/klik_d/pilihan_d1'?>"><strong>D1. VERIFIKASI</strong></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_d/pilihan_d2'?>"><strong>D2. HISTORIS</strong></a>
@@ -67,7 +67,7 @@ $tombol_batal = array(
 			</ul>
 		</div>
 		<div class="card-body">
-			<div class="alert alert-info text-start">
+			<div class="alert alert-warning text-start">
 				<h5 class="card-title">
 					DAFTAR PENGAJUAN ANGGARAN PROGRAM DAN BIAYA RUTIN SELESAI VERIFIKASI
 				</h5>
@@ -88,7 +88,7 @@ $tombol_batal = array(
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmkelDet1">
 					<h6 class="accordion-header" id="judulSatu">
-						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiSatu" aria-expanded="true" aria-control="isiSatu">
+						<button type="button" class="accordion-button bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiSatu" aria-expanded="true" aria-control="isiSatu">
 							<strong>DAFTAR PENGAJUAN ANGGARAN</strong>
 						</button>
 					</h6>
@@ -98,6 +98,7 @@ $tombol_batal = array(
 								<thead>
 									<tr>
 										<th>NO.MUTASI</th>
+										<th>KELOMPOK</th>
 										<th>JENIS</th>
 										<th>HASIL</th>
 										<th>TANGGAL</th>
@@ -110,14 +111,15 @@ $tombol_batal = array(
 									<?php foreach($daftar_hutang_master as $hm){ ?>
 									<tr>
 										<td><?php echo $hm->hut_mst_nobuk ?></td>
+										<td><?php echo $hm->kel_mst_subket ?></td>
 										<td><?php echo $hm->rek_mst_kode ?></td>
 										<td><?php echo $hm->per_mst_sts ?></td>
 										<td><?php echo $hm->per_mst_tgl ?></td>
 										<td><?php echo 'Rp'. number_format($hm->hut_mst_rnc,2,",",".") ?></td>
 										<td><?php echo $hm->pst_mst_nm ?></td>
 										<td>
-											<a href="#" onclick="detail_hutang_ok('<?php echo $hm->hut_mst_nobuk ?>')" class="btn btn-sm btn-primary">DETAIL</a>
-											<a href="<?php echo base_url().'index.php/klik_d/unduh_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-warning">UNDUH</a>
+											<a href="#" onclick="detail_hutang_ok('<?php echo $hm->hut_mst_nobuk ?>')" class="btn btn-sm btn-outline-dark">DETAIL</a>
+											<a href="<?php echo base_url().'index.php/klik_d/unduh_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-outline-dark">UNDUH</a>
 										</td>
 									</tr>
 									<?php } ?>
@@ -128,7 +130,7 @@ $tombol_batal = array(
 				</div>
 			</div>
 		</div>
-		<div class="card-footer text-muted">
+		<div class="card-footer">
 			<h6 class="card-text text-start">LitBang GSMF Banyumanik 2021</h6>
 		</div>
 	</div>
@@ -189,7 +191,6 @@ function detail_hutang_ok(t_hut_mst_nobuk){
 		dataType: 'json',
 		data: {per_mst_nobuk:t_hut_mst_nobuk},
 		success: function(data){
-			console.log(data);
 			$('#t_cek_mst_nobuk').val(data[0].pernobuk);
 			$('#t_cek_mst_sts').val(data[0].persts);
 			$('#t_cek_mst_tgl').val(data[0].pertgl);

@@ -17,19 +17,19 @@
 $tombol_setuju = array(
 		'name' => 'btnKirim',
 		'value' => 'SETUJU',
-		'class' => 'btn btn-lg btn-success'
+		'class' => 'btn btn-lg btn-outline-dark'
 );
 
 $tombol_tolak = array(
 		'name' => 'btnKirim',
 		'value' => 'TOLAK',
-		'class' => 'btn btn-lg btn-danger'
+		'class' => 'btn btn-lg btn-outline-dark'
 );
 
 $tombol_batal = array(
 		'name' => 'btnKirim',
 		'value' => 'BATAL',
-		'class' => 'btn btn-lg btn-secondary'
+		'class' => 'btn btn-lg btn-outline-dark'
 );
 
 $formulir_catatan = array(
@@ -56,64 +56,64 @@ $formulir_nobuk = array(
 $formulir_tgl = array(
 	'id' => 't_hut_mst_tgl',
 	'name' => 't_hut_mst_tgl',
-	'readonly' => 'true',
+	'disabled' => 'true',
 	'class '=> 'form-control'
 );
 $formulir_tglrnc = array(
 	'id' => 't_hut_mst_tglrnc',
 	'name' => 't_hut_mst_tglrnc',
-	'readonly' => 'true',
+	'disabled' => 'true',
 	'class' => 'form-control'
 );
 $formulir_pst = array(
 	'id' => 't_hut_mst_pst',
 	'name' => 't_hut_mst_pst',
-	'readonly' => 'true',
+	'disabled' => 'true',
 	'class' => 'form-control'
 );
 $formulir_kel = array(
 	'id' => 't_hut_mst_kel',
 	'name' => 't_hut_mst_kel',
-	'readonly' => 'true',
+	'disabled' => 'true',
 	'class' => 'form-control'
 );
 $formulir_rek = array(
 	'id' => 't_hut_mst_rek',
 	'name' => 't_hut_mst_rek',
-	'readonly' => 'true',
+	'disabled' => 'true',
 	'class' => 'form-control'
 );
 $formulir_rnc = array(
 	'id' => 't_hut_mst_rnc',
 	'name' => 't_hut_mst_rnc',
-	'readonly' => 'true',
+	'disabled' => 'true',
 	'class' => 'form-control'
 );
 $formulir_ket = array(
 	'id' => 't_hut_mst_ket',
 	'name' => 't_hut_mst_ket',
-	'readonly' => 'true',
+	'disabled' => 'true',
 	'class' => 'form-control'
 );
 
 ?>
 <div class="container-fluid">
-	<div class="card text-center bg-light">
+	<div class="card text-center">
 		<div class="card-header">
 			<ul class="nav nav-tabs card-header-tabs">
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
+					<a class="nav-link bg-dark text-light" class="nav-link" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_d/pilihan_d1'?>"><strong>D1. BELUM</strong></a>
+					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_d/pilihan_d1'?>"><strong>D1. VERIFIKASI</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url().'index.php/klik_d/pilihan_d2'?>"><strong>D2. HISTORIS</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/klik_d/pilihan_d2'?>"><strong>D2. HISTORIS</strong></a>
 				</li>
 			</ul>
 		</div>
 		<div class="card-body">
-			<div class="alert alert-info text-start">
+			<div class="alert alert-warning text-start">
 				<h5 class="card-title">
 					DAFTAR PENGAJUAN ANGGARAN PROGRAM DAN BIAYA RUTIN
 				</h5>
@@ -134,7 +134,7 @@ $formulir_ket = array(
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmkelDet1">
 					<h6 class="accordion-header" id="judulSatu">
-						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiSatu" aria-expanded="true" aria-control="isiSatu">
+						<button type="button" class="accordion-button bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiSatu" aria-expanded="true" aria-control="isiSatu">
 							<strong>DAFTAR PENGAJUAN ANGGARAN</strong>
 						</button>
 					</h6>
@@ -162,8 +162,8 @@ $formulir_ket = array(
 										<td><?php echo $hm->hut_mst_ket ?></td>
 										<td><?php echo 'Rp'. number_format($hm->hut_mst_rnc,2,",",".") ?></td>
 										<td>
-											<a href="#" onclick="detail_hutang_ok('<?php echo $hm->hutprm; ?>')" class="btn btn-sm btn-primary">DETAIL</a>
-											<a href="<?php echo base_url().'index.php/klik_d/unduh_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-warning">UNDUH</a>
+											<a href="#" onclick="detail_hutang_ok('<?php echo $hm->hutprm; ?>')" class="btn btn-sm btn-outline-dark">DETAIL</a>
+											<a href="<?php echo base_url().'index.php/klik_d/unduh_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-outline-dark">UNDUH</a>
 										</td>
 									</tr>
 									<?php } ?>
@@ -174,7 +174,7 @@ $formulir_ket = array(
 				</div>
 			</div>
 		</div>
-		<div class="card-footer text-muted">
+		<div class="card-footer">
 			<h6 class="card-text text-start">LitBang GSMF Banyumanik 2021</h6>
 		</div>
 	</div>
@@ -247,20 +247,16 @@ function detail_hutang_ok(t_hutprm){
 		dataType: 'json',
 		data: {hutprm:t_hutprm,hutlock:'0',hutf:'VER'},
 		success: function(data){
-			if(!$.trim(data)){
-				alert('Pengajuan ini sedang di verifikasi...');
-			} else {
-				$('#t_hutprm').val(data[0].hutprm);
-				$('#t_hut_mst_nobuk').val(data[0].hutnobuk);
-				$('#t_hut_mst_tgl').val(data[0].huttgl);
-				$('#t_hut_mst_tglrnc').val(data[0].huttglrnc);
-				$('#t_hut_mst_pst').val(data[0].hutpst);
-				$('#t_hut_mst_kel').val(data[0].hutkel);
-				$('#t_hut_mst_rek').val(data[0].hutrek);
-				$('#t_hut_mst_rnc').val(data[0].hutrnc);
-				$('#t_hut_mst_ket').val(data[0].hutket);
-				$('#mdlCek').modal('toggle');
-			}
+			$('#t_hutprm').val(data[0].hutprm);
+			$('#t_hut_mst_nobuk').val(data[0].hutnobuk);
+			$('#t_hut_mst_tgl').val(data[0].huttgl);
+			$('#t_hut_mst_tglrnc').val(data[0].huttglrnc);
+			$('#t_hut_mst_pst').val(data[0].hutpst);
+			$('#t_hut_mst_kel').val(data[0].hutkel);
+			$('#t_hut_mst_rek').val(data[0].hutrek);
+			$('#t_hut_mst_rnc').val(data[0].hutrnc);
+			$('#t_hut_mst_ket').val(data[0].hutket);
+			$('#mdlCek').modal('toggle');
 		}
 	})
 }

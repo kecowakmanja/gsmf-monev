@@ -35,7 +35,7 @@ if(!empty($this->session->userdata('operator_a2'))){
 		$tombol_tambah = array(
 			'name' => 'btnKirim',
 			'value' => 'UBAH',
-			'class' => 'btn btn-sm btn-success'
+			'class' => 'btn btn-sm btn-outline-dark'
 		);
 		foreach($daftar_peserta_master as $pm){
 			$formulir_prm = array(
@@ -92,7 +92,7 @@ if(!empty($this->session->userdata('operator_a2'))){
 	$tombol_tambah = array(
 		'name' => 'btnKirim',
 		'value' => 'TAMBAH',
-		'class' => 'btn btn-sm btn-success'
+		'class' => 'btn btn-sm btn-outline-dark'
 	);
 	$formulir_status = array(
 		'name' => 't_pst_mst_sts',
@@ -136,25 +136,25 @@ if(!empty($this->session->userdata('operator_a2'))){
 $tombol_reset = array(
 	'name' => 'btnBersih',
 	'value' => 'BERSIH',
-	'class' => 'btn btn-sm btn-secondary'
+	'class' => 'btn btn-sm btn-outline-dark'
 );
 
 $tombol_proses = array(
 	"name" => "btnProses",
 	"value" => "PROSES",
-	"class" => "btn btn-sm btn-success"
+	"class" => "btn btn-sm btn-outline-dark"
 );
 
 $tombol_unduh = array(
 	"name" => "btnProses",
 	"value" => "UNDUH",
-	"class" => "btn btn-sm btn-warning"
+	"class" => "btn btn-sm btn-outline-dark"
 );
 
 $tombol_batal = array(
 	"name" => "btnKirim",
 	"value" => "BATAL",
-	"class" => "btn btn-sm btn-danger"
+	"class" => "btn btn-sm btn-outline-dark"
 );
 
 $formulir_csv = array(
@@ -171,21 +171,21 @@ $formulir_csv = array(
 		<div class="card-header">
 			<ul class="nav nav-tabs card-header-tabs">
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url().'index.php/klik_a/pilihan_a1'?>"><strong>A1.KELOMPOK</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/klik_a/pilihan_a1'?>"><strong>A1.KELOMPOK</strong></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_a/pilihan_a2'?>"><strong>A2.PESERTA</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url().'index.php/klik_a/pilihan_a3'?>"><strong>A3.REKENING</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/klik_a/pilihan_a3'?>"><strong>A3.REKENING</strong></a>
 				</li>
 			</ul>
 		</div>
 		<div class="card-body">
-			<div class="alert alert-info text-start">
+			<div class="alert alert-warning text-start">
 				<h5 class="card-title">
 					DAFTAR PESERTA
 				</h5>
@@ -205,7 +205,7 @@ $formulir_csv = array(
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmpstDet1">
 					<h6 class="accordion-header" id="judulSatu">
-						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiSatu" aria-expanded="true" aria-control="isiSatu">
+						<button type="button" class="accordion-button bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiSatu" aria-expanded="true" aria-control="isiSatu">
 							<strong>DETAIL PESERTA</strong>
 						</button>
 					</h6>
@@ -257,7 +257,7 @@ $formulir_csv = array(
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmrekDet3">
 					<h6 class="accordion-header" id="judulTiga">
-						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiTiga" aria-expanded="true" aria-control="isiTiga">
+						<button type="button" class="accordion-button bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiTiga" aria-expanded="true" aria-control="isiTiga">
 							<strong>IMPORT CSV</strong>
 						</button>
 					</h6>
@@ -288,7 +288,7 @@ $formulir_csv = array(
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmpstDet2">
 					<h6 class="accordion-header" id="judulDua">
-						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiDua" aria-expanded="true" aria-control="isiDua">
+						<button type="button" class="accordion-button bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiDua" aria-expanded="true" aria-control="isiDua">
 							<strong>DAFTAR PESERTA</strong>
 						</button>
 					</h6>
@@ -312,8 +312,8 @@ $formulir_csv = array(
 											<td><?php echo $pm->pst_mst_hak ?></td>
 											<td><?php echo $pm->kel_mst_subket ?></td>
 											<td><?php echo $pm->pst_mst_nm ?></td>
-											<td><a href="<?php echo base_url().'index.php/klik_a/ubah_peserta_ok/'.$pm->pstprm ?>" class="btn btn-sm btn-warning">UBAH</a>
-												<a href="<?php echo base_url().'index.php/klik_a/hapus_peserta_ok/'.$pm->pstprm?>" class="btn btn-sm btn-danger">HAPUS</a>
+											<td><a href="<?php echo base_url().'index.php/klik_a/ubah_peserta_ok/'.$pm->pstprm ?>" class="btn btn-sm btn-outline-dark">UBAH</a>
+												<a href="<?php echo base_url().'index.php/klik_a/hapus_peserta_ok/'.$pm->pstprm?>" class="btn btn-sm btn-outline-dark">HAPUS</a>
 											</td>
 										</tr>
 										<?php } ?>

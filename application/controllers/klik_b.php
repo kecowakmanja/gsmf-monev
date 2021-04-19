@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class klik_b extends CI_Controller {
+class Klik_b extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
@@ -79,12 +79,15 @@ class klik_b extends CI_Controller {
 			$prm2 = 'hut_mst_nobuk';
 			$prm3 = 'hut_mst_tgl';
 			$separator = "-";
+			$t_hut_mst_nobuk = '';
 
-			$_POST['t_hut_mst_nobuk'] = $this->m_db->ambil_data_urut($this->TabelHutangMaster,$prefix1,$prefix2,$prefix3,$separator,$prm1,$prm2,$prm3)->result();
-			if (empty($data_no_bukti_acak)){ //empty karna blm ada record
-				$_POST['t_hut_mst_nobuk'] = trim(strtoupper($prefix1.$separator.$prefix2.$separator.str_pad(floor(rand(0,99999)),5,"0",STR_PAD_LEFT)));
+			$data['no_acak'] = $this->m_db->ambil_data_urut($this->TabelHutangMaster,$prefix1,$prefix2,$prefix3,$separator,$prm1,$prm2,$prm3)->result();
+			if (empty($data['no_acak'])){ //empty karna blm ada record
+				$data['no_acak'] = trim(strtoupper($prefix1.$separator.$prefix2.$separator.str_pad(floor(rand(0,99999)),5,"0",STR_PAD_LEFT)));
 			}
 			
+			$t_hut_mst_nobuk = $data['no_acak'];
+
 			switch ($this->input->post('t_hut_jenis')){
 				case "PROGRAM":
 					$konfigurasi = array (
@@ -92,7 +95,7 @@ class klik_b extends CI_Controller {
 						'allowed_types' => 'doc|docx',
 						'max_size' => 20480,
 						'overwrite' => true,
-						'file_name' => $this->input->post('t_hut_mst_nobuk')
+						'file_name' => $t_hut_mst_nobuk
 						);
 					break;
 					
@@ -102,7 +105,7 @@ class klik_b extends CI_Controller {
 						'allowed_types' => 'jpg|jpeg|png|gif|tiff|bmp',
 						'max_size' => 20480,
 						'overwrite' => true,
-						'file_name' => $this->input->post('t_hut_mst_nobuk')
+						'file_name' => $t_hut_mst_nobuk
 						);		
 					break;
 					
@@ -119,13 +122,10 @@ class klik_b extends CI_Controller {
 			
 			$this->form_validation->set_rules('t_hut_mst_tglrnc','TANGGAL PELAKSANAAN KEGIATAN','required');
 			$this->form_validation->set_rules('t_hut_mst_rek','REKENING BEBAN','required');
-			$this->form_validation->set_rules('t_hut_mst_nobuk','FILE','required');
 			$this->form_validation->set_rules('t_hut_mst_ket','NAMA KEGIATAN','required|max_length[2000]');
 			$this->form_validation->set_rules('t_hut_mst_rnc','RENCANA ANGGARAN','required|greater_than[0]');
-			$this->form_validation->set_rules('t_hut_mst_nobuk','SUBKODE','required|trim|max_length[20]|is_unique['.$this->TabelHutangMaster.'.hut_mst_nobuk]');
 			
 			$this->form_validation->set_message('required','%s ngga boleh dikosongin');
-			$this->form_validation->set_message('is_unique','%s udah ada tuh, coba ganti yang lain deh');
 			$this->form_validation->set_message('greater_than','%s pengajuan anggarannya harus lebih dari 0');
 			$this->form_validation->set_message('max_length[20]','%s kepanjangan, maksimal 20 karakter');
 			$this->form_validation->set_message('max_length[2000]','%s kepanjangan, maksimal 2000 karakter');
@@ -143,7 +143,7 @@ class klik_b extends CI_Controller {
 				$nilai_master = array(
 					'hut_mst_lock' => '0',
 					'hut_mst_dt' => 'AGR',
-					'hut_mst_nobuk' => $this->input->post('t_hut_mst_nobuk'),
+					'hut_mst_nobuk' => $t_hut_mst_nobuk,
 					'hut_mst_sts' => 'BARU',
 					'hut_mst_tgl' => date('Y-m-d'),
 					'hut_mst_tglrnc' => $this->input->post('t_hut_mst_tglrnc'),

@@ -23,24 +23,24 @@ $formulir_kunci = array(
 $tombol_masuk = array(
 	'name' => 'btnKirim',
 	'value' => 'MASUK',
-	'class' => 'btn btn-sm btn-primary'	
+	'class' => 'btn btn-sm btn-dark'	
 );
 $tombol_reset = array(
 	'name' => 'btnBersih',
 	'value' => 'BERSIH',
-	'class' => 'btn btn-sm btn-secondary'
+	'class' => 'btn btn-sm btn-dark'
 );
 ?>
 
 <div class="container" style="margin-top: 5rem">
 		<div class="row justify-content-center">
 			<div class="col col-sm-4">
-				<div class="card text-center bg-light shadow">
-					<div class="card-header"> 
+				<div class="card text-center bg-warning border-secondary">
+					<div class="card-header text-dark"> 
 						<h1><strong>GSMF-MONEV</strong></h1>
 					</div>
 					<?php echo form_open('klik_z/kulonuwun'); ?>
-					<div class="card-body">
+					<div class="card-body text-dark">
 						<div class="mb-4">
 							<img src=<?php echo base_url().'assets/img/logo_gsmf.png'?> width="80" height="70">
 						</div>
@@ -59,12 +59,12 @@ $tombol_reset = array(
 					</div>
 					<?php echo form_close(); ?>
 					<?php if(!empty($this->session->userdata('validasi_z0'))) { ?>
-						<div class="alert alert-sm alert-danger alert-dismissible fade show">
+						<div class="alert alert-sm alert-light alert-dismissible fade show">
 							<?php echo $this->session->userdata('validasi_z0'); ?>
 							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick="<?php echo $this->session->unset_userdata('validasi_z0') ?>"></button>
 						</div>
 					<?php } ?>
-					<div class="card-footer text-muted">
+					<div class="card-footer">
 						<h6 class="card-text text-start">LitBang GSMF Banyumanik 2021</h6>
 					</div>
 				</div>

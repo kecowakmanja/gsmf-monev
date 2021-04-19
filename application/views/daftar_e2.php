@@ -17,10 +17,10 @@
 		<div class="card-header">
 			<ul class="nav nav-tabs card-header-tabs">
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url().'index.php/klik_e/pilihan_e1'?>"><strong>E1. REALISASI</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/klik_e/pilihan_e1'?>"><strong>E1. REALISASI</strong></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_e/pilihan_e2'?>"><strong>E2. HISTORIS</strong></a>
@@ -28,7 +28,7 @@
 			</ul>
 		</div>
 		<div class="card-body">
-			<div class="alert alert-info text-start">
+			<div class="alert alert-warning text-start">
 				<h5 class="card-title">
 					HISTORIS AKTIVITAS KAS DAN SETARA KAS
 				</h5>
@@ -47,7 +47,7 @@
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmkelDet1">
 					<h6 class="accordion-header" id="judulSatu">
-						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiSatu" aria-expanded="true" aria-control="isiSatu">
+						<button type="button" class="accordion-button bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiSatu" aria-expanded="true" aria-control="isiSatu">
 							<strong>DAFTAR MUTASI KAS DAN SETARA KAS</strong>
 						</button>
 					</h6>
@@ -75,7 +75,7 @@
 										<td><?php echo $km->kas_mst_ket ?></td>
 										<td><?php echo 'Rp'. number_format($km->kas_mst_ttl,2,",",".") ?></td>
 										<td>
-											<a href="#" class="btn btn-primary btn-sm" onClick="cari_jurnal('<?php echo $km->kas_mst_nobuk; ?>')">DETAIL</a>
+											<a href="#" class="btn btn-outline-dark btn-sm" onClick="cari_jurnal('<?php echo $km->kas_mst_nobuk; ?>')">DETAIL</a>
 										</td>
 									</tr>
 									<?php } ?>
@@ -86,7 +86,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="card-footer text-muted">
+		<div class="card-footer">
 			<h6 class="card-text text-start">LitBang GSMF Banyumanik 2021</h6>
 		</div>
 	</div>
@@ -98,7 +98,6 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="mdlJrnLbl">JURNAL</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="TUTUP"></button>
 				</div>
 				<div class="modal-body">
 					<table class="table table-sm table-hover" id="tblKasDet">
@@ -117,7 +116,7 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">TUTUP</button>
+					<button type="button" class="btn btn-outline-dark btn-lg" data-bs-dismiss="modal">TUTUP</button>
 				</div>
 			</div>
 		</div>

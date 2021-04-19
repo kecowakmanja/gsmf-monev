@@ -36,7 +36,7 @@ if(!empty($this->session->userdata("operator_a3"))){
 		$tombol_tambah = array(
 			"name" => "btnKirim",
 			"value" => "UBAH",
-			"class" => "btn btn-sm btn-success"
+			"class" => "btn btn-sm btn-outline-dark"
 		);
 		foreach($daftar_rekening_master as $rm){
 			$formulir_status = array(
@@ -102,7 +102,7 @@ if(!empty($this->session->userdata("operator_a3"))){
 	$tombol_tambah = array(
 		"name" => "btnKirim",
 		"value" => "TAMBAH",
-		"class" => "btn btn-sm btn-success"
+		"class" => "btn btn-sm btn-outline-dark"
 	);
 	$formulir_status = array(
 		"name" => "t_rek_mst_sts",
@@ -157,25 +157,25 @@ if(!empty($this->session->userdata("operator_a3"))){
 $tombol_reset = array(
 	"name" => "btnBersih",
 	"value" => "BERSIH",
-	"class" => "btn btn-sm btn-secondary"
+	"class" => "btn btn-sm btn-outline-dark"
 );
 
 $tombol_proses = array(
 	"name" => "btnProses",
 	"value" => "PROSES",
-	"class" => "btn btn-sm btn-success"
+	"class" => "btn btn-sm btn-outline-dark"
 );
 
 $tombol_unduh = array(
 	"name" => "btnProses",
 	"value" => "UNDUH",
-	"class" => "btn btn-sm btn-warning"
+	"class" => "btn btn-sm btn-outline-dark"
 );
 
 $tombol_batal = array(
 	"name" => "btnKirim",
 	"value" => "BATAL",
-	"class" => "btn btn-sm btn-danger"
+	"class" => "btn btn-sm btn-outline-dark"
 );
 
 $formulir_csv = array(
@@ -193,13 +193,13 @@ $formulir_csv = array(
 		<div class="card-header">
 			<ul class="nav nav-tabs card-header-tabs">
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url()."index.php/"?>"><strong>DEPAN</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url()."index.php/"?>"><strong>DEPAN</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url()."index.php/klik_a/pilihan_a1"?>"><strong>A1.KELOMPOK</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url()."index.php/klik_a/pilihan_a1"?>"><strong>A1.KELOMPOK</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url()."index.php/klik_a/pilihan_a2"?>"><strong>A2.PESERTA</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url()."index.php/klik_a/pilihan_a2"?>"><strong>A2.PESERTA</strong></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link active" href="<?php echo base_url()."index.php/klik_a/pilihan_a3"?>"><strong>A3.REKENING</strong></a>
@@ -207,7 +207,7 @@ $formulir_csv = array(
 			</ul>
 		</div>
 		<div class="card-body">
-			<div class="alert alert-info text-start">
+			<div class="alert alert-warning text-start">
 				<h5 class="card-title">
 					DAFTAR REKENING
 				</h5>
@@ -227,7 +227,7 @@ $formulir_csv = array(
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmrekDet1">
 					<h6 class="accordion-header" id="judulSatu">
-						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiSatu" aria-expanded="true" aria-control="isiSatu">
+						<button type="button" class="accordion-button bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiSatu" aria-expanded="true" aria-control="isiSatu">
 							<strong>DETAIL REKENING</strong>
 						</button>
 					</h6>
@@ -288,7 +288,7 @@ $formulir_csv = array(
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmrekDet3">
 					<h6 class="accordion-header" id="judulTiga">
-						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiTiga" aria-expanded="true" aria-control="isiTiga">
+						<button type="button" class="accordion-button bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiTiga" aria-expanded="true" aria-control="isiTiga">
 							<strong>IMPORT CSV</strong>
 						</button>
 					</h6>
@@ -319,7 +319,7 @@ $formulir_csv = array(
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmrekDet2">
 					<h6 class="accordion-header" id="judulDua">
-						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiDua" aria-expanded="true" aria-control="isiDua">
+						<button type="button" class="accordion-button bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiDua" aria-expanded="true" aria-control="isiDua">
 							<strong>DAFTAR REKENING</strong>
 						</button>
 					</h6>
@@ -345,8 +345,8 @@ $formulir_csv = array(
 											<td><?php echo $rm->rek_mst_kode ?></td>
 											<td><?php echo $rm->rek_mst_sub_kode ?></td>
 											<td><?php echo $rm->rek_mst_ket_sub_kode ?></td>
-											<td><a href="<?php echo base_url()."index.php/klik_a/ubah_rekening_ok/".$rm->rekprm ?>" class="btn btn-sm btn-warning">UBAH</a>
-												<a href="<?php echo base_url()."index.php/klik_a/hapus_rekening_ok/".$rm->rek_mst_sub_kode ?>" class="btn btn-sm btn-danger">HAPUS</a>
+											<td><a href="<?php echo base_url()."index.php/klik_a/ubah_rekening_ok/".$rm->rekprm ?>" class="btn btn-sm btn-outline-dark">UBAH</a>
+												<a href="<?php echo base_url()."index.php/klik_a/hapus_rekening_ok/".$rm->rek_mst_sub_kode ?>" class="btn btn-sm btn-outline-dark">HAPUS</a>
 											</td>
 										</tr>
 										<?php } ?>

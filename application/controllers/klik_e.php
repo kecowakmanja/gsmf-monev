@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class klik_e extends CI_Controller {
+class Klik_e extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
@@ -109,12 +109,17 @@ class klik_e extends CI_Controller {
 	}
 	
 	function ubah_hutang_ok(){
-		if (!empty($this->input->post('t_hutprm'))){
-			$kondisi = array(
-				'hutprm' => $this->input->post('t_hutprm'),
-				'hut_mst_lock' => '1'
-			);
-			
+		
+		$kondisi = array(
+			'hutprm' => $this->input->post('t_hutprm'),
+			'hut_mst_lock' => '1'
+		);
+		
+		$nilai_master = array(
+				'hut_mst_lock' => '0'
+		);
+		
+		if ($this->input->post('btnKirim')!="BATAL"){			
 			$data['daftar_hutang_master'] = $this->m_db->ambil_data_hutang($kondisi)->result();
 			
 			foreach ($data['daftar_hutang_master'] as $hm){
@@ -145,16 +150,18 @@ class klik_e extends CI_Controller {
 			$prm2 = 'kas_mst_nobuk';
 			$prm3 = 'kas_mst_tgl';
 			$separator = "-";
-
-			$_POST['t_kas_mst_nobuk'] = $this->m_db->ambil_data_urut($this->TabelKasMaster,$prefix1,$prefix2,$prefix3,$separator,$prm1,$prm2,$prm3)->result();
-			if (empty($_POST['t_kas_mst_nobuk'])){ //empty karna blm ada record
-				$_POST['t_kas_mst_nobuk'] = trim(strtoupper($prefix1.$separator.$prefix2.$separator.str_pad(floor(rand(0,99999)),5,"0",STR_PAD_LEFT)));
+			
+			$data['no_acak'] = $this->m_db->ambil_data_urut($this->TabelKasMaster,$prefix1,$prefix2,$prefix3,$separator,$prm1,$prm2,$prm3)->result();
+			if (empty($data['no_acak'])){ //empty karna blm ada record
+				$data['no_acak'] = trim(strtoupper($prefix1.$separator.$prefix2.$separator.str_pad(floor(rand(0,99999)),5,"0",STR_PAD_LEFT)));
 			}
+
+			$t_kas_mst_nobuk = $data['no_acak'];
 			
 			$nilai_kas_master = array(
 				'kas_mst_lock' => '0',
 				'kas_mst_dt' => 'KK',
-				'kas_mst_nobuk' => $this->input->post('t_kas_mst_nobuk'),
+				'kas_mst_nobuk' => $t_kas_mst_nobuk,
 				'kas_mst_sts' => $this->input->post('btnKirim'),
 				'kas_mst_tgl' => date('Y-m-d'),
 				'kas_mst_pst' => $this->session->userdata('kode'),
@@ -166,14 +173,14 @@ class klik_e extends CI_Controller {
 			
 			$nilai_hutang_master = array(
 				'hut_mst_sts' => $this->input->post('btnKirim'),
-				'hut_mst_ttl' => ((int)-1*$t_hut_mst_ttl)+(int)$this->input->post('t_kas_mst_ttl'),
+				'hut_mst_ttl' => (-1*$t_hut_mst_ttl)+$this->input->post('t_kas_mst_ttl'),
 				'hut_mst_lock' => '0'
 			);
 			
 			$nilai_jurnal_k_master = array(
 				'jrn_mst_lock' => '0',
 				'jrn_mst_dt' => 'KK',
-				'jrn_mst_nobuk' => $this->input->post('t_kas_mst_nobuk'),
+				'jrn_mst_nobuk' => $t_kas_mst_nobuk,
 				'jrn_mst_noref' => $t_hut_mst_nobuk,
 				'jrn_mst_pst' => $this->session->userdata('kode'),
 				'jrn_mst_tgl' => date('Y-m-d'),
@@ -186,7 +193,7 @@ class klik_e extends CI_Controller {
 			$nilai_jurnal_d_master = array(
 				'jrn_mst_lock' => '0',
 				'jrn_mst_dt' => 'KK',
-				'jrn_mst_nobuk' => $this->input->post('t_kas_mst_nobuk'),
+				'jrn_mst_nobuk' => $t_kas_mst_nobuk,
 				'jrn_mst_noref' => $t_hut_mst_nobuk,
 				'jrn_mst_pst' => $this->session->userdata('kode'),
 				'jrn_mst_tgl' => date('Y-m-d'),
@@ -196,9 +203,7 @@ class klik_e extends CI_Controller {
 				'jrn_mst_ket' => strtoupper($this->input->post('t_kas_mst_ket'))
 			);
 			
-			$nilai_master = array(
-				'hut_mst_lock' => '0'
-			);
+			
 			
 			switch ($this->input->post('btnKirim')){
 				case "CAIR":
@@ -222,8 +227,9 @@ class klik_e extends CI_Controller {
 					}
 					break;
 			}
-			$this->m_db->ubah_data($kondisi,$nilai_master,$this->TabelHutangMaster);
-		} 
+		}
+		
+		$this->m_db->ubah_data($kondisi,$nilai_master,$this->TabelHutangMaster);
 		redirect($this->KePilihanE1);
 		$this->kosong_operator_validasi();
 	}

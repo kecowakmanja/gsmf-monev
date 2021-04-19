@@ -19,76 +19,75 @@ $formulir_catatan = array(
 	'class '=> 'form-control form-control',
 	'rows' => '3',
 	'id' => 't_cek_mst_ket',
-	'placeholder' => '(tunai) Di-isi Ktp/Nama/no.hp/identitas lainnya... (non-tunai) No.rekening asal/tujuan...',
-	'required'
+	'placeholder' => '(tunai) Di-isi Ktp/Nama/no.hp/identitas lainnya... (non-tunai) No.rekening asal/tujuan...'
 );
 
 $formulir_urut = array(
 	'id' => 't_hutprm',
 	'name' => 't_hutprm',
 	'readonly' => 'true',
-	'class' => 'form-control-plaintext',
+	'class' => 'form-control',
 	'hidden' => 'true'
 );
 $formulir_nobuk = array(
 	'id' => 't_hut_mst_nobuk',
 	'name' => 't_hut_mst_nobuk',
-	'readonly' => 'true',
-	'class' => 'form-control-plaintext'
+	'disabled' => 'true',
+	'class' => 'form-control'
 );
 
 $formulir_tgl = array(
 	'id' => 't_hut_mst_tgl',
 	'name' => 't_hut_mst_tgl',
-	'readonly' => 'true',
-	'class' => 'form-control-plaintext'
+	'disabled' => 'true',
+	'class' => 'form-control'
 );
 $formulir_tglrnc = array(
 	'id' => 't_hut_mst_tglrnc',
 	'name' => 't_hut_mst_tglrnc',
-	'readonly' => 'true',
+	'disabled' => 'true',
 	'class' => 'form-control'
 );
 $formulir_pst = array(
 	'id' => 't_hut_mst_pst',
 	'name' => 't_hut_mst_pst',
-	'readonly' => 'true',
+	'disabled' => 'true',
 	'class' => 'form-control'
 );
 $formulir_kel = array(
 	'id' => 't_hut_mst_kel',
 	'name' => 't_hut_mst_kel',
-	'readonly' => 'true',
+	'disabled' => 'true',
 	'class' => 'form-control'
 );
 $formulir_rek = array(
 	'id' => 't_hut_mst_rek',
 	'name' => 't_hut_mst_rek',
-	'readonly' => 'true',
+	'disabled' => 'true',
 	'class' => 'form-control'
 );
 $formulir_rnc = array(
 	'id' => 't_hut_mst_rnc',
 	'name' => 't_hut_mst_rnc',
-	'readonly' => 'true',
-	'class' => 'form-control-plaintext'
+	'disabled' => 'true',
+	'class' => 'form-control'
 );
 $formulir_ttl = array(
 	'id' => 't_hut_mst_ttl',
 	'name' => 't_hut_mst_ttl',
-	'readonly' => 'true',
-	'class' => 'form-control-plaintext'
+	'disabled' => 'true',
+	'class' => 'form-control'
 );
 $formulir_sisa = array(
 	'id' => 't_hut_mst_sisa',
 	'name' => 't_hut_mst_sisa',
-	'readonly' => 'true',
-	'class' => 'form-control-plaintext'
+	'disabled' => 'true',
+	'class' => 'form-control'
 );
 $formulir_ket = array(
 	'id' => 't_hut_mst_ket',
 	'name' => 't_hut_mst_ket',
-	'readonly' => 'true',
+	'disabled' => 'true',
 	'class' => 'form-control'
 );
 
@@ -114,41 +113,32 @@ $formulir_cair = array(
 $tombol_cair = array(
 	'name' => 'btnKirim',
 	'value' => 'CAIR',
-	'class' => 'btn btn-success btn-lg'
+	'class' => 'btn btn-outline-dark btn-lg'
 	);
 
 $tombol_batal = array(
 	'name' => 'btnKirim',
 	'value'=> 'BATAL',
-	'class'=> 'btn btn-danger btn-lg'
+	'class'=> 'btn btn-outline-dark btn-lg'
 	);
-	
-$tombol_unduh = array(
-	"name" => "btnProses",
-	"value" => "UNDUH",
-	"class" => "btn btn-sm btn-warning"
-);
-
-
-
 ?>
 <div class="container-fluid">
 	<div class="card text-center bg-light">
 		<div class="card-header">
 			<ul class="nav nav-tabs card-header-tabs">
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_e/pilihan_e1'?>"><strong>E1. REALISASI</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?php echo base_url().'index.php/klik_e/pilihan_e2'?>"><strong>E2. HISTORIS</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/klik_e/pilihan_e2'?>"><strong>E2. HISTORIS</strong></a>
 				</li>
 			</ul>
 		</div>
 		<div class="card-body">
-			<div class="alert alert-info text-start">
+			<div class="alert alert-warning text-start">
 				<h5 class="card-title">
 					REALISASI ANGGARAN PROGRAM DAN BIAYA RUTIN
 				</h5>
@@ -170,7 +160,7 @@ $tombol_unduh = array(
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmkelDet1">
 					<h6 class="accordion-header" id="judulSatu">
-						<button type="button" class="accordion-button" data-bs-toGgle="collapse" data-bs-target="#isiSatu" aria-expanded="true" aria-control="isiSatu">
+						<button type="button" class="accordion-button bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiSatu" aria-expanded="true" aria-control="isiSatu">
 							<strong>DAFTAR PENGAJUAN ANGGARAN</strong>
 						</button>
 					</h6>
@@ -198,8 +188,8 @@ $tombol_unduh = array(
 										<td><?php echo 'Rp'. number_format($hm->hut_mst_rnc,2,",",".") ?></td>
 										<td><?php echo 'Rp'. number_format($hm->hut_mst_ttl,2,",",".") ?></td>
 										<td>
-											<a href="#" onclick="detail_hutang_ok('<?php echo $hm->hutprm; ?>')" class="btn btn-sm btn-primary">DETAIL</a>
-											<a href="<?php echo base_url().'index.php/klik_e/unduh_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-warning">UNDUH</a>
+											<a href="#" onclick="detail_hutang_ok('<?php echo $hm->hutprm; ?>')" class="btn btn-sm btn-outline-dark">DETAIL</a>
+											<a href="<?php echo base_url().'index.php/klik_e/unduh_hutang_ok/'.$hm->hutprm ?>" class="btn btn-sm btn-outline-dark">UNDUH</a>
 										</td>
 									</tr>
 									<?php } ?>
@@ -210,7 +200,7 @@ $tombol_unduh = array(
 				</div>
 			</div>
 		</div>
-		<div class="card-footer text-muted">
+		<div class="card-footer">
 			<h6 class="card-text text-start">LitBang GSMF Banyumanik 2021</h6>
 		</div>
 	</div>
@@ -284,22 +274,18 @@ function detail_hutang_ok(t_hutprm){
 		dataType: 'json',
 		data: {hutprm:t_hutprm,hutlock:'0'},
 		success: function(data){
-			if(!$.trim(data)){
-				alert('Pengajuan ini sedang di verifikasi...');
-			} else {
-				$('#t_hutprm').val(data[0].hutprm);
-				$('#t_hut_mst_nobuk').val(data[0].hutnobuk);
-				$('#t_hut_mst_tgl').val(data[0].huttgl);
-				$('#t_hut_mst_tglrnc').val(data[0].huttglrnc);
-				$('#t_hut_mst_pst').val(data[0].hutpst);
-				$('#t_hut_mst_kel').val(data[0].hutkel);
-				$('#t_hut_mst_rek').val(data[0].hutrek);
-				$('#t_hut_mst_rnc').val(data[0].hutrnc);
-				$('#t_hut_mst_ttl').val(data[0].hutttl);
-				$('#t_hut_mst_sisa').val(data[0].hutsisa);
-				$('#t_hut_mst_ket').val(data[0].hutket);
-				$('#mdlKas').modal('toggle');
-			}
+			$('#t_hutprm').val(data[0].hutprm);
+			$('#t_hut_mst_nobuk').val(data[0].hutnobuk);
+			$('#t_hut_mst_tgl').val(data[0].huttgl);
+			$('#t_hut_mst_tglrnc').val(data[0].huttglrnc);
+			$('#t_hut_mst_pst').val(data[0].hutpst);
+			$('#t_hut_mst_kel').val(data[0].hutkel);
+			$('#t_hut_mst_rek').val(data[0].hutrek);
+			$('#t_hut_mst_rnc').val(data[0].hutrnc);
+			$('#t_hut_mst_ttl').val(data[0].hutttl);
+			$('#t_hut_mst_sisa').val(data[0].hutsisa);
+			$('#t_hut_mst_ket').val(data[0].hutket);
+			$('#mdlKas').modal('toggle');
 		}
 	})
 }

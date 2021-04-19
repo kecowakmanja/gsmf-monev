@@ -49,12 +49,12 @@ $formulir_kunci = array(
 );
 $tombol_ubah = array(
 	'name' => 'btnKirim',
-	'class' => 'btn btn-lg btn-success',
+	'class' => 'btn btn-lg btn-outline-dark',
 	'value' => 'UBAH'
 );
 $tombol_batal = array(
 	'name' => 'btnKirim',
-	'class' => 'btn btn-lg btn-danger',
+	'class' => 'btn btn-lg btn-outline-dark',
 	'value' => 'BATAL'
 );
 ?>
@@ -161,7 +161,7 @@ $tombol_batal = array(
 				</div>
 			</div>
 		</div>
-		<div class="card-footer text-muted">
+		<div class="card-footer">
 			<h6 class="card-text text-start">LitBang GSMF Banyumanik 2021</h6>
 		</div>
 	</div>

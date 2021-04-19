@@ -27,6 +27,7 @@ class M_db extends CI_Model{
 		$blmcair = array('TOLAK','SETUJU');
 		$this->db->select('*');
 		$this->db->from('hutang_master as h');
+		$this->db->join('kelompok_master as k','k.kel_mst_subkode = h.hut_mst_kel');
 		$this->db->join('rekening_master as r','r.rek_mst_sub_kode = h.hut_mst_rek');
 		$this->db->join('periksa_master as a','a.per_mst_nobuk = h.hut_mst_nobuk and a.per_mst_dt = "VER"');
 		$this->db->join('peserta_master as p','p.pst_mst_kode = a.per_mst_pst');
@@ -91,7 +92,7 @@ class M_db extends CI_Model{
 		return $this->db->get($tabel);
 	}
 	
-	function ambil_data_kelompok($kondisi,$kelompok,$tabel,){
+	function ambil_data_kelompok($kondisi,$kelompok,$tabel){
 		$this->db->where($kondisi);
 		$this->db->group_by($kelompok);
 		return $this->db->get($tabel);
