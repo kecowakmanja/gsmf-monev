@@ -66,7 +66,7 @@ $tombol_batal = array(
 				<div class="col-sm-1">
 					<img src=<?php echo base_url().'assets/img/logo_gsmf.png'?> width="80" height="70">
 				</div>
-				<div class="col-sm-3 text-center">
+				<div class="col-sm-3 text-start">
 					<h1><strong>GSMF-MONEV</h1></strong>
 				</div>
 				<div class="col-sm-6 text-start">
@@ -76,7 +76,7 @@ $tombol_batal = array(
 					<a class="btn btn-sm btn-outline-dark" href="#">[kelompok=<strong><?php echo $this->session->userdata('nmkel') ?></strong>]</a>
 					<a class="btn btn-sm btn-outline-dark" href="#">[alamat=<strong><?php echo $_SERVER['REMOTE_ADDR'] ?></strong>]</a>
 				</div>
-				<div class="col-sm-2 text-center">
+				<div class="col-sm-2 text-start">
 					<div class="btn-group">
 						<a class="btn btn-lg btn-dark" href=# onclick="profil_peserta('<?php echo $this->session->userdata('prm'); ?>')">PROFIL</a>
 						<a class="btn btn-lg btn-dark" href="<?php echo base_url().'index.php/klik_z/kepareng/'?>">PAMIT</a>
@@ -154,7 +154,19 @@ $tombol_batal = array(
 						</div>
 						<div class="card-body">
 							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_e/index/'?>">
-								PENCAIRAN ANGGARAN BELANJA DAN REALISASI ANGGARAN PENDAPATAN
+								PENCAIRAN ANGGARAN BELANJA DAN REALISASI PENDAPATAN
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="card text-dark bg-warning border-dark">
+						<div class="card-header">
+							<strong>F. PERSONALIA</strong>
+						</div>
+						<div class="card-body">
+							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_f/index/'?>">
+								DAFTAR KARYAWAN, PEKERJAAN DAN UPAH
 							</a>
 						</div>
 					</div>

@@ -53,6 +53,7 @@ class M_db extends CI_Model{
 		$this->db->select('*');
 		$this->db->from('peserta_master as pm');
 		$this->db->join('kelompok_master as km','km.kel_mst_subkode = pm.pst_mst_kel','left');
+		$this->db->join('karyawan_master as kym','kym.kry_mst_kode = pm.pst_mst_kode','left');
 		$this->db->where($kondisi);
 		return $this->db->get();
 	}
@@ -75,6 +76,14 @@ class M_db extends CI_Model{
 		$this->db->where($kondisi);
 		return $this->db->get();
 	}
+
+	function ambil_data_karyawan($kondisi){
+		$this->db->select('*');
+		$this->db->from('karyawan_master as krm');
+		$this->db->join('kelompok_master as klm','klm.kel_mst_subkode = krm.kry_mst_kel','left');
+		$this->db->where($kondisi);
+		return $this->db->get();
+	}
 		
 	
 	function ambil_data_seperti_kondisi($kondisi,$seperti,$kelompok,$tabel){
@@ -92,8 +101,9 @@ class M_db extends CI_Model{
 		return $this->db->get($tabel);
 	}
 	
-	function ambil_data_kelompok($kondisi,$kelompok,$tabel){
-		$this->db->where($kondisi);
+	function ambil_data_kelompok($kondisi1,$kondisi2,$kelompok,$tabel){
+		$this->db->where($kondisi1);
+		$this->db->where($kondisi2);
 		$this->db->group_by($kelompok);
 		return $this->db->get($tabel);
 	}
