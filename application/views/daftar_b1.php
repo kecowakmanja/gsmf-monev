@@ -15,134 +15,131 @@
 <?php
 
 		
-$formulir_prm = array(
-	'name' => 't_hutprm',
-	'readonly' => 'true',
-	'class' => 'form-control form-control-sm'
+$formulir_prm=array(
+	'name'=>'t_hutprm',
+	'readonly'=>'true',
+	'class'=>'form-control form-control-sm'
 );
 
-$formulir_nobuk = array(
-	'name' => 't_hut_mst_nobuk',
-	'class' => 'form-control',
-	'readonly' => 'true',
-	'id' => 't_hut_mst_nobuk'
+$formulir_nobuk=array(
+	'name'=>'t_hut_mst_nobuk',
+	'class'=>'form-control',
+	'readonly'=>'true',
+	'id'=>'t_hut_mst_nobuk'
 );
 
-$t_hut_jenis[""] = "Pilihan jenis pengajuan...";
+$t_hut_jenis[""]="Pilihan jenis pengajuan...";
 foreach ($daftar_rekening_master as $rm) {
-	$t_hut_jenis[$rm->rek_mst_kode] = $rm->rek_mst_kode;
+	$t_hut_jenis[$rm->rek_mst_kode]=$rm->rek_mst_kode;
 }
 
-$formulir_jns = array(
-	'id' => 't_hut_jenis',
-	'name' => 't_hut_jenis',
-	'class' => 'form-control',
-	'options' => $t_hut_jenis
-);
-
-	
-$formulir_nama = array(
-	'name' => 't_hut_mst_ket',
+$formulir_jns=array(
+	'id'=>'t_hut_jenis',
+	'name'=>'t_hut_jenis',
 	'class'=>'form-control',
-	'id' => 't_hut_mst_ket',
-	'placeholder' => 'isi nama kegiatan...',
-	'required' => 'required'
+	'options'=>$t_hut_jenis
 );
 
-$formulir_tglrnc = array(
-	'name' => 't_hut_mst_tglrnc',
-	'type' => 'date',
+	
+$formulir_nama=array(
+	'name'=>'t_hut_mst_ket',
 	'class'=>'form-control',
-	'id' => 't_hut_mst_tglrnc',
-	'required' => 'required'
+	'id'=>'t_hut_mst_ket',
+	'placeholder'=>'isi nama kegiatan...',
+	'required'=>'required'
 );
 
-$formulir_rek = array(
-	'name' => 't_hut_mst_rek',
-	'class' => 'form-control',
-	'id' => 't_hut_mst_rek',
-	'required' => 'required',
-	'options' => '[kosong]-Pilih jenis pengajuan dulu...'
+$formulir_tglrnc=array(
+	'name'=>'t_hut_mst_tglrnc',
+	'type'=>'date',
+	'class'=>'form-control',
+	'id'=>'t_hut_mst_tglrnc',
+	'required'=>'required'
+);
+
+$formulir_rek=array(
+	'name'=>'t_hut_mst_rek',
+	'class'=>'form-control',
+	'id'=>'t_hut_mst_rek',
+	'required'=>'required',
+	'options'=>'[kosong]-Pilih jenis pengajuan dulu...'
 );
 	
-$formulir_rnc = array(
-	'name' => 't_hut_mst_rnc',
-	'type' => 'number',
-	'class' => 'form-control',
-	'value' => '1',
-	'id' => 't_hut_mst_rnc',
-	'required' => 'required'
+$formulir_rnc=array(
+	'name'=>'t_hut_mst_rnc',
+	'type'=>'number',
+	'class'=>'form-control',
+	'value'=>'1',
+	'id'=>'t_hut_mst_rnc',
+	'required'=>'required'
 );
 
 
-$tombol_tambah = array(
-	'name' => 'btnKirim',
-	'value' => 'TAMBAH',
-	'class' => 'btn btn-outline-dark btn-lg'
+$tombol_tambah=array(
+	'name'=>'btnKirim',
+	'value'=>'TAMBAH',
+	'class'=>'btn btn-outline-dark btn-lg'
 );
 
 	
-$tombol_reset = array(
-	'name' => 'btnBersih',
-	'value' => 'BERSIH',
-	'class' => 'btn btn-lg btn-outline-dark'
+$tombol_reset=array(
+	'name'=>'btnBersih',
+	'value'=>'BERSIH',
+	'class'=>'btn btn-lg btn-outline-dark'
 );
 
-$tombol_batal = array(
-	"name" => "btnKirim",
-	"value" => "BATAL",
-	"class" => "btn btn-lg btn-outline-dark",
-	'data-bs-dismiss' => 'modal'
+$tombol_batal=array(
+	"name"=>"btnKirim",
+	"value"=>"BATAL",
+	"class"=>"btn btn-lg btn-outline-dark",
+	'data-bs-dismiss'=>'modal'
 );
 
-$formulir_csv = array(
-	"name" => "t_hut_mst_doc",
+$formulir_csv=array(
+	"name"=>"t_hut_mst_doc",
 	"class"=>"form-control",
-	"placeholder" => "Masukan file...",
-	"id" => "t_hut_mst_doc",
-	"type" => "file",
-	"accept" => "application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/*",
-	'required' => 'required'
+	"placeholder"=>"Masukan file...",
+	"id"=>"t_hut_mst_doc",
+	"type"=>"file",
+	"accept"=>"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/*",
+	'required'=>'required'
 );
 
-
-
-
-$formulir_catatan_cek = array(
-	'name' => 't_cek_mst_ket',
+$formulir_catatan_cek=array(
+	'name'=>'t_cek_mst_ket',
 	'class '=> 'form-control',
-	'rows' => '3',
-	'id' => 't_cek_mst_ket',
-	'placeholder' => 'Alasan tidak di sertakan...',
-	'disabled' => 'true'
+	'rows'=>'3',
+	'id'=>'t_cek_mst_ket',
+	'placeholder'=>'Alasan tidak di sertakan...',
+	'disabled'=>'true'
 );
 
-$formulir_nobuk_cek = array(
-	'id' => 't_cek_mst_nobuk',
-	'name' => 't_cek_mst_nobuk',
-	'disabled' => 'true',
-	'class' => 'form-control'
+$formulir_nobuk_cek=array(
+	'id'=>'t_cek_mst_nobuk',
+	'name'=>'t_cek_mst_nobuk',
+	'disabled'=>'true',
+	'class'=>'form-control'
 );
 
-$formulir_tgl_cek = array(
-	'id' => 't_cek_mst_tgl',
-	'name' => 't_cek_mst_tgl',
-	'disabled' => 'true',
-	'class' => 'form-control'
+$formulir_tgl_cek=array(
+	'id'=>'t_cek_mst_tgl',
+	'name'=>'t_cek_mst_tgl',
+	'disabled'=>'true',
+	'class'=>'form-control'
 );
 
-$formulir_sts_cek = array(
-	'id' => 't_cek_mst_sts',
-	'name' => 't_cek_mst_sts',
-	'disabled' => 'true',
-	'class' => 'form-control'
+$formulir_sts_cek=array(
+	'id'=>'t_cek_mst_sts',
+	'name'=>'t_cek_mst_sts',
+	'disabled'=>'true',
+	'class'=>'form-control'
 );
 
-$tombol_batal_cek = array(
-		'name' => 'btnKirim',
-		'value' => 'TUTUP',
-		'data-bs-dismiss' => 'modal',
-		'class' => 'btn btn-lg btn-secondary'
+$tombol_batal_cek=array(
+	'name'=>'btnKirim',
+	'value'=>'TUTUP',
+	'data-bs-dismiss'=>'modal',
+	'class'=>'btn btn-lg btn-secondary'
 );
 
 ?>
@@ -332,17 +329,17 @@ $tombol_batal_cek = array(
 
 </body>
 <script type="text/javascript">
-var inputan1 = document.getElementById('t_hut_mst_ket');
-var url_cari_rek = "<?php echo base_url()."index.php/klik_b/cari_rek/"?>"
-var url_detail_verifikasi_ok = "<?php echo base_url()."index.php/klik_d/detail_verifikasi_ok/"?>";
+var inputan1=document.getElementById('t_hut_mst_ket');
+var url_cari_rek="<?php echo base_url()."index.php/klik_b/cari_rek/"?>"
+var url_detail_verifikasi_ok="<?php echo base_url()."index.php/klik_d/detail_verifikasi_ok/"?>";
 
 $('#tblHut').DataTable({
-	"order": [[ 2 , "asc" ]]
+	"order": [[ 2,"asc" ]]
 });
 
 
 $("#t_hut_jenis").change(function(){
-        var pilih_t_hut_jenis = $("#t_hut_jenis option:selected").val();
+        var pilih_t_hut_jenis=$("#t_hut_jenis option:selected").val();
 		$("#t_hut_mst_rek").empty();
 		$.ajax({
             type: "POST",

@@ -14,178 +14,120 @@
 <body onload=kasihfokuslah();>
 <?php
 
-
 foreach ($daftar_info_level_1_sts as $lv1_sts) {
-	$t_rek_mst_sts[$lv1_sts->in_lv_1_kd] = $lv1_sts->in_lv_1_ket;
+	$t_rek_mst_sts[$lv1_sts->in_lv_1_kd]=$lv1_sts->in_lv_1_ket;
 }
 
-$t_rek_mst_kel[""] = "Pilihan kelompok rekening...";
+$t_rek_mst_kel[""]="Pilihan kelompok rekening...";
 foreach ($daftar_info_level_1_rek as $lv1_rek) {
-	$t_rek_mst_kel[$lv1_rek->in_lv_1_kd] = $lv1_rek->in_lv_1_ket;
+	$t_rek_mst_kel[$lv1_rek->in_lv_1_kd]=$lv1_rek->in_lv_1_ket;
 }
 
 foreach ($daftar_info_level_1_ap as $lv1_ap) {
-	$t_rek_mst_pos[$lv1_ap->in_lv_1_kd] = $lv1_ap->in_lv_1_ket;
+	$t_rek_mst_pos[$lv1_ap->in_lv_1_kd]=$lv1_ap->in_lv_1_ket;
 }
 
+$formulir_prm=array();
 
-$formulir_prm = array();
-
-if(!empty($this->session->userdata("operator_a3"))){
-	if($this->session->userdata("operator_a3")!="TAMBAH"){
-		$tombol_tambah = array(
-			"name" => "btnKirim",
-			"value" => "UBAH",
-			"class" => "btn btn-sm btn-outline-dark"
-		);
-		foreach($daftar_rekening_master as $rm){
-			$formulir_status = array(
-				"name" => "t_rek_mst_sts",
-				"options" => $t_rek_mst_sts,
-				"selected" => $rm->rek_mst_sts,
-				"class"=>"form-control custom-select"
-			);
-			
-			$formulir_pos = array(
-				"name" => "t_rek_mst_pos",
-				"options" => $t_rek_mst_pos,
-				"selected" => $rm->rek_mst_pos,
-				"class"=>"form-control custom-select"
-			);
-			
-			$formulir_prm = array(
-				"rekprm" => $rm->rekprm
-			);
-
-			$formulir_kel = array(
-				"name" => "t_rek_mst_kel",
-				"class"=>"form-control custom-select",
-				"options" => $t_rek_mst_kel,
-				"id" => "t_rek_mst_kel"
-			);
-			
-			$formulir_gol = array(
-				"name" => "t_rek_mst_gol",
-				"class"=>"form-control",
-				"id" => "t_rek_mst_gol"
-			);
-			
-			$formulir_sub_gol  = array(
-				"name" => "t_rek_mst_sub_gol",
-				"class"=>"form-control",
-				"id" => "t_rek_mst_sub_gol"
-			);
-			
-			$formulir_kode  = array(
-				"name" => "t_rek_mst_kode",
-				"class"=>"form-control",
-				"id" => "t_rek_mst_kode"
-			);
-			
-			$formulir_sub_kode = array(
-				"name" => "t_rek_mst_sub_kode",
-				"value" => $rm->rek_mst_sub_kode,
-				"class"=>"form-control",
-				"id" => "t_rek_mst_sub_kode"
-			);
-			
-			$formulir_sub_ket_kode = array(
-				"name" => "t_rek_mst_ket_sub_kode",
-				"value" => $rm->rek_mst_ket_sub_kode,
-				"class"=>"form-control",
-				"id" => "t_rek_mst_ket_sub_kode"
-			);
-			
-		}
-	} 
-} else {
-	$tombol_tambah = array(
-		"name" => "btnKirim",
-		"value" => "TAMBAH",
-		"class" => "btn btn-sm btn-outline-dark"
-	);
-	$formulir_status = array(
-		"name" => "t_rek_mst_sts",
-		"options" => $t_rek_mst_sts,
-		"class"=>"form-control custom-select"
-	);
-	
-	$formulir_pos = array(
-		"name" => "t_rek_mst_pos",
-		"options" => $t_rek_mst_pos,
-		"class"=>"form-control custom-select"
-	);
-
-	$formulir_kel = array(
-		"name" => "t_rek_mst_kel",
-		"options" => $t_rek_mst_kel,
-		"class"=>"form-control custom-select",
-		"id" => "t_rek_mst_kel"
-	);
-	
-	$formulir_gol = array(
-		"name" => "t_rek_mst_gol",
-		"class"=>"form-control",
-		"id" => "t_rek_mst_gol"
-	);
-
-	$formulir_sub_gol  = array(
-		"name" => "t_rek_mst_sub_gol",
-		"class"=>"form-control",
-		"id" => "t_rek_mst_sub_gol"
-	);
-	
-	$formulir_kode  = array(
-		"name" => "t_rek_mst_kode",
-		"class"=>"form-control",
-		"id" => "t_rek_mst_kode"
-	);
-	
-	$formulir_sub_kode = array(
-		"name" => "t_rek_mst_sub_kode",
-		"class"=>"form-control",
-		"id" => "t_rek_mst_sub_kode"
-	);
-	
-	$formulir_sub_ket_kode = array(
-		"name" => "t_rek_mst_ket_sub_kode",
-		"class"=>"form-control",
-		"id" => "t_rek_mst_ket_sub_kode"
-	);
-	
-}
-$tombol_reset = array(
-	"name" => "btnBersih",
-	"value" => "BERSIH",
-	"class" => "btn btn-sm btn-outline-dark"
+$tombol_tambah=array(
+	"name"=>"btnKirim",
+	"value"=>"TAMBAH",
+	"class"=>"btn btn-lg btn-outline-dark"
+);
+$formulir_status=array(
+	"name"=>"t_rek_mst_sts",
+	"options"=>$t_rek_mst_sts,
+	"class"=>"form-control custom-select"
 );
 
-$tombol_proses = array(
-	"name" => "btnProses",
-	"value" => "PROSES",
-	"class" => "btn btn-sm btn-outline-dark"
+$formulir_pos=array(
+	"name"=>"t_rek_mst_pos",
+	"options"=>$t_rek_mst_pos,
+	"class"=>"form-control custom-select"
 );
 
-$tombol_unduh = array(
-	"name" => "btnProses",
-	"value" => "UNDUH",
-	"class" => "btn btn-sm btn-outline-dark"
+$formulir_kel=array(
+	"name"=>"t_rek_mst_kel",
+	"options"=>$t_rek_mst_kel,
+	"class"=>"form-control custom-select",
+	"id"=>"t_rek_mst_kel"
 );
 
-$tombol_batal = array(
-	"name" => "btnKirim",
-	"value" => "BATAL",
-	"class" => "btn btn-sm btn-outline-dark"
-);
-
-$formulir_csv = array(
-	"name" => "t_rek_csv",
+$formulir_gol=array(
+	"name"=>"t_rek_mst_gol",
 	"class"=>"form-control",
-	"placeholder" => "Masukan file...",
-	"id" => "t_rek_csv",
-	"type" => "file",
-	"accept" => ".csv"
+	"id"=>"t_rek_mst_gol"
 );
+
+$formulir_sub_gol =array(
+	"name"=>"t_rek_mst_sub_gol",
+	"class"=>"form-control",
+	"id"=>"t_rek_mst_sub_gol"
+);
+
+$formulir_kode =array(
+	"name"=>"t_rek_mst_kode",
+	"class"=>"form-control",
+	"id"=>"t_rek_mst_kode"
+);
+
+$formulir_sub_kode=array(
+	"name"=>"t_rek_mst_sub_kode",
+	"class"=>"form-control",
+	"id"=>"t_rek_mst_sub_kode"
+);
+
+$formulir_sub_ket_kode=array(
+	"name"=>"t_rek_mst_ket_sub_kode",
+	"class"=>"form-control",
+	"id"=>"t_rek_mst_ket_sub_kode"
+);
+
+$tombol_proses=array(
+	"name"=>"btnProses",
+	"value"=>"PROSES",
+	"class"=>"btn btn-lg btn-outline-dark"
+);
+
+$tombol_unduh=array(
+	"name"=>"btnProses",
+	"value"=>"UNDUH",
+	"class"=>"btn btn-lg btn-outline-dark"
+);
+
+$tombol_batal=array(
+	"name"=>"btnKirim",
+	"value"=>"BATAL",
+	"class"=>"btn btn-lg btn-outline-dark"
+);
+
+$formulir_csv=array(
+	"name"=>"t_rek_csv",
+	"class"=>"form-control",
+	"placeholder"=>"Masukan file...",
+	"id"=>"t_rek_csv",
+	"type"=>"file",
+	"accept"=>".csv"
+);
+
+if($this->session->userdata("operator_a3")=="UBAH"){
+	foreach($daftar_rekening_master as $rm){
+		$formulir_prm=array("rekprm"=>$rm->rekprm);
+
+		$tombol_tambah_ubah=array("value"=>"UBAH");
+		$formulir_status_ubah=array("selected"=>$rm->rek_mst_sts);
+		$formulir_pos_ubah=array("selected"=>$rm->rek_mst_pos);
+		$formulir_sub_kode_ubah=array("value"=>$rm->rek_mst_sub_kode);
+		$formulir_sub_ket_kode_ubah=array("value"=>$rm->rek_mst_ket_sub_kode);
+
+		$tombol_tambah=array_merge($tombol_tambah,$tombol_tambah_ubah);
+		$formulir_status=array_merge($formulir_status,$formulir_status_ubah);
+		$formulir_pos=array_merge($formulir_pos,$formulir_pos_ubah);
+		$formulir_sub_kode=array_merge($formulir_sub_kode,$formulir_sub_kode_ubah);
+		$formulir_sub_ket_kode=array_merge($formulir_sub_ket_kode,$formulir_sub_ket_kode_ubah);
+	
+	}
+}
 
 ?>
 <div class="container-fluid">
@@ -236,49 +178,52 @@ $formulir_csv = array(
 							<table class="table table-sm table-borderless">
 								<?php 
 									echo form_open("klik_a/tambah_rekening_ok","",$formulir_prm);
-								?> 	 
-								<tr>
-									<td><?php echo form_label("STATUS"); ?></td>
-									<td><?php echo form_dropdown($formulir_status); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label("POSISI JURNAL"); ?></td>
-									<td><?php echo form_dropdown($formulir_pos); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label("KELOMPOK"); ?></td>
-									<td><?php echo form_dropdown($formulir_kel); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label("GOLONGAN"); ?></td>
-									<td><?php echo form_dropdown($formulir_gol); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label("SUB-GOLONGAN"); ?></td>
-									<td><?php echo form_dropdown($formulir_sub_gol); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label("KODE REKENING"); ?></td>
-									<td><?php echo form_dropdown($formulir_kode); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label("KODE SUB-REKENING"); ?></td>
-									<td><?php echo form_input($formulir_sub_kode); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label("KETERANGAN SUB-REKENING"); ?></td>
-									<td><?php echo form_input($formulir_sub_ket_kode); ?></td>
-								</tr>
-								<tr>
-									<td>
-									</td>
-									<td><?php
-											echo form_submit($tombol_tambah);
-											echo form_reset($tombol_reset);
-											echo form_submit($tombol_batal);
-											echo form_close(); ?>
-									</td>
-								</tr>
+								?>
+								<tbody>
+									<tr>
+										<td>STATUS</td>
+										<td><?php echo form_dropdown($formulir_status); ?></td>
+									</tr>
+									<tr>
+										<td>POSISI</td>
+										<td><?php echo form_dropdown($formulir_pos); ?></td>
+									</tr>
+									<tr>
+										<td>KELOMPOK</td>
+										<td><?php echo form_dropdown($formulir_kel); ?></td>
+									</tr>
+									<tr>
+										<td>GOLONGAN</td>
+										<td><?php echo form_dropdown($formulir_gol); ?></td>
+									</tr>
+									<tr>
+										<td>SUB-GOLONGAN</td>
+										<td><?php echo form_dropdown($formulir_sub_gol); ?></td>
+									</tr>
+									<tr>
+										<td>REKENING</td>
+										<td><?php echo form_dropdown($formulir_kode); ?></td>
+									</tr>
+									<tr>
+										<td>SUB-REKENING</td>
+										<td><?php echo form_input($formulir_sub_kode); ?></td>
+									</tr>
+									<tr>
+										<td>KETERANGAN</td>
+										<td><?php echo form_input($formulir_sub_ket_kode); ?></td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td>
+										</td>
+										<td class="text-end"><?php
+												echo form_submit($tombol_tambah);
+												echo form_submit($tombol_batal);
+												echo form_close(); ?>
+										</td>
+									</tr>
+								</tfoot>
 							</table>
 						</div>
 					</div>
@@ -288,11 +233,11 @@ $formulir_csv = array(
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmrekDet3">
 					<h6 class="accordion-header" id="judulTiga">
-						<button type="button" class="accordion-button bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiTiga" aria-expanded="true" aria-control="isiTiga">
+						<button type="button" class="accordion-button collapsed bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiTiga" aria-expanded="true" aria-control="isiTiga">
 							<strong>IMPORT CSV</strong>
 						</button>
 					</h6>
-					<div id="isiTiga" class="accordion-collapse collapse show" data-bs-parent="#frmrekDet3" aria-labelledby="judulTiga">
+					<div id="isiTiga" class="accordion-collapse collapse" data-bs-parent="#frmrekDet3" aria-labelledby="judulTiga">
 						<div class="accordion-body">
 							<table class="table table-sm table-borderless">
 								<?php 
@@ -304,7 +249,7 @@ $formulir_csv = array(
 								</tr>
 								<tr>
 									<td></td>
-									<td><?php
+									<td class="text-end"><?php
 											echo form_submit($tombol_proses);
 											echo form_submit($tombol_unduh);
 											echo form_close(); ?>
@@ -319,11 +264,11 @@ $formulir_csv = array(
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmrekDet2">
 					<h6 class="accordion-header" id="judulDua">
-						<button type="button" class="accordion-button bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiDua" aria-expanded="true" aria-control="isiDua">
+						<button type="button" class="accordion-button collapsed bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiDua" aria-expanded="true" aria-control="isiDua">
 							<strong>DAFTAR REKENING</strong>
 						</button>
 					</h6>
-					<div id="isiDua" class="accordion-collapse collapse show" data-bs-parent="#frmrekDet2" aria-labelledby="judulDua">
+					<div id="isiDua" class="accordion-collapse collapse" data-bs-parent="#frmrekDet2" aria-labelledby="judulDua">
 						<div class="accordion-body">
 							<div class="table thead-light text-start">
 								<table class="table table-hover" id="tblrek">
@@ -366,10 +311,10 @@ $formulir_csv = array(
 </div>
 
 <script type="text/javascript">
-var url_cari_level_2 = "<?php echo base_url()."index.php/klik_a/cari_info_level_2/"?>"
-var url_cari_level_3 = "<?php echo base_url()."index.php/klik_a/cari_info_level_3/"?>"
-var url_cari_level_4 = "<?php echo base_url()."index.php/klik_a/cari_info_level_4/"?>"
-var url_cari_auto_sub_kode = '<?php echo base_url().'index.php/klik_a/cari_auto_rekening_ok/?'?>'
+var url_cari_level_2="<?php echo base_url()."index.php/klik_a/cari_info_level_2/"?>"
+var url_cari_level_3="<?php echo base_url()."index.php/klik_a/cari_info_level_3/"?>"
+var url_cari_level_4="<?php echo base_url()."index.php/klik_a/cari_info_level_4/"?>"
+var url_cari_auto_sub_kode='<?php echo base_url().'index.php/klik_a/cari_auto_rekening_ok/?'?>'
 
 
 
@@ -463,7 +408,7 @@ function kasihfokuslah(){
 }
 
 $("#t_rek_mst_kel").change(function(){
-        var pilih_t_rek_mst_kel = $("#t_rek_mst_kel option:selected").val();
+        var pilih_t_rek_mst_kel=$("#t_rek_mst_kel option:selected").val();
 		$.ajax({
             type: "POST",
             url: url_cari_level_2,
@@ -483,8 +428,8 @@ $("#t_rek_mst_kel").change(function(){
 	});
 
 $("#t_rek_mst_gol").change(function(){
-        var pilih_t_rek_mst_kel = $("#t_rek_mst_kel option:selected").val();
-		var pilih_t_rek_mst_gol = $("#t_rek_mst_gol option:selected").val();
+        var pilih_t_rek_mst_kel=$("#t_rek_mst_kel option:selected").val();
+		var pilih_t_rek_mst_gol=$("#t_rek_mst_gol option:selected").val();
 		$.ajax({
             type: "POST",
             url: url_cari_level_3,
@@ -504,9 +449,9 @@ $("#t_rek_mst_gol").change(function(){
 	});
 
 $("#t_rek_mst_sub_gol").change(function(){
-        var pilih_t_rek_mst_kel = $("#t_rek_mst_kel option:selected").val();
-		var pilih_t_rek_mst_gol = $("#t_rek_mst_gol option:selected").val();
-		var pilih_t_rek_mst_sub_gol = $("#t_rek_mst_sub_gol option:selected").val();
+        var pilih_t_rek_mst_kel=$("#t_rek_mst_kel option:selected").val();
+		var pilih_t_rek_mst_gol=$("#t_rek_mst_gol option:selected").val();
+		var pilih_t_rek_mst_sub_gol=$("#t_rek_mst_sub_gol option:selected").val();
 		$.ajax({
             type: "POST",
             url: url_cari_level_4,
@@ -526,10 +471,10 @@ $("#t_rek_mst_sub_gol").change(function(){
 	});
 	
 $("#t_rek_mst_kode").change(function(){
-        var pilih_t_rek_mst_kel = $("#t_rek_mst_kel option:selected").val();
-		var pilih_t_rek_mst_gol = $("#t_rek_mst_gol option:selected").val();
-		var pilih_t_rek_mst_sub_gol = $("#t_rek_mst_sub_gol option:selected").val();
-		var pilih_t_rek_mst_kode = $("#t_rek_mst_kode option:selected").val();
+        var pilih_t_rek_mst_kel=$("#t_rek_mst_kel option:selected").val();
+		var pilih_t_rek_mst_gol=$("#t_rek_mst_gol option:selected").val();
+		var pilih_t_rek_mst_sub_gol=$("#t_rek_mst_sub_gol option:selected").val();
+		var pilih_t_rek_mst_kode=$("#t_rek_mst_kode option:selected").val();
 				if(pilih_t_rek_mst_kode != ""){
 					lanjut_level_5();
 				} else {

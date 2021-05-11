@@ -14,144 +14,99 @@
 <body onload="kasihfokuslah()">
 <?php
 foreach ($daftar_info_level_1_sts as $lv1_sts) {
-	$t_kel_mst_sts[$lv1_sts->in_lv_1_kd] = $lv1_sts->in_lv_1_ket;
+	$t_kel_mst_sts[$lv1_sts->in_lv_1_kd]=$lv1_sts->in_lv_1_ket;
 }
 
-$formulir_prm = array();
+$formulir_prm=array();
 
-if(!empty($this->session->userdata('operator_a1'))){
-	if($this->session->userdata('operator_a1')!="TAMBAH"){
-		$tombol_tambah = array(
-			'name' => 'btnKirim',
-			'value' => 'UBAH',
-			'class' => 'btn btn-sm btn-outline-dark'
-		);
-		foreach($daftar_kelompok_master as $km){
-			$formulir_prm = array(
-				"kelprm" => $km->kelprm
-			);
-			
-			$formulir_status = array(
-				'name' => 't_kel_mst_sts',
-				'options' => $t_kel_mst_sts,
-				'class'=>'form-control custom-select'
-			);
-			$formulir_kode = array(
-				'name' => 't_kel_mst_kode',
-				'readonly' => 'true',
-				'value' => $km->kel_mst_kode,
-				'class'=>'form-control',
-				'placeholder' => 'Kode bidang...',
-				'id' => 't_kel_mst_kode'
-			);
-			$formulir_nama = array(
-				'name' => 't_kel_mst_ket',
-				'readonly' => 'true',
-				'value' => $km->kel_mst_ket,
-				'class'=>'form-control',
-				'placeholder' => 'Nama bidang...',
-				'id' => 't_kel_mst_ket'
-			);
-			$formulir_subkode = array(
-				'name' => 't_kel_mst_subkode',
-				'readonly' => 'true',
-				'value' => substr($km->kel_mst_subkode,strlen($km->kel_mst_kode)),
-				'class'=>'form-control',
-				'placeholder' => 'Kode tim pelayanan...',
-				'id' => 't_kel_mst_subkode'
-			);
-			$formulir_prefix = array(
-				'name' => 't_kel_mst_prefix',
-				'readonly' => 'true',
-				'class'=>'form-control',
-				'value' => $km->kel_mst_kode,
-				'placeholder' => 'Kode tim pelayanan...',
-				'id' => 't_kel_mst_prefix'
-			);
-			$formulir_subnama = array(
-				'name' => 't_kel_mst_subket',
-				'value' => $km->kel_mst_subket,
-				'class'=>'form-control',
-				'placeholder' => 'Nama tim pelayanan...',
-				'id' => 't_kel_mst_subket'
-			);
-		}
-	} 
-} else {
-	$tombol_tambah = array(
-		'name' => 'btnKirim',
-		'value' => 'TAMBAH',
-		'class' => 'btn btn-sm btn-outline-dark'
-	);
-	$formulir_status = array(
-		'name' => 't_kel_mst_sts',
-		'options' => $t_kel_mst_sts,
-		'class'=>'form-control custom-select'
-	);
-	$formulir_kode = array(
-		'name' => 't_kel_mst_kode',
-		'class'=>'form-control',
-		'placeholder' => 'Kode bidang...',
-		'id' => 't_kel_mst_kode'
-	);
-	$formulir_nama = array(
-		'name' => 't_kel_mst_ket',
-		'class'=>'form-control',
-		'placeholder' => 'Nama bidang...',
-		'id' => 't_kel_mst_ket'
-	);
-	$formulir_subkode = array(
-		'name' => 't_kel_mst_subkode',
-		'class'=>'form-control',
-		'placeholder' => 'Kode tim pelayanan...',
-		'id' => 't_kel_mst_subkode'
-	);
-	$formulir_prefix = array(
-		'name' => 't_kel_mst_prefix',
-		'class'=>'form-control',
-		'readonly' => 'true',
-		'id' => 't_kel_mst_prefix'
-	);
-	$formulir_subnama = array(
-		'name' => 't_kel_mst_subket',
-		'class'=>'form-control',
-		'placeholder' => 'Nama tim pelayanan...',
-		'id' => 't_kel_mst_subket'
-	);
-}
-$tombol_reset = array(
-	'name' => 'btnBersih',
-	'value' => 'BERSIH',
-	'class' => 'btn btn-sm btn-outline-dark'
+$formulir_status=array(
+	'name'=>'t_kel_mst_sts',
+	'options'=>$t_kel_mst_sts,
+	'class'=>'form-control custom-select'
+);
+$formulir_kode=array(
+	'name'=>'t_kel_mst_kode',
+	'class'=>'form-control',
+	'placeholder'=>'Kode bidang...',
+	'id'=>'t_kel_mst_kode'
+);
+$formulir_nama=array(
+	'name'=>'t_kel_mst_ket',
+	'class'=>'form-control',
+	'placeholder'=>'Nama bidang...',
+	'id'=>'t_kel_mst_ket'
+);
+$formulir_subkode=array(
+	'name'=>'t_kel_mst_subkode',
+	'class'=>'form-control',
+	'placeholder'=>'Kode tim pelayanan...',
+	'id'=>'t_kel_mst_subkode'
+);
+$formulir_prefix=array(
+	'name'=>'t_kel_mst_prefix',
+	'class'=>'form-control',
+	'readonly'=>'true',
+	'id'=>'t_kel_mst_prefix'
+);
+$formulir_subnama=array(
+	'name'=>'t_kel_mst_subket',
+	'class'=>'form-control',
+	'placeholder'=>'Nama tim pelayanan...',
+	'id'=>'t_kel_mst_subket'
 );
 
-$tombol_proses = array(
-	"name" => "btnProses",
-	"value" => "PROSES",
-	"class" => "btn btn-sm btn-outline-dark"
+$tombol_tambah=array(
+	'name'=>'btnKirim',
+	'value'=>'TAMBAH',
+	'class'=>'btn btn-lg btn-outline-dark'
 );
 
-$tombol_unduh = array(
-	"name" => "btnProses",
-	"value" => "UNDUH",
-	"class" => "btn btn-sm btn-outline-dark"
+$tombol_proses=array(
+	"name"=>"btnProses",
+	"value"=>"PROSES",
+	"class"=>"btn btn-lg btn-outline-dark"
+);
+
+$tombol_unduh=array(
+	"name"=>"btnProses",
+	"value"=>"UNDUH",
+	"class"=>"btn btn-lg btn-outline-dark"
 );
 
 
-$tombol_batal = array(
-	"name" => "btnKirim",
-	"value" => "BATAL",
-	"class" => "btn btn-sm btn-outline-dark"
+$tombol_batal=array(
+	"name"=>"btnKirim",
+	"value"=>"BATAL",
+	"class"=>"btn btn-lg btn-outline-dark"
 );
 
-$formulir_csv = array(
-	"name" => "t_kel_csv",
+$formulir_csv=array(
+	"name"=>"t_kel_csv",
 	"class"=>"form-control",
-	"placeholder" => "Masukan file...",
-	"id" => "t_kel_csv",
-	"type" => "file",
-	"accept" => ".csv"
+	"placeholder"=>"Masukan file...",
+	"id"=>"t_kel_csv",
+	"type"=>"file",
+	"accept"=>".csv"
 );
+
+if($this->session->userdata('operator_a1')=="UBAH"){
+	foreach($daftar_kelompok_master as $km){
+		$formulir_prm=array("kelprm"=>$km->kelprm);
+		$tombol_tambah_ubah=array('value'=>'UBAH');
+		$formulir_kode_ubah=array('readonly'=>'true','value'=>$km->kel_mst_kode);
+		$formulir_nama_ubah=array('readonly'=>'true','value'=>$km->kel_mst_ket);
+		$formulir_subkode_ubah=array('readonly'=>'true','value'=>substr($km->kel_mst_subkode,strlen($km->kel_mst_kode)));
+		$formulir_prefix_ubah=array('readonly'=>'true','value'=>$km->kel_mst_kode);
+		$formulir_subnama_ubah=array('value'=>$km->kel_mst_subket);
+
+		$tombol_tambah=array_merge($tombol_tambah,$tombol_tambah_ubah);
+		$formulir_kode=array_merge($formulir_kode,$formulir_kode_ubah);
+		$formulir_nama=array_merge($formulir_nama,$formulir_nama_ubah);
+		$formulir_subkode=array_merge($formulir_subkode,$formulir_subkode_ubah);
+		$formulir_prefix=array_merge($formulir_prefix,$formulir_prefix_ubah);
+		$formulir_subnama=array_merge($formulir_subnama,$formulir_subnama_ubah);
+	}
+}
 
 ?>
 <div class="container-fluid">
@@ -202,43 +157,47 @@ $formulir_csv = array(
 							<table class="table table-sm table-borderless table-light">
 								<?php 
 									echo form_open('klik_a/tambah_kelompok_ok','',$formulir_prm);
-								?> 	 
-								<tr>
-									<td><?php echo form_label('STATUS'); ?></td>
-									<td><?php echo form_dropdown($formulir_status); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label('KODE'); ?></td>
-									<td><?php echo form_input($formulir_kode); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label('NAMA'); ?></td>
-									<td><?php echo form_input($formulir_nama); ?></td>
-								</tr>
-								<tr>
-									<td><?php echo form_label('SUB-KODE'); ?></td>
-									<td>
-										<div class="input-group">
-											<div class="input-group-prepend">
-												<?php echo form_input($formulir_prefix); ?>
+								?>
+								<tbody>
+									<tr>
+										<td>STATUS</td>
+										<td><?php echo form_dropdown($formulir_status); ?></td>
+									</tr>
+									<tr>
+										<td>KODE</td>
+										<td><?php echo form_input($formulir_kode); ?></td>
+									</tr>
+									<tr>
+										<td>NAMA</td>
+										<td><?php echo form_input($formulir_nama); ?></td>
+									</tr>
+									<tr>
+										<td>SUB-KODE</td>
+										<td>
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<?php echo form_input($formulir_prefix); ?>
+												</div>
+													<?php echo form_input($formulir_subkode); ?>	
 											</div>
-												<?php echo form_input($formulir_subkode); ?>	
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td><?php echo form_label('SUB-NAMA'); ?></td>
-									<td><?php echo form_input($formulir_subnama); ?></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td><?php
-											echo form_submit($tombol_tambah);
-											echo form_reset($tombol_reset);
-											echo form_submit($tombol_batal);
-											echo form_close(); ?>
-									</td>
-								</tr>
+										</td>
+									</tr>
+									<tr>
+										<td>SUB-NAMA</td>
+										<td><?php echo form_input($formulir_subnama); ?></td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td></td>
+										<td class="text-end"><?php
+												echo form_submit($tombol_tambah);
+												echo form_submit($tombol_batal);
+												?>
+										</td>
+									</tr>
+								</tfoot>
+								<?php echo form_close(); ?>
 							</table>
 						</div>
 					</div>
@@ -248,11 +207,11 @@ $formulir_csv = array(
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmrekDet3">
 					<h6 class="accordion-header" id="judulTiga">
-						<button type="button" class="accordion-button bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiTiga" aria-expanded="true" aria-control="isiTiga">
+						<button type="button" class="accordion-button collapsed bg-warning text-dark" data-bs-toggle="collapse" data-bs-target="#isiTiga" aria-expanded="true" aria-control="isiTiga">
 							<strong>IMPORT CSV</strong>
 						</button>
 					</h6>
-					<div id="isiTiga" class="accordion-collapse collapse show" data-bs-parent="#frmrekDet3" aria-labelledby="judulTiga">
+					<div id="isiTiga" class="accordion-collapse collapse" data-bs-parent="#frmrekDet3" aria-labelledby="judulTiga">
 						<div class="accordion-body">
 							<table class="table table-sm table-borderless table-light">
 								<?php 
@@ -264,7 +223,7 @@ $formulir_csv = array(
 								</tr>
 								<tr>
 									<td></td>
-									<td><?php
+									<td class="text-end"><?php
 											echo form_submit($tombol_proses);
 											echo form_submit($tombol_unduh);
 											echo form_close(); ?>
@@ -279,11 +238,11 @@ $formulir_csv = array(
 			<div class="accordion text-start">
 				<div class="accordion-item" id="frmkelDet2">
 					<h6 class="accordion-header" id="judulDua">
-						<button type="button" class="accordion-button bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiDua" aria-expanded="true" aria-control="isiDua">
+						<button type="button" class="accordion-button collapsed bg-warning text-dark" data-bs-toGgle="collapse" data-bs-target="#isiDua" aria-expanded="true" aria-control="isiDua">
 							<strong>DAFTAR KELOMPOK</strong>
 						</button>
 					</h6>
-					<div id="isiDua" class="accordion-collapse collapse show" data-bs-parent="#frmkelDet2" aria-labelledby="judulDua">
+					<div id="isiDua" class="accordion-collapse collapse" data-bs-parent="#frmkelDet2" aria-labelledby="judulDua">
 						<div class="accordion-body">
 							<div class="table thead-light text-start">
 								<table class="table table-hover" id="tblKel">
@@ -322,9 +281,9 @@ $formulir_csv = array(
 </div>
 
 <script type="text/javascript">
-var alamat1 = '<?php echo base_url().'index.php/klik_a/cari_auto_kelompok_ok/?'?>'
-var alamat2 = '<?php echo base_url().'index.php/klik_a/cari_auto_kelompok_2_ok/'?>'
-var inputan1 = document.getElementById('t_kel_mst_kode');
+var alamat1='<?php echo base_url().'index.php/klik_a/cari_auto_kelompok_ok/?'?>'
+var alamat2='<?php echo base_url().'index.php/klik_a/cari_auto_kelompok_2_ok/'?>'
+var inputan1=document.getElementById('t_kel_mst_kode');
 
 $('#tblKel').DataTable({
 	"order": [[ 3, "asc" ]]
@@ -345,7 +304,7 @@ $('#t_kel_mst_kode').autocomplete({
 		event.preventDefault();
 	},
 	change: function (event,ui){
-		if (ui.item === null) {
+		if (ui.item===null) {
 			$('#t_kel_mst_ket').removeAttr('readonly');
 			$('#t_kel_mst_prefix').val($(this).val());
 		} else{
@@ -372,7 +331,7 @@ $('#t_kel_mst_subkode').autocomplete({
 		event.preventDefault();
 	},
 	change: function (event,ui){
-		if (ui.item === null) {
+		if (ui.item===null) {
 			$('#t_kel_mst_subket').removeAttr('readonly');
 		} else{
 			$('#t_kel_mst_subkode').val(ui.item.label);

@@ -9,53 +9,53 @@
 	<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 </head>
 <?php 
-$formulir_urut = array(
-	'id' => 't_pstprm',
-	'name' => 't_pstprm',
-	'readonly' => 'true',
-	'class' => 'form-control-plaintext',
-	'hidden' => 'true'
+$formulir_urut=array(
+	'id'=>'t_pstprm',
+	'name'=>'t_pstprm',
+	'readonly'=>'true',
+	'class'=>'form-control-plaintext',
+	'hidden'=>'true'
 );
-$formulir_kode = array(
-	'id' => 't_pstkode',
-	'name' => 't_pstkode',
-	'readonly' => 'true',
-	'class' => 'form-control'
+$formulir_kode=array(
+	'id'=>'t_pstkode',
+	'name'=>'t_pstkode',
+	'readonly'=>'true',
+	'class'=>'form-control'
 );
-$formulir_nama = array(
-	'id' => 't_pstnama',
-	'name' => 't_pstnama',
-	'readonly' => 'true',
-	'class' => 'form-control'
+$formulir_nama=array(
+	'id'=>'t_pstnama',
+	'name'=>'t_pstnama',
+	'readonly'=>'true',
+	'class'=>'form-control'
 );
-$formulir_kel = array(
-	'id' => 't_pstkel',
-	'name' => 't_pstkel',
-	'readonly' => 'true',
-	'class' => 'form-control'
+$formulir_kel=array(
+	'id'=>'t_pstkel',
+	'name'=>'t_pstkel',
+	'readonly'=>'true',
+	'class'=>'form-control'
 );
-$formulir_hak = array(
-	'id' => 't_psthak',
-	'name' => 't_psthak',
-	'readonly' => 'true',
-	'class' => 'form-control'
+$formulir_hak=array(
+	'id'=>'t_psthak',
+	'name'=>'t_psthak',
+	'readonly'=>'true',
+	'class'=>'form-control'
 );
-$formulir_kunci = array(
-	'name' => 't_pstpswd',
+$formulir_kunci=array(
+	'name'=>'t_pstpswd',
 	'class'=>'form-control',
-	'placeholder' => 'Silahkan masukin kata kunci yang baru...',
-	'id' => 't_pstpswd',
-	'type' => 'password'
+	'placeholder'=>'Silahkan masukin kata kunci yang baru...',
+	'id'=>'t_pstpswd',
+	'type'=>'password'
 );
-$tombol_ubah = array(
-	'name' => 'btnKirim',
-	'class' => 'btn btn-lg btn-outline-dark',
-	'value' => 'UBAH'
+$tombol_ubah=array(
+	'name'=>'btnKirim',
+	'class'=>'btn btn-lg btn-outline-dark',
+	'value'=>'UBAH'
 );
-$tombol_batal = array(
-	'name' => 'btnKirim',
-	'class' => 'btn btn-lg btn-outline-dark',
-	'value' => 'BATAL'
+$tombol_batal=array(
+	'name'=>'btnKirim',
+	'class'=>'btn btn-lg btn-outline-dark',
+	'value'=>'BATAL'
 );
 ?>
 <body>
@@ -64,7 +64,7 @@ $tombol_batal = array(
 		<div class="card-header">
 			<div class="row">
 				<div class="col-sm-1">
-					<img src=<?php echo base_url().'assets/img/logo_gsmf.png'?> width="80" height="70">
+					<img src="<?php echo base_url().'assets/img/logo_gsmf.png'?>" width="80" height="70">
 				</div>
 				<div class="col-sm-3 text-start">
 					<h1><strong>GSMF-MONEV</h1></strong>
@@ -171,6 +171,18 @@ $tombol_batal = array(
 						</div>
 					</div>
 				</div>
+				<div class="col-sm-3">
+					<div class="card text-dark bg-warning border-dark">
+						<div class="card-header">
+							<strong>G. UMUM</strong>
+						</div>
+						<div class="card-body">
+							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_g/index/'?>">
+								TANAH, BANGUNAN, KENDARAAN DAN PERALATAN LAIN
+							</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="card-footer">
@@ -209,7 +221,7 @@ $tombol_batal = array(
 </div>
 
 <script type="text/javascript">
-var url_profil_peserta = "<?php echo base_url()."index.php/klik_z/njenengan/"?>"
+var url_profil_peserta="<?php echo base_url()."index.php/klik_z/njenengan/"?>"
 
 function profil_peserta(t_pstprm){
 	$('#mdlPst').modal('toggle');

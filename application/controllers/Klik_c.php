@@ -55,17 +55,19 @@ class Klik_c extends CI_Controller {
 			);
 		};
 
-		$kondisi2 = array(
+		$kondisi2a = array(
 			'rek_mst_sts' => 'AKTIF',
 			'rek_mst_kel' => 'ANGGARAN',
 			'rek_mst_gol' => 'ABTT',
-			'rek_mst_sub_gol' => 'BIAYA'
+			'rek_mst_sub_gol' => 'PENDAPATAN'
 		);
+
+		$kondisi2b = "rek_mst_kode IN ('PROGRAM','RUTIN')";
 		
 		$kelompok = 'rek_mst_sts,rek_mst_kel,rek_mst_gol,rek_mst_sub_gol,rek_mst_kode';
 
 		$data['daftar_hutang_master'] = $this->m_db->ambil_data_hutang($kondisi1)->result();
-		$data['daftar_rekening_master'] = $this->m_db->ambil_data_kelompok($kondisi2,$kelompok,$this->TabelRekeningMaster)->result();
+		$data['daftar_rekening_master'] = $this->m_db->ambil_data_kelompok($kondisi2a,$kondisi2b,$kelompok,$this->TabelRekeningMaster)->result();
 		$this->load->view($this->FormC1,$data);
 		$this->kosong_operator_validasi();
 	}

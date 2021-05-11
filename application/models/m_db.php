@@ -80,7 +80,8 @@ class M_db extends CI_Model{
 	function ambil_data_karyawan($kondisi){
 		$this->db->select('*');
 		$this->db->from('karyawan_master as krm');
-		$this->db->join('kelompok_master as klm','klm.kel_mst_subkode = krm.kry_mst_kel','left');
+		$this->db->join('peserta_master as pm','pm.pst_mst_kode = krm.kry_mst_kode','left');
+		$this->db->join('kelompok_master as klm','klm.kel_mst_subkode = pm.pst_mst_kel','left');
 		$this->db->where($kondisi);
 		return $this->db->get();
 	}
