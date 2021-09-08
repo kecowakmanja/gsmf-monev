@@ -30,6 +30,10 @@ foreach($daftar_rekening_master as $rm){
 	$t_inv_mst_rek_sst[$rm->rek_mst_sub_kode]=$rm->rek_mst_ket_sub_kode;
 }
 
+foreach($daftar_rekrawat_master as $rrm){
+	$t_inv_mst_rek_rawat[$rrm->rek_mst_sub_kode]=$rrm->rek_mst_ket_sub_kode;
+}
+
 
 $formulir_sts=array(
 	'name'=>'t_inv_mst_sts',
@@ -42,7 +46,7 @@ $formulir_kode=array(
 	'name'=>'t_inv_mst_kode',
 	'class'=>'form-control',
 	'id'=>'t_inv_mst_kode',
-	'placeholder'=>'isi nomor sertifikat...',
+	'placeholder'=>'isi nomor objek pajak...',
 	'required'=>'true'
 );
 
@@ -55,11 +59,11 @@ $formulir_tipe=array(
 	'required'=>'true'
 );
 
-$formulir_nop=array(
+$formulir_sert=array(
 	'name'=>'t_inv_mst_barang',
 	'class'=>'form-control',
 	'id'=>'t_inv_mst_barang',
-	'placeholder'=>'isi nomor objek pajak...',
+	'placeholder'=>'isi nomor sertifikat...',
 	'required'=>'true'
 );
 
@@ -137,6 +141,15 @@ $formulir_rek_sst=array(
 	'required'=>'true'
 );
 
+$formulir_rek_rawat=array(
+	'name'=>'t_inv_mst_rek_rawat',
+	'class'=>'form-control',
+	'id'=>'t_inv_mst_rek_rawat',
+	'placeholder'=>'isi pos rekening biaya perawatan...',
+	'options'=>$t_inv_mst_rek_rawat,
+	'required'=>'true'
+);
+
 $tombol_tambah=array(
 	'name'=>'btnKirim',
 	'class'=>'btn btn-outline-dark btn-lg'
@@ -155,13 +168,13 @@ $tombol_tutup=array(
 	'data-bs-dismiss'=>'modal'
 );
 
-if($this->session->userdata("operator_g1")=="UBAH"){
+if($this->session->userdata("operator_g2")=="UBAH"){
 	foreach($daftar_inventaris_master as $im){		
 		$formulir_prm=array("invprm"=>$im->invprm);
 		$formulir_kode_ubah=array('value'=>$im->inv_mst_kode,'readonly'=>'true');
 		$formulir_sts_ubah=array('selected'=>$im->inv_mst_sts);
 		$formulir_tipe_ubah=array('selected'=>$im->inv_mst_tipe);
-        $formulir_nop=array('value'=>$im->inv_mst_barang);
+        $formulir_sert_ubah=array('value'=>$im->inv_mst_barang);
 		$formulir_alamat_ubah=array('value'=>$im->inv_mst_ket);
 		$formulir_nama_ubah=array('value'=> $im->inv_mst_nm);
 		$formulir_masa_ubah=array('value'=>$im->inv_mst_masa);
@@ -170,6 +183,7 @@ if($this->session->userdata("operator_g1")=="UBAH"){
 		$formulir_rek_ubah=array('selected'=>$im->inv_mst_rek);
 		$formulir_tgljtphak_ubah=array('value'=>$im->inv_mst_jthtmp2);
 		$formulir_rek_sst_ubah=array('selected'=>$im->inv_mst_rek_sst);
+		$formulir_rek_rawat_ubah=array('selected'=>$im->inv_mst_rek_rawat);
 		$formulir_tgljtppajak_ubah=array('value'=>$im->inv_mst_jthtmp1);
 		
 		$tombol_tambah_ubah=array('value'=>'UBAH');
@@ -177,7 +191,7 @@ if($this->session->userdata("operator_g1")=="UBAH"){
 		$formulir_kode=array_merge($formulir_kode,$formulir_kode_ubah);
 		$formulir_sts=array_merge($formulir_sts,$formulir_sts_ubah);
 		$formulir_tipe=array_merge($formulir_tipe,$formulir_tipe_ubah);
-        $formulir_nop=array_merge($formulir_nop,$formulir_nop_ubah);
+        $formulir_sert=array_merge($formulir_sert,$formulir_sert_ubah);
 		$formulir_alamat=array_merge($formulir_alamat,$formulir_alamat_ubah);
 		$formulir_nama=array_merge($formulir_nama,$formulir_nama_ubah);
 		$formulir_masa=array_merge($formulir_masa,$formulir_masa_ubah);
@@ -186,6 +200,7 @@ if($this->session->userdata("operator_g1")=="UBAH"){
 		$formulir_rek=array_merge($formulir_rek,$formulir_rek_ubah);
 		$formulir_tgljtphak=array_merge($formulir_tgljtphak,$formulir_tgljtphak_ubah);
 		$formulir_rek_sst=array_merge($formulir_rek_sst,$formulir_rek_sst_ubah);
+		$formulir_rek_rawat=array_merge($formulir_rek_rawat,$formulir_rek_rawat_ubah);
 		$formulir_tgljtppajak=array_merge($formulir_tgljtppajak,$formulir_tgljtppajak_ubah);
 	
 		$tombol_tambah=array_merge($tombol_tambah,$tombol_tambah_ubah);
@@ -205,16 +220,13 @@ if($this->session->userdata("operator_g1")=="UBAH"){
 					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
 				</li>
 				<li class="nav-item">
-                    <a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/klik_g/pilihan_g1'?>"><strong>G1. STNK</strong></a>
+                    <a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/klik_g/pilihan_g1'?>"><strong>G1. KENDARAAN</strong></a>
 				</li>
                 <li class="nav-item">
-					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_g/pilihan_g2'?>"><strong>G2. PBB</strong></a>
+					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_g/pilihan_g2'?>"><strong>G2. BANGUNAN</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/klik_g/pilihan_g3'?>"><strong>G3. BANGUNAN</strong></a>
-				</li>
-                <li class="nav-item">
-                    <a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/klik_g/pilihan_g4'?>"><strong>G4. PERALATAN</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/klik_g/pilihan_g3'?>"><strong>G3. PERALATAN</strong></a>
 				</li>
 			</ul>
 		</div>
@@ -231,9 +243,9 @@ if($this->session->userdata("operator_g1")=="UBAH"){
 				</p>
 			</div>
 			<div>
-			<?php if(!empty($this->session->userdata('validasi_g1'))) { ?>
+			<?php if(!empty($this->session->userdata('validasi_g2'))) { ?>
 				<div class="alert alert-sm alert-danger alert-dismissible fade show text-start">
-					<?php echo $this->session->userdata('validasi_g1') ?>
+					<?php echo $this->session->userdata('validasi_g2') ?>
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
 			<?php } ?>
@@ -257,8 +269,8 @@ if($this->session->userdata("operator_g1")=="UBAH"){
 										<td class="col-md-3">STATUS<?php echo form_dropdown($formulir_sts); ?></td>
 									</tr>
 									<tr>
-										<td class="col-md-3">NOMOR SERTIFIKAT<?php echo form_input($formulir_kode); ?></td>
-                                        <td class="col-md-3">NOMOR OBJEK PAJAK<?php echo form_input($formulir_nop); ?></td>
+                                        <td class="col-md-3">NOMOR OBJEK PAJAK<?php echo form_input($formulir_kode); ?></td>
+										<td class="col-md-3">NOMOR SERTIFIKAT<?php echo form_input($formulir_sert); ?></td>
 									</tr>
 									<tr>
 										<td class="col-md-3">ATAS NAMA<?php echo form_input($formulir_nama); ?></td>
@@ -275,6 +287,9 @@ if($this->session->userdata("operator_g1")=="UBAH"){
 									<tr>
 										<td class="col-md-3">POS REKENING PENYUSUTAN<?php echo form_dropdown($formulir_rek_sst); ?></td>
 										<td class="col-md-3">TGL JATUH TEMPO PAJAK PBB<?php echo form_input($formulir_tgljtppajak); ?></td>
+									</tr>
+									<tr>
+										<td class="col-md-3">POS REKENING PERAWATAN<?php echo form_dropdown($formulir_rek_rawat); ?></td>
 									</tr>
 								</tbody>
 								<tfoot>
@@ -308,9 +323,9 @@ if($this->session->userdata("operator_g1")=="UBAH"){
 							<table class="table table-sm table-hover" id="tblAktDet">
 								<thead>
 									<tr>
-										<th>NO.SERTIFIKAT</th>
-										<th>TIPE</th>
 										<th>NOP PBB</th>
+										<th>TIPE</th>
+										<th>NO.SERTIFIKAT</th>										
 										<th>ATASNAMA</th>
 										<th>JTP-PAJAK</th>
 										<th>JTP-KEPEMILIKAN</th>
@@ -328,8 +343,8 @@ if($this->session->userdata("operator_g1")=="UBAH"){
 										<td><?php echo $im->inv_mst_jthtmp2 ?></td>
 										<td>
 											<a href="#" class="btn btn-outline-dark btn-sm" onClick="cari_aktiva('<?php echo $im->invprm; ?>')">DETAIL</a>
-											<a href="<?php echo base_url().'index.php/klik_g/ubah_aktiva_ok/'.$im->invprm ?>" class="btn btn-outline-dark btn-sm">UBAH</a>
-											<a href="<?php echo base_url().'index.php/klik_g/hapus_aktiva_ok/'.$im->invprm ?>" class="btn btn-outline-dark btn-sm">HAPUS</a>
+											<a href="<?php echo base_url().'index.php/klik_g/ubah_aktiva_g2_ok/'.$im->invprm ?>" class="btn btn-outline-dark btn-sm">UBAH</a>
+											<a href="<?php echo base_url().'index.php/klik_g/hapus_aktiva_g2_ok/'.$im->invprm ?>" class="btn btn-outline-dark btn-sm">HAPUS</a>
 										</td>
 									</tr>
 									<?php } ?>
@@ -393,8 +408,8 @@ function cari_aktiva(t_invprm){
 			$.each(data,function(key,value){
 				$('#hasilajax').append(
 					"<tr><td>TIPE INVENTARIS </td><td>"+value.invtipe+"</td></tr>"+
-					"<tr><td>ALAMAT </td><td>"+value.invbarang+"</td></tr>"+
-					"<tr><td>NOMOR SERTIFIKAT </td><td>"+value.invkode+"</td></tr>"+
+					"<tr><td>NOMOR OBJEK PAJAK </td><td>"+value.invkode+"</td></tr>"+
+					"<tr><td>NOMOR SERTIFIKAT </td><td>"+value.invbarang+"</td></tr>"+
 					"<tr><td>ATAS NAMA SERTIFKAT </td><td>"+value.invnm+"</td></tr>"+
 					"<tr><td>KEPEMILIKAN </td><td>"+value.invpemilik+"</td></tr>"+
 					"<tr><td>JATUH TEMPO PAJAK BUMI BANGUNAN </td><td>"+value.invjthtmp1+"</td></tr>"+

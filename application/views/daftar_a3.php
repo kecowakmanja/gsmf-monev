@@ -83,6 +83,13 @@ $formulir_sub_ket_kode=array(
 	"id"=>"t_rek_mst_ket_sub_kode"
 );
 
+$formulir_sld_awl=array(
+	'name'=>'t_rek_mst_sld_awl',
+	'class'=>'form-control',
+	'id'=>'t_rek_mst_sld_awl',
+	'type'=>'number'
+);
+
 $tombol_proses=array(
 	"name"=>"btnProses",
 	"value"=>"PROSES",
@@ -119,12 +126,14 @@ if($this->session->userdata("operator_a3")=="UBAH"){
 		$formulir_pos_ubah=array("selected"=>$rm->rek_mst_pos);
 		$formulir_sub_kode_ubah=array("value"=>$rm->rek_mst_sub_kode);
 		$formulir_sub_ket_kode_ubah=array("value"=>$rm->rek_mst_ket_sub_kode);
+		$formulir_sld_awl_ubah=array('value'=>$rm->rek_mst_sld_awl);
 
 		$tombol_tambah=array_merge($tombol_tambah,$tombol_tambah_ubah);
 		$formulir_status=array_merge($formulir_status,$formulir_status_ubah);
 		$formulir_pos=array_merge($formulir_pos,$formulir_pos_ubah);
 		$formulir_sub_kode=array_merge($formulir_sub_kode,$formulir_sub_kode_ubah);
 		$formulir_sub_ket_kode=array_merge($formulir_sub_ket_kode,$formulir_sub_ket_kode_ubah);
+		$formulir_sld_awl=array_merge($formulir_sld_awl,$formulir_sld_awl_ubah);
 	
 	}
 }
@@ -211,6 +220,10 @@ if($this->session->userdata("operator_a3")=="UBAH"){
 									<tr>
 										<td>KETERANGAN</td>
 										<td><?php echo form_input($formulir_sub_ket_kode); ?></td>
+									</tr>
+									<tr>
+										<td>SALDO AWAL</td>
+										<td><?php echo form_input($formulir_sld_awl); ?></td>
 									</tr>
 								</tbody>
 								<tfoot>
@@ -333,6 +346,8 @@ function lanjut_level_1(){
 	$("#t_rek_mst_sub_kode").prop("disabled",true);
 	$("#t_rek_mst_ket_sub_kode").value="";
 	$("#t_rek_mst_ket_sub_kode").prop("disabled",true);
+	$("#t_rek_mst_sld_awl").value="";
+	$("#t_rek_mst_sld_awl").prop("disabled",true);
 }
 
 function lanjut_level_2(){
@@ -346,6 +361,8 @@ function lanjut_level_2(){
 	$("#t_rek_mst_sub_kode").prop("disabled",true);
 	$("#t_rek_mst_ket_sub_kode").value="";
 	$("#t_rek_mst_ket_sub_kode").prop("disabled",true);
+	$("#t_rek_mst_sld_awl").value="";
+	$("#t_rek_mst_sld_awl").prop("disabled",true);
 }
 
 function matikan_level_3(){
@@ -357,6 +374,8 @@ function matikan_level_3(){
 	$("#t_rek_mst_sub_kode").prop("disabled",true);
 	$("#t_rek_mst_ket_sub_kode").value="";
 	$("#t_rek_mst_ket_sub_kode").prop("disabled",true);
+	$("#t_rek_mst_sld_awl").value="";
+	$("#t_rek_mst_sld_awl").prop("disabled",true);
 }
 
 function lanjut_level_3(){
@@ -368,6 +387,8 @@ function lanjut_level_3(){
 	$("#t_rek_mst_sub_kode").prop("disabled",true);
 	$("#t_rek_mst_ket_sub_kode").value="";
 	$("#t_rek_mst_ket_sub_kode").prop("disabled",true);
+	$("#t_rek_mst_sld_awl").value="";
+	$("#t_rek_mst_sld_awl").prop("disabled",true);
 }
 
 function matikan_level_4(){
@@ -377,6 +398,8 @@ function matikan_level_4(){
 	$("#t_rek_mst_sub_kode").prop("disabled",true);
 	$("#t_rek_mst_ket_sub_kode").value="";
 	$("#t_rek_mst_ket_sub_kode").prop("disabled",true);
+	$("#t_rek_mst_sld_awl").value="";
+	$("#t_rek_mst_sld_awl").prop("disabled",true);
 }
 
 function lanjut_level_4(){
@@ -386,6 +409,8 @@ function lanjut_level_4(){
 	$("#t_rek_mst_sub_kode").prop("disabled",true);
 	$("#t_rek_mst_ket_sub_kode").value="";
 	$("#t_rek_mst_ket_sub_kode").prop("disabled",true);
+	$("#t_rek_mst_sld_awl").value="";
+	$("#t_rek_mst_sld_awl").prop("disabled",true);
 }
 
 function matikan_level_5(){
@@ -393,6 +418,8 @@ function matikan_level_5(){
 	$("#t_rek_mst_sub_kode").prop("disabled",true);
 	$("#t_rek_mst_ket_sub_kode").value="";
 	$("#t_rek_mst_ket_sub_kode").prop("disabled",true);
+	$("#t_rek_mst_sld_awl").value="";
+	$("#t_rek_mst_sld_awl").prop("disabled",true);
 }
 
 function lanjut_level_5(){
@@ -400,6 +427,8 @@ function lanjut_level_5(){
 	$("#t_rek_mst_sub_kode").prop("disabled",false);
 	$("#t_rek_mst_ket_sub_kode").value="";
 	$("#t_rek_mst_ket_sub_kode").prop("disabled",false);
+	$("#t_rek_mst_sld_awl").value="";
+	$("#t_rek_mst_sld_awl").prop("disabled",false);
 }
 
 

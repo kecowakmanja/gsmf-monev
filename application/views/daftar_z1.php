@@ -63,23 +63,18 @@ $tombol_batal=array(
 	<div class="card text-center bg-light">
 		<div class="card-header">
 			<div class="row">
-				<div class="col-sm-1">
-					<img src="<?php echo base_url().'assets/img/logo_gsmf.png'?>" width="80" height="70">
-				</div>
-				<div class="col-sm-3 text-start">
-					<h1><strong>GSMF-MONEV</h1></strong>
-				</div>
-				<div class="col-sm-6 text-start">
+				<div class="col-sm-10 text-start">
+					<a class="btn btn-sm btn-outline-dark" href="#">[versi=<strong>20210530_0930pg</strong>]</a>
 					<a class="btn btn-sm btn-outline-dark" href="#">[kode=<strong><?php echo $this->session->userdata('kode') ?></strong>]</a>
 					<a class="btn btn-sm btn-outline-dark" href="#">[hak=<strong><?php echo $this->session->userdata('hak') ?></strong>]</a>
 					<a class="btn btn-sm btn-outline-dark" href="#">[nama=<strong><?php echo $this->session->userdata('nama') ?></strong>]</a>
 					<a class="btn btn-sm btn-outline-dark" href="#">[kelompok=<strong><?php echo $this->session->userdata('nmkel') ?></strong>]</a>
 					<a class="btn btn-sm btn-outline-dark" href="#">[alamat=<strong><?php echo $_SERVER['REMOTE_ADDR'] ?></strong>]</a>
 				</div>
-				<div class="col-sm-2 text-start">
+				<div class="col-sm-2 text-end">
 					<div class="btn-group">
-						<a class="btn btn-lg btn-dark" href=# onclick="profil_peserta('<?php echo $this->session->userdata('prm'); ?>')">PROFIL</a>
-						<a class="btn btn-lg btn-dark" href="<?php echo base_url().'index.php/klik_z/kepareng/'?>">PAMIT</a>
+						<a class="btn btn-md btn-dark" href=# onclick="profil_peserta('<?php echo $this->session->userdata('prm'); ?>')">PROFIL</a>
+						<a class="btn btn-md btn-dark" href="<?php echo base_url().'index.php/klik_z/kepareng/'?>">PAMIT</a>
 					</div>
 				</div>
 			</div>
@@ -97,91 +92,103 @@ $tombol_batal=array(
 			</div>
 			<div class="row align-items-start">
 				<div class="col-sm-3">	
-					<div class="card text-dark bg-warning border-dark">
-						<div class="card-header">
-							<strong>A. SETELAN AWAL</strong>
+					<a class="nav nav-link btn-md" aria-current="true" href="<?php echo base_url().'index.php/klik_a/index/'?>">
+						<div class="card text-dark bg-warning border-dark">
+							<div class="card-header">
+								<strong>A. SETELAN AWAL</strong>
+							</div>
+							<div class="card-body">
+								BIDANG, TIMPEL, PENGGUNA dan POS-REKENING
+							</div>
 						</div>
-						<div class="card-body">
-							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_a/index/'?>">
-								DAFTAR BIDANG, TIMPEL, PENGGUNA dan POS-REKENING
-							</a>
-						</div>
-					</div>
+					</a>
 				</div>
 				<div class="col-sm-3">
-					<div class="card text-dark bg-warning border-dark">
-						<div class="card-header">
-							<strong>B. ANGGARAN BELANJA</strong>
+					<a class="nav nav-link btn-md" aria-current="true" href="<?php echo base_url().'index.php/klik_b/index/'?>">
+						<div class="card text-dark bg-warning border-dark">
+							<div class="card-header">
+								<strong>B. ANGGARAN BELANJA</strong>
+							</div>
+							<div class="card-body">
+									PENGAJUAN PROPOSAL PROGRAM DAN BIAYA RUTIN
+							</div>
 						</div>
-						<div class="card-body">
-							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_b/index/'?>">
-								PENGAJUAN PROPOSAL PROGRAM DAN BIAYA RUTIN
-							</a>
-						</div>
-					</div>
+					</a>
 				</div>
 				<div class="col-sm-3">
-					<div class="card text-dark bg-warning border-dark">
-						<div class="card-header">
-							<strong>C. ANGGARAN PENDAPATAN</strong>
-						</div>
-						<div class="card-body">
-							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_c/index/'?>">
+					<a class="nav nav-link btn-md" aria-current="true" href="<?php echo base_url().'index.php/klik_c/index/'?>">
+						<div class="card text-dark bg-warning border-dark">
+							<div class="card-header">
+								<strong>C. ANGGARAN PENDAPATAN</strong>
+							</div>
+							<div class="card-body">
 								PENGAJUAN ANGGARAN PENDAPATAN
-							</a>
+							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 				<div class="col-sm-3">
-					<div class="card text-dark bg-warning border-dark">
-						<div class="card-header">
-							<strong>D. VERIFIKASI</strong>
+					<a class="nav nav-link btn-md" aria-current="true" href="<?php echo base_url().'index.php/klik_d/index/'?>">
+						<div class="card text-dark bg-warning border-dark">
+							<div class="card-header">
+								<strong>D. VERIFIKASI</strong>
+							</div>
+							<div class="card-body">
+								VERIFIKASI PROPOSAL DAN BIAYA RUTIN
+							</div>
 						</div>
-						<div class="card-body">
-							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_d/index/'?>">
-								VERIFIKASI PROPOSAL KEGIATAN DAN NOTA BIAYA RUTIN
-							</a>
-						</div>
-					</div>
+					</a>
 				</div>
 			</div>
 			<br>
 			<div class="row align-items-start">
 				<div class="col-sm-3">
-					<div class="card text-dark bg-warning border-dark">
-						<div class="card-header">
-							<strong>E. REALISASI</strong>
+					<a class="nav nav-link btn-md" aria-current="true" href="<?php echo base_url().'index.php/klik_e/index/'?>">
+						<div class="card text-dark bg-warning border-dark">
+							<div class="card-header">
+								<strong>E. REALISASI</strong>
+							</div>
+							<div class="card-body">
+								PENCAIRAN ANGGARAN DAN REALISASI PENDAPATAN
+							</div>
 						</div>
-						<div class="card-body">
-							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_e/index/'?>">
-								PENCAIRAN ANGGARAN BELANJA DAN REALISASI PENDAPATAN
-							</a>
-						</div>
-					</div>
+					</a>
 				</div>
 				<div class="col-sm-3">
-					<div class="card text-dark bg-warning border-dark">
-						<div class="card-header">
-							<strong>F. PERSONALIA</strong>
-						</div>
-						<div class="card-body">
-							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_f/index/'?>">
+					<a class="nav nav-link btn-md" aria-current="true" href="<?php echo base_url().'index.php/klik_f/index/'?>">
+						<div class="card text-dark bg-warning border-dark">
+							<div class="card-header">
+								<strong>F. PERSONALIA</strong>
+							</div>
+							<div class="card-body">
 								DAFTAR KARYAWAN, PEKERJAAN DAN UPAH
-							</a>
+							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 				<div class="col-sm-3">
-					<div class="card text-dark bg-warning border-dark">
-						<div class="card-header">
-							<strong>G. UMUM</strong>
+					<a class="nav nav-link btn-md" aria-current="true" href="<?php echo base_url().'index.php/klik_g/index/'?>">
+						<div class="card text-dark bg-warning border-dark">
+							<div class="card-header">
+								<strong>G. INVENTARIS</strong>
+							</div>
+							<div class="card-body">
+									TANAH, BANGUNAN, KENDARAAN DAN PERALATAN
+							</div>
 						</div>
-						<div class="card-body">
-							<a class="nav nav-link active btn btn-sm" aria-current="true" href="<?php echo base_url().'index.php/klik_g/index/'?>">
-								TANAH, BANGUNAN, KENDARAAN DAN PERALATAN LAIN
-							</a>
+					</a>
+				</div>
+				<div class="col-sm-3">
+					<a class="nav nav-link btn-md" aria-current="true" href="<?php echo base_url().'index.php/klik_h/index/'?>">
+						<div class="card text-dark bg-warning border-dark">
+							<div class="card-header">
+								<strong>H. LAPORAN</strong>
+							</div>
+							<div class="card-body">
+									NERACA, ANGGARAN DAN LAPORAN UMUM
+							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 			</div>
 		</div>

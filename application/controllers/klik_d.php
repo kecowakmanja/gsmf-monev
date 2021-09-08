@@ -180,12 +180,19 @@ class Klik_d extends CI_Controller {
 				'hutprm' => $hutprm,
 			);
 			
-			$data['daftar_hutang_master'] = $this->m_db->ambil_data($kondisi,$this->TabelHutangMaster)->result();
+			$data['daftar_hutang_master']=$this->m_db->ambil_data($kondisi,$this->TabelHutangMaster)->result();
 			if (!empty($data['daftar_hutang_master'])) {
 				foreach ($data['daftar_hutang_master'] as $hm){
-					$nama_file = $hm->hut_mst_dok;
-					$lokasi_file = './berkas/unggah/'.$hm->hut_mst_dok;
-					force_download($lokasi_file,NULL);
+					$nama_file=$hm->hut_mst_dok;
+					if(!empty($nama_file)){
+						$lokasi_file='./berkas/unggah/'.$hm->hut_mst_dok;
+						force_download($lokasi_file,NULL);
+					} else {
+						$validasi_d1=array('validasi_d1'=>"Berkas tidak ditemukan...");
+						$this->session->set_userdata($validasi_d1);
+						redirect($this->KePilihanD1);
+						$this->kosong_operator_validasi();
+					}
 				}
 			}
 		}

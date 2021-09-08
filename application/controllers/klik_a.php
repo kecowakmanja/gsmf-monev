@@ -208,7 +208,11 @@ class Klik_a extends CI_Controller {
 					'rek_mst_kode'=>trim(strtoupper($this->input->post('t_rek_mst_kode'))),
 					'rek_mst_sub_kode'=>trim(strtoupper($this->input->post('t_rek_mst_sub_kode'))),
 					'rek_mst_ket_sub_kode'=>trim(strtoupper($this->input->post('t_rek_mst_ket_sub_kode'))),
-					'rek_mst_pos'=>trim(strtoupper($this->input->post('t_rek_mst_pos')))
+					'rek_mst_pos'=>trim(strtoupper($this->input->post('t_rek_mst_pos'))),
+					'rek_mst_sld_awl'=>(float)$this->input->post('t_rek_mst_sld_awl'),
+					'rek_mst_sld_awl'=>'0',
+					'rek_mst_sld_awl'=>'0',
+					'rek_mst_sld_awl'=>'0'
 				);
 
 				$kondisi=array ('rekprm'=>$this->input->post('rekprm'));
@@ -451,7 +455,11 @@ class Klik_a extends CI_Controller {
 							'rek_mst_kode'=>trim(strtoupper($kolom[4])),
 							'rek_mst_sub_kode'=>trim(strtoupper($kolom[5])),
 							'rek_mst_ket_sub_kode'=>trim(strtoupper($kolom[6])),
-							'rek_mst_pos'=>trim(strtoupper($kolom[7]))
+							'rek_mst_pos'=>trim(strtoupper($kolom[7])),
+							'rek_mst_sld_awl'=>(float)($kolom[8]),
+							'rek_mst_sld_deb'=>(float)($kolom[9]),
+							'rek_mst_sld_kre'=>(float)($kolom[10]),
+							'rek_mst_sld_akh'=>(float)($kolom[11]),
 						);
 							
 						$this->m_db->tambah_data($isi_csv,$this->TabelRekeningMaster);

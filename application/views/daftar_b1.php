@@ -16,9 +16,7 @@
 
 		
 $formulir_prm=array(
-	'name'=>'t_hutprm',
-	'readonly'=>'true',
-	'class'=>'form-control form-control-sm'
+	'name'=>'t_hutprm'
 );
 
 $formulir_nobuk=array(
@@ -32,12 +30,21 @@ $t_hut_jenis[""]="Pilihan jenis pengajuan...";
 foreach ($daftar_rekening_master as $rm) {
 	$t_hut_jenis[$rm->rek_mst_kode]=$rm->rek_mst_kode;
 }
+$t_hut_jenis_tambah=array('PENGADAAN'=>'PENGADAAN');
+$t_hut_jenis=array_merge($t_hut_jenis,$t_hut_jenis_tambah);
 
 $formulir_jns=array(
 	'id'=>'t_hut_jenis',
 	'name'=>'t_hut_jenis',
 	'class'=>'form-control',
-	'options'=>$t_hut_jenis
+	'options'=>$t_hut_jenis,
+	'required'=>'required'
+);
+
+$formulir_noref=array(
+	'id'=>'t_hut_mst_noref',
+	'name'=>'t_hut_mst_noref',
+	'class'=>'form-control'
 );
 
 	
@@ -101,8 +108,7 @@ $formulir_csv=array(
 	"placeholder"=>"Masukan file...",
 	"id"=>"t_hut_mst_doc",
 	"type"=>"file",
-	"accept"=>"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/*",
-	'required'=>'required'
+	"accept"=>"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/*"
 );
 
 $formulir_catatan_cek=array(
@@ -259,16 +265,20 @@ $tombol_batal_cek=array(
 								<td><?php echo form_input($formulir_tglrnc); ?></td>
 							</tr>
 							<tr>
+								<td><?php echo form_label("KODE REFERENSI"); ?></td>
+								<td><?php echo form_dropdown($formulir_noref); ?></td>
+							</tr>
+							<tr>
 								<td><?php echo form_label('POS'); ?></td>
 								<td><?php echo form_dropdown($formulir_rek); ?></td>
 							</tr>
 							<tr>
-								<td><?php echo form_label('RENCANA'); ?></td>
-								<td><?php echo form_input($formulir_rnc); ?></td>
-							</tr>
-							<tr>
 								<td><?php echo form_label("UNGGAH PROPOSAL"); ?></td>
 								<td><?php echo form_input($formulir_csv); ?></td>
+							</tr>
+							<tr>
+								<td><?php echo form_label('RENCANA'); ?></td>
+								<td><?php echo form_input($formulir_rnc); ?></td>
 							</tr>
 						</tbody>
 					</table>
@@ -331,6 +341,7 @@ $tombol_batal_cek=array(
 <script type="text/javascript">
 var inputan1=document.getElementById('t_hut_mst_ket');
 var url_cari_rek="<?php echo base_url()."index.php/klik_b/cari_rek/"?>"
+var url_cari_ref="<?php echo base_url()."index.php/klik_b/cari_ref/"?>"
 var url_detail_verifikasi_ok="<?php echo base_url()."index.php/klik_d/detail_verifikasi_ok/"?>";
 
 $('#tblHut').DataTable({
@@ -341,17 +352,69 @@ $('#tblHut').DataTable({
 $("#t_hut_jenis").change(function(){
         var pilih_t_hut_jenis=$("#t_hut_jenis option:selected").val();
 		$("#t_hut_mst_rek").empty();
+		$("#t_hut_mst_noref").empty();
 		$.ajax({
             type: "POST",
             url: url_cari_rek,
 			dataType: 'json',
             data: {t_kode_rek:pilih_t_hut_jenis},
 			success: function(data){
-				console.log(data);
-				if(pilih_t_hut_jenis != ""){
-					$.each(data,function(key,value){
-						$("#t_hut_mst_rek").append('<option value="'+key+'">'+value+'</option>');
-					})
+				console.log(pilih_t_hut_jenis);
+				switch(pilih_t_hut_jenis){
+					case "KARYAWAN": 
+					case "PERAWATAN":
+					case "PENGADAAN":
+						$.ajax({
+							type: "POST",
+							url: url_cari_ref,
+							dataType: 'json',
+							data: {t_jenis:pilih_t_hut_jenis,t_sts:'AKTIF',t_kode:''},
+							success: function(data){
+								$.each(data,function(key,value){
+									$("#t_hut_mst_noref").append('<option value="'+key+'">'+value+'</option>');
+								})
+								$("#t_hut_mst_rek").append('<option value="">Pilihan sub-golongan rekening...</option>');
+							}
+						})
+						break;
+					default:
+						$("#t_hut_mst_noref").append('<option value="">[kosong]-Tidak perlu kode referensi</option>');
+						$.each(data,function(key,value){
+							$("#t_hut_mst_rek").append('<option value="'+key+'">'+value+'</option>');
+							
+						})
+						break;
+				}
+			}
+		})
+	});
+
+	$("#t_hut_mst_noref").change(function(){
+		var pilih_t_hut_jenis=$("#t_hut_jenis option:selected").val();
+        var pilih_t_hut_noref=$("#t_hut_mst_noref option:selected").val();
+		$("#t_hut_mst_rek").empty();
+		$.ajax({
+            type: "POST",
+            url: url_cari_ref,
+			dataType: 'json',
+            data: {t_jenis:pilih_t_hut_jenis,t_sts:'AKTIF',t_kode:pilih_t_hut_noref},
+			success: function(data){
+				if (pilih_t_hut_noref != ""){
+					switch(pilih_t_hut_jenis){
+						case "KARYAWAN":
+							$.each(data[0],function(key,value){
+								$("#t_hut_mst_rek").append('<option value="'+key+'">'+value+'</option>');
+							})
+							$("#t_hut_mst_rnc").val(data[1].f01personalia);
+							break;
+						case "PERAWATAN":
+						case "PENGADAAN":
+							$.each(data[0],function(key,value){
+								$("#t_hut_mst_rek").append('<option value="'+key+'">'+value+'</option>');
+							})
+							$("#t_hut_mst_rnc").val(data[1].g01inventaris);
+							break;
+					}
 				}
 			}
 		})

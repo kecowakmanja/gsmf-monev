@@ -82,10 +82,26 @@ class M_db extends CI_Model{
 		$this->db->from('karyawan_master as krm');
 		$this->db->join('peserta_master as pm','pm.pst_mst_kode = krm.kry_mst_kode','left');
 		$this->db->join('kelompok_master as klm','klm.kel_mst_subkode = pm.pst_mst_kel','left');
+		$this->db->join('rekening_master as rm','rm.rek_mst_sub_kode = krm.kry_mst_rek','left');
 		$this->db->where($kondisi);
 		return $this->db->get();
 	}
-		
+
+	function ambil_data_inventaris_rawat($kondisi){
+		$this->db->select('*');
+		$this->db->from('inventaris_master as im');
+		$this->db->join('rekening_master as rm','rm.rek_mst_sub_kode = im.inv_mst_rek_rawat','left');
+		$this->db->where($kondisi);
+		return $this->db->get();
+	}
+
+	function ambil_data_inventaris_ada($kondisi){
+		$this->db->select('*');
+		$this->db->from('inventaris_master as im');
+		$this->db->join('rekening_master as rm','rm.rek_mst_sub_kode = im.inv_mst_rek','left');
+		$this->db->where($kondisi);
+		return $this->db->get();
+	}
 	
 	function ambil_data_seperti_kondisi($kondisi,$seperti,$kelompok,$tabel){
 		$this->db->like($seperti);

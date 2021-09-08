@@ -9,6 +9,7 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
 	
 </head>
 <body>
@@ -23,9 +24,6 @@ $t_inv_mst_tipe=array(
     'RODA4'=>'KENDARAAN RODA 4'
 );
 
-foreach($daftar_sts as $ds){
-	$t_inv_mst_sts[$ds->in_lv_1_kd]=$ds->in_lv_1_ket;
-}
 
 foreach($daftar_rekening_master as $rm){
 	$t_inv_mst_rek[$rm->rek_mst_sub_kode]=$rm->rek_mst_ket_sub_kode;
@@ -221,13 +219,10 @@ if($this->session->userdata("operator_g1")=="UBAH"){
 					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/'?>"><strong>DEPAN</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_g/pilihan_g1'?>"><strong>G1. KENDARAAN</strong></a>
+					<a class="nav-link active" href="<?php echo base_url().'index.php/klik_g/pilihan_g1'?>"><strong>H1. LAPORAN KEUANGAN</strong></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/klik_g/pilihan_g2'?>"><strong>G2. BANGUNAN</strong></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/klik_g/pilihan_g3'?>"><strong>G3. PERALATAN</strong></a>
+					<a class="nav-link bg-dark text-light" href="<?php echo base_url().'index.php/klik_g/pilihan_g2'?>"><strong>H2. LAPORAN UMUM</strong></a>
 				</li>
 			</ul>
 		</div>
